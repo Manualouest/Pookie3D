@@ -18,7 +18,9 @@ SRC_NAME = main.c\
 			map_maker/map_maker_main.c\
 			map_maker/input_handler.c\
 			map_maker/map_editor.c\
-			map_maker/vars_setup.c
+			map_maker/vars_setup.c\
+			parsing/parser.c\
+			error.c
 
 SRC = $(addprefix $(SRC_DIR), $(SRC_NAME))
 
