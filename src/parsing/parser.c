@@ -6,67 +6,66 @@
 /*   By: malbrech <malbrech@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 13:33:08 by malbrech          #+#    #+#             */
-/*   Updated: 2024/09/11 10:02:05 by malbrech         ###   ########.fr       */
+/*   Updated: 2024/09/17 09:49:50 by malbrech         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <cub3d.h>
 
-
-
 // fonction principale du parser
-void	parser(t_game *game)
+void		parser(t_game *game)
+{
+	check_name(game->map.path);
+	get_infos(game);
+}
 
 //fonction pout checker le type du fichier (.cub)
-void	f_type(t_game *game)
-
-// Recupere la map dans un tablau de str
-char	**ft_split_map(t_game *game)
+void	check_name(char *path)
 {
-	int		fd;
-	char	*buff;
-	int		i;
-	int		line;
+	int	i;
 
-	count = 0;
-	fd = open(path, O_RDONLY);
-	buff = get_next_line(fd);
-	count++;
-	if (buff == NULL)
-		break ;
-	while (buff[i])
+	i = 0;
+	while (path[i] != '\0')
+		i++;
+	if (!(path[i - 1] == 'b' && path[i - 2] == 'u'
+			&& path[i - 3] == 'c' && path[i - 4] == '.'))
 	{
-		i = 0;
-		if(buff[i] == ' ' || buff[i] == '/t')
-			i++;
-		if(buff[i] == '1')
-		{
-				
-		}	
-		else
-			break
+		error_handler(CUB);
+		ft_terminate_game(game);
 	}
 }
 
-// Recupere les couleurs dans un tableau de str
-// char	**ft_split_color(char *path, t_game *game)
-// {
-// 	int		fd;
-// 	char	*buff;
-// 	char	*buffer;
+// Recupere les infos depuis la map
+void	get_infos(t_game *game)
+{
+	char *buff;
+	
+	game->map.fd = open(game->map.path, O_RDONLY);
+	buff = get_next_line(game->map.fd);
+	while(1)
+	{
+		scanner(buff, game);
+		if (buff == NULL)
+			break ;
+		free(buff);
+		buff = get_next_line(game->map.fd);
+	}
+	free(buff);
+}
 
-// 	buffer = ft_strdup("");
-// 	fd = open(path, O_RDONLY);
-// 	while (1)
-// 	{
-// 		buff = get_next_line(fd);
-// 		if (buff == NULL)
-// 			break ;
-// 		// buffer = ft_strjoin(buffer, buff);
-// 		// free(buff);
-// 	}
-// 	// free(buff);
-// 	// game->full = ft_split(buffer, '\n');
-// 	// game->check = ft_split(buffer, '\n');
-// 	// free(buffer);
-// }
+// Scan les lignes de la map 1 par une
+void	scanner(char *line, t_game *game)
+{
+	int	i;
+	
+	while(line[i])
+	{
+		if (line[i] == ' ')
+			i++;
+		if 
+		i++;
+	}
+}
+
+// Recupere une string et l'ajoute dans un tableau de string existant
+void	

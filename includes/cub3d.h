@@ -6,7 +6,7 @@
 /*   By: malbrech <malbrech@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 11:27:38 by mbirou            #+#    #+#             */
-/*   Updated: 2024/09/11 10:13:57 by malbrech         ###   ########.fr       */
+/*   Updated: 2024/09/17 09:56:26 by malbrech         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ typedef struct s_map
 	char		**map;
 	char		**color;
 	char		*path;
+	int			fd;
 	t_position	player;
 }	t_map;
 
@@ -99,14 +100,17 @@ typedef struct s_game
 
 typedef enum e_err
 {
-	CUB
+	CUB_ERR
 }				t_err;
+
+# define CUB_ERR "The map must be a .cub file darling"
 
 /*----------------- FONCTIONS -------------------*/
 
 // -----map_maker-----
 // map_maker_main.c
 char	*cd_map_maker(void);
+void	error_handler(char *ERR_MSG);
 
 
 #endif
