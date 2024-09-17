@@ -22,6 +22,8 @@ SRC_NAME = main.c\
 			map_maker/utils.c\
 			map_maker/img_utils.c\
 			map_maker/setup_screens.c\
+			utils/tab_utils.c\
+			init/init_game.c\
 			parsing/parser.c\
 			error.c
 

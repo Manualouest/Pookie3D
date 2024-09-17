@@ -6,7 +6,7 @@
 /*   By: malbrech <malbrech@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 13:33:08 by malbrech          #+#    #+#             */
-/*   Updated: 2024/09/17 09:49:50 by malbrech         ###   ########.fr       */
+/*   Updated: 2024/09/17 10:23:55 by malbrech         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,3 @@ void	scanner(char *line, t_game *game)
 		i++;
 	}
 }
-
-// Recupere une string et l'ajoute dans un tableau de string existant
-void	
