@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malbrech <malbrech@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbirou <mbirou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 11:27:38 by mbirou            #+#    #+#             */
-/*   Updated: 2024/09/17 09:56:26 by malbrech         ###   ########.fr       */
+/*   Updated: 2024/09/17 11:35:00 by mbirou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ typedef struct s_game
 {
 	t_map			map;
 	mlx_t			*mlx;
-	t_ray_info		*rays;
+	t_ray_info		rays;
 	int				error;
 }	t_game;
 
@@ -110,7 +110,9 @@ typedef enum e_err
 // -----map_maker-----
 // map_maker_main.c
 char	*cd_map_maker(void);
-void	error_handler(char *ERR_MSG);
 
+
+void	error_handler(char *ERR_MSG);
+t_game	cd_init_structs(void);
 
 #endif

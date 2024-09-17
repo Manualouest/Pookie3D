@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malbrech <malbrech@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbirou <mbirou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 09:54:35 by mbirou            #+#    #+#             */
-/*   Updated: 2024/09/17 09:54:41 by malbrech         ###   ########.fr       */
+/*   Updated: 2024/09/17 11:33:19 by mbirou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ int	main(int argc, char **argv)
 	t_game		game;
 	char		*map_file;
 
-	game.error = 0;
 	if (argc == 1)
 		map_file = cd_map_maker();
 	else
@@ -27,7 +26,8 @@ int	main(int argc, char **argv)
 	printf("%s", map_file);
 	if (argc > 2)
 		return (0);
-	parser(&game);
+	game = cd_init_structs();
+	// parser(&game);
 	free(map_file);
 	if (game.error == 0)
 		return (0);
