@@ -19,6 +19,9 @@ SRC_NAME = main.c\
 			map_maker/input_handler.c\
 			map_maker/map_editor.c\
 			map_maker/vars_setup.c\
+			map_maker/utils.c\
+			map_maker/img_utils.c\
+			map_maker/setup_screens.c\
 			parsing/parser.c\
 			error.c
 
