@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbirou <mbirou@student.42.fr>              +#+  +:+       +#+        */
+/*   By: malbrech <malbrech@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 11:27:38 by mbirou            #+#    #+#             */
-/*   Updated: 2024/09/17 11:35:00 by mbirou           ###   ########.fr       */
+/*   Updated: 2024/09/17 12:17:13 by malbrech         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,29 +27,16 @@
 
 /*------------------ STRUCTURES --------------------*/
 
-typedef struct s_mlx
-{
-	int	tp;
-}		t_mlx;
-
-typedef struct s_keys
-{
-	int	tp;
-}		t_keys;
-
 typedef struct	s_textures
 {
-	int	tp;
+	int		**so;
+	int		**no;
+	int		**we;
+	int		**ea;
+	int		c;
+	int 	f;
+	char	**paths;
 }		t_textures;
-
-
-typedef struct	s_struct_link
-{
-	int			error;
-	t_mlx		t_mlx;
-	t_keys		keys;
-	t_textures	t_texts;
-}				t_s_link;
 
 typedef struct s_position
 {
@@ -94,6 +81,7 @@ typedef struct s_game
 	mlx_t			*mlx;
 	t_ray_info		rays;
 	int				error;
+	t_textures		graphic;
 }	t_game;
 
 /*------------------- ENUM ----------------------*/
