@@ -6,7 +6,7 @@
 /*   By: mbirou <mbirou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 09:54:35 by mbirou            #+#    #+#             */
-/*   Updated: 2024/09/17 11:33:19 by mbirou           ###   ########.fr       */
+/*   Updated: 2024/09/17 11:41:23 by mbirou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,10 @@ int	main(int argc, char **argv)
 	if (argc > 2)
 		return (0);
 	game = cd_init_structs();
-	// parser(&game);
+	parser(&game);
 	free(map_file);
 	if (game.error == 0)
 		return (0);
-	// launch_game(game);
+	launch_game(game);
 	return (1);
 }
