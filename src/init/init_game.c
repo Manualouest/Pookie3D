@@ -6,7 +6,7 @@
 /*   By: mbirou <mbirou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 09:57:40 by malbrech          #+#    #+#             */
-/*   Updated: 2024/09/17 11:33:45 by mbirou           ###   ########.fr       */
+/*   Updated: 2024/09/18 13:54:03 by mbirou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,19 @@ void	cd_init_rays(t_game *game)
 	game->rays = rays;
 }
 
+void	cd_init_graphic(t_game *game)
+{
+	t_textures	graphic;
+
+	graphic.no = 0;
+	graphic.so = 0;
+	graphic.we = 0;
+	graphic.ea = 0;
+	graphic.f = 0;
+	graphic.c = 0;
+	game->graphic = graphic;
+}
+
 t_game	cd_init_structs(void)
 {
 	t_game	game;
@@ -65,5 +78,6 @@ t_game	cd_init_structs(void)
 	game.error = 0;
 	cd_init_map(&game);
 	cd_init_rays(&game);
+	cd_init_graphic(&game);
 	return (game);
 }
