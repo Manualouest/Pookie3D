@@ -15,20 +15,25 @@ LIBS = $(LIBMLX)/build/libmlx42.a -ldl -lglfw -pthread -lm
 # Mandatory
 SRC_DIR = src/
 SRC_NAME = main.c\
-			map_maker/map_maker_main.c\
+			error.c\
+			img_to_int.c
+
+SRC_NAME += parsing/parser.c\
+			parsing/check.c
+
+SRC_NAME += map_maker/map_maker_main.c\
 			map_maker/input_handler.c\
 			map_maker/map_editor.c\
 			map_maker/vars_setup.c\
 			map_maker/map_setup.c\
 			map_maker/utils.c\
 			map_maker/img_utils.c\
-			map_maker/setup_screens.c\
-			utils/tab_utils.c\
-			utils/string_utils.c\
-			init/init_game.c\
-			parsing/parser.c\
-			parsing/check.c\
-			error.c
+			map_maker/setup_screens.c
+
+SRC_NAME += utils/tab_utils.c\
+			utils/string_utils.c
+
+SRC_NAME += init/init_game.c
 
 SRC = $(addprefix $(SRC_DIR), $(SRC_NAME))
 
