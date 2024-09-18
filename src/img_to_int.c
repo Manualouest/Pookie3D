@@ -6,7 +6,7 @@
 /*   By: mbirou <mbirou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 11:45:54 by mbirou            #+#    #+#             */
-/*   Updated: 2024/09/18 13:48:53 by mbirou           ###   ########.fr       */
+/*   Updated: 2024/09/18 14:12:20 by mbirou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,4 +95,29 @@ void	cd_img_to_int(t_textures *graphic)
 			graphic->f = cd_create_rgba(graphic->paths[i]);
 		free(graphic->paths[i]);
 	}
+}
+
+void	cd_set_txt_dimmension(t_textures *graphic, int id)
+{
+	int	i;
+	int	**txt;
+
+	if (graphic->dim_id == id)
+		return ;
+	if (id == 0)
+		txt = graphic->no;
+	if (id == 0)
+		txt = graphic->so;
+	if (id == 0)
+		txt = graphic->we;
+	if (id == 0)
+		txt = graphic->ea;
+	i = -1;
+	while (txt[++i][0] != -1)
+		;
+	graphic->height = i;
+	i = -1;
+	while (txt[0][++i] != -1)
+		;
+	graphic->width = i;
 }
