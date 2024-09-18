@@ -6,7 +6,7 @@
 /*   By: mbirou <mbirou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 11:45:54 by mbirou            #+#    #+#             */
-/*   Updated: 2024/09/18 13:41:42 by mbirou           ###   ########.fr       */
+/*   Updated: 2024/09/18 13:48:53 by mbirou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,10 @@ int	cd_create_rgba(char	*color)
 	g = ft_atoi(split_color[1]);
 	b = ft_atoi(split_color[2]);
 	a = 0xFF;
+	free(split_color[0]);
+	free(split_color[1]);
+	free(split_color[2]);
+	free(split_color);
 	return (r << 24 | g << 16 | b << 8 | a);
 }
 
@@ -91,5 +95,4 @@ void	cd_img_to_int(t_textures *graphic)
 			graphic->f = cd_create_rgba(graphic->paths[i]);
 		free(graphic->paths[i]);
 	}
-	free(graphic->paths);
 }
