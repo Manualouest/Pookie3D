@@ -6,7 +6,7 @@
 /*   By: malbrech <malbrech@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 11:27:38 by mbirou            #+#    #+#             */
-/*   Updated: 2024/09/17 12:17:13 by malbrech         ###   ########.fr       */
+/*   Updated: 2024/09/18 16:09:35 by malbrech         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ typedef struct	s_textures
 	int		**ea;
 	int		c;
 	int 	f;
-	char	**paths;
+	char	*paths[6];
 }		t_textures;
 
 typedef struct s_position
@@ -81,17 +81,25 @@ typedef struct s_game
 	mlx_t			*mlx;
 	t_ray_info		rays;
 	int				error;
-	t_textures		graphic;
+	t_textures		graphic;		
 }	t_game;
 
 /*------------------- ENUM ----------------------*/
 
-typedef enum e_err
+typedef enum e_ids
 {
-	CUB_ERR
-}				t_err;
+	NO,
+	SO,
+	WE,
+	EA,
+	C,
+	F
+}				t_ids;
 
-# define CUB_ERR "The map must be a .cub file darling"
+/*---------------- ERROR MSG --------------------*/
+
+# define CUB_ERR ".cub file required"
+# define PNG_ERR ".png file required"
 
 /*----------------- FONCTIONS -------------------*/
 
@@ -102,5 +110,6 @@ char	*cd_map_maker(void);
 
 void	error_handler(char *ERR_MSG);
 t_game	cd_init_structs(void);
+char	**add_new_line(char *line, char **tab)
 
 #endif

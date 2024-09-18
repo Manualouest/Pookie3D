@@ -24,8 +24,10 @@ SRC_NAME = main.c\
 			map_maker/img_utils.c\
 			map_maker/setup_screens.c\
 			utils/tab_utils.c\
+			utils/string_utils.c\
 			init/init_game.c\
 			parsing/parser.c\
+			parsing/check.c\
 			error.c
 
 SRC = $(addprefix $(SRC_DIR), $(SRC_NAME))
