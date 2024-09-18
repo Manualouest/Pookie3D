@@ -6,7 +6,7 @@
 /*   By: malbrech <malbrech@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 13:33:08 by malbrech          #+#    #+#             */
-/*   Updated: 2024/09/18 16:09:01 by malbrech         ###   ########.fr       */
+/*   Updated: 2024/09/18 17:32:10 by malbrech         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,10 @@ void	get_infos(t_game *game)
 	
 	game.map.fd = open(game.map.path, O_RDONLY);
 	buff = get_next_line(game.map.fd);
-	i = 0;
-	while(i >= 0)
+	i = 1;
+	while (i)
 	{
-		scanner(buff, game.graphic);
+		scanner(buff, game);
 		if (buff == NULL)
 			break ;
 		free(buff);
@@ -41,59 +41,76 @@ void	get_infos(t_game *game)
 }
 
 // Scan les lignes de la map 1 par une pour recuperer les informations
-void	scanner(char *line, t_textures *graphic)
+void	scanner(char *line, t_game *game)
 {
 	int	i;
+	int	true_line;
 	
 	i = 0;
-	while(line[i])
+	true_line = 0;
+	while (line[i])
 	{
 		while (line[i] == ' ' || line[i] == '\t')
 			i++;
-		if(is_direction(line, i))
+		if (is_direction(line, i, true_line, game))
 			break ;
-		if(is_rgb(line, i))
+		if (is_rgb(line, i, true_line, game))
 			break ;
+		if ((line[i] == '0' || line[i] == '1') && true_line >= 6)
+		{
+			cd_setup_map(line, game);
+		}
+		else
+		{
+			error_handler()
+			break;
+		}
 	}
 }
 
 // Conditions pour les directions
-int	is_direction(char *line, int i)
+int	is_direction(char *line, int i, int *true_line, t_game *game)
 {
 	if (line[i] == 'N' && line[i + 1] == 'O')
 	{
-		add_new_line(line, graphic.paths[0]);
+		add_new_line(line, game.graphic.paths[NO]);
+		*true_line += 1;
 		return (1);
 	}
 	if (line[i] == 'S' && line[i + 1] == 'O')
 	{
-		add_new_line(line, graphic.paths[1]);
+		add_new_line(line, game.graphic.paths[SO]);
+		*true_line += 1;
 		return (1);
 	}
 	if (line[i] == 'W' && line[i + 1] == 'E')
 	{
-		add_new_line(line, graphic.paths[2]);
+		add_new_line(line, game.graphic.paths[WE]);
+		*true_line += 1;
 		return (1);
 	}
 	if (line[i] == 'E' && line[i + 1] == 'A')
 	{
-		add_new_line(line, graphic.paths[3]);
+		add_new_line(line, game.graphic.paths[EA]);
+		*true_line += 1;
 		return (1);
 	}
 	return (0);
 }
 
 // Conditions pour les couleurs rgb
-void	is_rgb(char *line, int i)
+void	is_rgb(char *line, int i, int *true_line, t_game *game)
 {
 	if (line[i] == 'C')
 	{
-		add_new_line(line, graphic.paths[4]);
+		add_new_line(line, game.graphic.paths[C]);
+		*true_line += 1;
 		return (1);
 	}
 	if (line[i] == 'F')
 	{
-		add_new_line(line, graphic.paths[5]);
+		add_new_line(line, game.graphic.paths[F]);
+		*true_line += 1;
 		return (1);
 	}
 	return (0);

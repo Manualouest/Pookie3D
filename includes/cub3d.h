@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbirou <mbirou@student.42.fr>              +#+  +:+       +#+        */
+/*   By: malbrech <malbrech@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 11:27:38 by mbirou            #+#    #+#             */
-/*   Updated: 2024/09/18 16:26:23 by mbirou           ###   ########.fr       */
+/*   Updated: 2024/09/18 17:32:50 by malbrech         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,6 @@ typedef struct s_game
 	t_map		map;
 	mlx_t		*mlx;
 	t_ray_info	rays;
-	int			error;
 	t_textures	graphic;		
 }	t_game;
 
@@ -119,7 +118,7 @@ t_game	cd_init_structs(void);
 char	**add_new_line(char *line, char **tab);
 
 // error.c
-void	error_handler(char *ERR_MSG);
+void	error_handler(char *ERR_MSG, t_game *game);
 
 // img_to_int.c
 void	cd_img_to_int(t_textures *graphic);
