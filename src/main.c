@@ -6,7 +6,7 @@
 /*   By: mbirou <mbirou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 09:54:35 by mbirou            #+#    #+#             */
-/*   Updated: 2024/09/19 15:38:53 by mbirou           ###   ########.fr       */
+/*   Updated: 2024/09/19 17:50:52 by mbirou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	main(int argc, char **argv)
 		printf("%s\n", game.map.map[i]);
 
 
-	free(map_file);
+	cd_free_all(&game);
 	//launch_game(game);
 	return (1);
 }

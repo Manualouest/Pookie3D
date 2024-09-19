@@ -6,7 +6,7 @@
 /*   By: mbirou <mbirou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 09:57:40 by malbrech          #+#    #+#             */
-/*   Updated: 2024/09/19 15:51:48 by mbirou           ###   ########.fr       */
+/*   Updated: 2024/09/19 17:36:31 by mbirou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,12 @@ void	cd_init_graphic(t_game *game)
 	graphic.ea = 0;
 	graphic.f = 0;
 	graphic.c = 0;
+	graphic.paths[0] = NULL;
+	graphic.paths[1] = NULL;
+	graphic.paths[2] = NULL;
+	graphic.paths[3] = NULL;
+	graphic.paths[4] = NULL;
+	graphic.paths[5] = NULL;
 	graphic.paths[6] = NULL;
 	game->graphic = graphic;
 }

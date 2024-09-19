@@ -6,7 +6,7 @@
 /*   By: mbirou <mbirou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 12:01:16 by mbirou            #+#    #+#             */
-/*   Updated: 2024/09/19 15:50:14 by mbirou           ###   ########.fr       */
+/*   Updated: 2024/09/19 17:49:59 by mbirou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ void	cd_setup_map(char	*line, t_game *game)
 		else if (line[i] != ' ' && line[i] != '0' && line[i] != '1')
 			i = -2;
 	}
+	line[i] = 0;
 	if (i > game->map.width)
 		game->map.width = i;
 	game->map.map = add_new_line(line, game->map.map);
@@ -60,11 +61,30 @@ char	*cd_resize_map_line(char *line, int line_len, int width)
 	ft_strlcpy(new_line, line, line_len + 1);
 	while (line_len < width)
 	{
-		new_line[line_len] = '1';
+		new_line[line_len] = ' ';
 		line_len ++;
 	}
 	free(line);
 	return(new_line);
+}
+
+int	cd_check_edges(t_map *map)
+{
+	int	i;
+
+	i = -1;
+	while (++i < map->height)
+	{
+		if (map->map[i][0] == '0' || map->map[i][map->width - 1] == '0')
+			return (0);
+	}
+	i = -1;
+	while (++i < map->width)
+	{
+		if (map->map[0][i] == '0' || map->map[map->height - 1][i] == '0')
+			return (0);
+	}
+	return (1);
 }
 
 void	cd_parse_map(t_game *game, t_map *map)
@@ -73,8 +93,11 @@ void	cd_parse_map(t_game *game, t_map *map)
 	int	ii;
 
 	i = -1;
-	while (++i >= 0 && i < map->height)
+	while (++i >= 0 && map->map[i])
 	{
+		ii = ft_strlen(map->map[i]);
+		if (ii < map->width)
+			map->map[i] = cd_resize_map_line(map->map[i], ii, map->width);
 		ii = -1;
 		while (i >= 0 && ++ii < map->width)
 		{
@@ -83,12 +106,10 @@ void	cd_parse_map(t_game *game, t_map *map)
 				|| map->map[i][ii + (!(!map->map[i][ii + 1]))] == '0'
 				|| map->map[i][ii - (ii > 0)] == '0'))
 				i = -2;
-			else if (map->map[i][ii] == ' ')
+			if (i >= 0 && map->map[i][ii] == ' ')
 				map->map[i][ii] = '1';
 		}
-		if (ii < map->width)
-			map->map[i] = cd_resize_map_line(map->map[i], ii, map->width);
 	}
-	if (i < 0)
+	if (i < 0 || !cd_check_edges(map))
 		error_handler(BAD_MAP, game);
 }
