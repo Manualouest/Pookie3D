@@ -6,9 +6,27 @@
 /*   By: malbrech <malbrech@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 16:16:56 by malbrech          #+#    #+#             */
-/*   Updated: 2024/09/19 14:38:42 by malbrech         ###   ########.fr       */
+/*   Updated: 2024/09/19 16:47:59 by malbrech         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <cub3d.h>
+#include <cub3d.h>\
+
+void	format_d_tab(char **paths)
+{
+	int	i;
+	int	y;
+
+	i = 0;
+	y = 0;
+	while (paths[i])
+	{
+		while (paths[i][y])
+		{
+			
+			y++;
+		}
+		i++;
+	}
+}
 
