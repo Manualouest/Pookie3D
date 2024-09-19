@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_game.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malbrech <malbrech@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbirou <mbirou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 09:57:40 by malbrech          #+#    #+#             */
-/*   Updated: 2024/09/19 14:19:56 by malbrech         ###   ########.fr       */
+/*   Updated: 2024/09/19 15:51:48 by mbirou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,13 @@ void	cd_init_player(t_map *map)
 	map->player = player;
 }
 
-void	cd_init_map(t_game *game)
+void	cd_init_map(t_game *game, char *map_file)
 {
 	t_map	map;
 
 	map.map = NULL;
 	map.color = NULL;
-	map.path = NULL;
+	map.path = map_file;
 	map.fd = 0;
 	map.height = 0;
 	map.width = 0;
@@ -70,14 +70,15 @@ void	cd_init_graphic(t_game *game)
 	graphic.ea = 0;
 	graphic.f = 0;
 	graphic.c = 0;
+	graphic.paths[6] = NULL;
 	game->graphic = graphic;
 }
 
-t_game	cd_init_structs(void)
+t_game	cd_init_structs(char *map_file)
 {
 	t_game	game;
 
-	cd_init_map(&game);
+	cd_init_map(&game, map_file);
 	cd_init_rays(&game);
 	cd_init_graphic(&game);
 	return (game);

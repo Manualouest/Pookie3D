@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_handler.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malbrech <malbrech@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbirou <mbirou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 12:01:16 by mbirou            #+#    #+#             */
-/*   Updated: 2024/09/19 14:38:21 by malbrech         ###   ########.fr       */
+/*   Updated: 2024/09/19 15:50:14 by mbirou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	cd_setup_map(char	*line, t_game *game)
 	int	i;
 
 	i = -1;
-	while (++i >= 0 && line[i])
+	while (++i >= 0 && line[i] != '\n')
 	{
 		if (line[i] != ' ' && line[i] != '0' && line[i] != '1'
 			&& game->map.player.x == -1 && (line[i] == 'N' || line[i] == 'S'
@@ -41,12 +41,12 @@ void	cd_setup_map(char	*line, t_game *game)
 			game->map.player.view = cd_set_orientation(line[i]);
 			line[i] = '0';
 		}
-		else
+		else if (line[i] != ' ' && line[i] != '0' && line[i] != '1')
 			i = -2;
 	}
 	if (i > game->map.width)
 		game->map.width = i;
-	add_new_line(line, game->map.map);
+	game->map.map = add_new_line(line, game->map.map);
 	game->map.height += 1;
 	if (i < 0)
 		error_handler(BAD_CHAR, game);
@@ -73,10 +73,10 @@ void	cd_parse_map(t_game *game, t_map *map)
 	int	ii;
 
 	i = -1;
-	while (++i >= 0 && map->map[i])
+	while (++i >= 0 && i < map->height)
 	{
 		ii = -1;
-		while (i >= 0 && map->map[i][++ii])
+		while (i >= 0 && ++ii < map->width)
 		{
 			if (map->map[i][ii] == ' ' && (map->map[i - (i > 0)][ii] == '0'
 				|| map->map[i + (!(!map->map[i + 1]))][ii] == '0'

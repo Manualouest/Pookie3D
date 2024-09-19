@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malbrech <malbrech@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbirou <mbirou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 11:27:38 by mbirou            #+#    #+#             */
-/*   Updated: 2024/09/19 14:56:55 by malbrech         ###   ########.fr       */
+/*   Updated: 2024/09/19 15:51:10 by mbirou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ typedef struct	s_textures
 	int		**ea;
 	int		c;
 	int 	f;
-	char	*paths[6];
+	char	*paths[7];
 	int		width;
 	int		height;
 	int		dim_id;
@@ -115,7 +115,7 @@ char	*cd_map_maker(void);
 
 // -----init-----
 // init_game.c
-t_game	cd_init_structs(void);
+t_game	cd_init_structs(char *map_file);
 
 // ------parser-------
 
