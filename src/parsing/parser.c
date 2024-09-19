@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbirou <mbirou@student.42.fr>              +#+  +:+       +#+        */
+/*   By: malbrech <malbrech@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 13:33:08 by malbrech          #+#    #+#             */
-/*   Updated: 2024/09/19 15:49:55 by mbirou           ###   ########.fr       */
+/*   Updated: 2024/09/19 15:58:53 by malbrech         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,10 @@ void	get_infos(t_game *game)
 		if (buff == NULL)
 			break ;
 		scanner(buff, game, &true_line);
-		free(buff);
 		buff = get_next_line(game->map.fd);
 		i++;
 	}
 	i = -1;
-	free(buff);
 	cd_parse_map(game, &game->map);
 }
 
