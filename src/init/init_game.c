@@ -6,7 +6,7 @@
 /*   By: mbirou <mbirou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 09:57:40 by malbrech          #+#    #+#             */
-/*   Updated: 2024/09/18 13:54:03 by mbirou           ###   ########.fr       */
+/*   Updated: 2024/09/19 13:40:36 by mbirou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,10 @@ void	cd_init_player(t_map *map)
 {
 	t_position	player;
 
-	player.x = 0;
-	player.y = 0;
-	player.view = 0;
-	player.height = 0;
+	player.x = -1;
+	player.y = -1;
+	player.view = -1;
+	player.height = 0.5;
 	player.pitch = 0;
 	map->player = player;
 }
@@ -32,6 +32,8 @@ void	cd_init_map(t_game *game)
 	map.color = NULL;
 	map.path = NULL;
 	map.fd = 0;
+	map.height = 0;
+	map.width = 0;
 	cd_init_player(&map);
 	game->map = map;
 }
