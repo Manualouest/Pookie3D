@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malbrech <malbrech@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbirou <mbirou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 11:27:38 by mbirou            #+#    #+#             */
-/*   Updated: 2024/09/19 09:56:15 by malbrech         ###   ########.fr       */
+/*   Updated: 2024/09/19 13:45:03 by mbirou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,8 @@ typedef struct s_map
 	char		**map;
 	char		**color;
 	char		*path;
+	int			height;
+	int			width;
 	int			fd;
 	t_position	player;
 }	t_map;
@@ -102,7 +104,9 @@ typedef enum e_ids
 
 # define CUB_ERR ".cub file required"
 # define PNG_ERR ".png file required"
-# define FORMAT_ERR "The map does'nt follow the game's format"
+# define FORMAT_ERR "The map doesn't follow the game's format"
+# define BAD_CHAR "Invalid character in map"
+# define BAD_MAP "Map borders are invalid"
 
 /*----------------- FONCTIONS -------------------*/
 
