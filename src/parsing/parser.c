@@ -6,7 +6,7 @@
 /*   By: malbrech <malbrech@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 13:33:08 by malbrech          #+#    #+#             */
-/*   Updated: 2024/09/18 17:32:10 by malbrech         ###   ########.fr       */
+/*   Updated: 2024/09/19 13:24:43 by malbrech         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,9 @@ void	get_infos(t_game *game)
 {
 	char	*buff;
 	int		i;
+	int	true_line;
 	
+	true_line = 0;
 	game.map.fd = open(game.map.path, O_RDONLY);
 	buff = get_next_line(game.map.fd);
 	i = 1;
@@ -41,28 +43,27 @@ void	get_infos(t_game *game)
 }
 
 // Scan les lignes de la map 1 par une pour recuperer les informations
-void	scanner(char *line, t_game *game)
+void	scanner(char *line, t_game *game, int *true_line)
 {
 	int	i;
-	int	true_line;
 	
 	i = 0;
-	true_line = 0;
 	while (line[i])
 	{
 		while (line[i] == ' ' || line[i] == '\t')
 			i++;
 		if (is_direction(line, i, true_line, game))
 			break ;
-		if (is_rgb(line, i, true_line, game))
+		else if (is_rgb(line, i, true_line, game))
 			break ;
-		if ((line[i] == '0' || line[i] == '1') && true_line >= 6)
+		else if ((line[i] == '0' || line[i] == '1') && true_line >= 6)
 		{
 			cd_setup_map(line, game);
+			break ;
 		}
 		else
 		{
-			error_handler()
+			error_handler(FORMAT_ERR, game)
 			break;
 		}
 	}

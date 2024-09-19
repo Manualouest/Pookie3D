@@ -6,7 +6,7 @@
 /*   By: malbrech <malbrech@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 11:27:38 by mbirou            #+#    #+#             */
-/*   Updated: 2024/09/18 17:32:50 by malbrech         ###   ########.fr       */
+/*   Updated: 2024/09/19 09:56:15 by malbrech         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,7 @@ typedef enum e_ids
 
 # define CUB_ERR ".cub file required"
 # define PNG_ERR ".png file required"
+# define FORMAT_ERR "The map does'nt follow the game's format"
 
 /*----------------- FONCTIONS -------------------*/
 
