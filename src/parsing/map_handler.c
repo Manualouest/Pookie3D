@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_handler.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbirou <mbirou@student.42.fr>              +#+  +:+       +#+        */
+/*   By: malbrech <malbrech@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 12:01:16 by mbirou            #+#    #+#             */
-/*   Updated: 2024/09/19 13:41:25 by mbirou           ###   ########.fr       */
+/*   Updated: 2024/09/19 14:38:21 by malbrech         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ float	cd_set_orientation(char o)
 	return (-1);
 }
 
-int	cd_setup_map(char	*line, t_game *game)
+void	cd_setup_map(char	*line, t_game *game)
 {
 	int	i;
 
@@ -44,13 +44,12 @@ int	cd_setup_map(char	*line, t_game *game)
 		else
 			i = -2;
 	}
-	if (i > game->map->width)
-		game->map->width = i;
+	if (i > game->map.width)
+		game->map.width = i;
 	add_new_line(line, game->map.map);
 	game->map.height += 1;
 	if (i < 0)
 		error_handler(BAD_CHAR, game);
-	return (i > 0);
 }
 
 char	*cd_resize_map_line(char *line, int line_len, int width)
@@ -68,7 +67,7 @@ char	*cd_resize_map_line(char *line, int line_len, int width)
 	return(new_line);
 }
 
-int	cd_parse_map(t_game *game, t_map *map)
+void	cd_parse_map(t_game *game, t_map *map)
 {
 	int	i;
 	int	ii;
@@ -80,9 +79,9 @@ int	cd_parse_map(t_game *game, t_map *map)
 		while (i >= 0 && map->map[i][++ii])
 		{
 			if (map->map[i][ii] == ' ' && (map->map[i - (i > 0)][ii] == '0'
-				|| map->map[i + (!(!map->map[i + 1]))][ii] == '0')
+				|| map->map[i + (!(!map->map[i + 1]))][ii] == '0'
 				|| map->map[i][ii + (!(!map->map[i][ii + 1]))] == '0'
-				|| map->map[i][ii - (ii > 0)] == '0')
+				|| map->map[i][ii - (ii > 0)] == '0'))
 				i = -2;
 			else if (map->map[i][ii] == ' ')
 				map->map[i][ii] = '1';

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   img_to_int.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbirou <mbirou@student.42.fr>              +#+  +:+       +#+        */
+/*   By: malbrech <malbrech@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 11:45:54 by mbirou            #+#    #+#             */
-/*   Updated: 2024/09/18 16:26:14 by mbirou           ###   ########.fr       */
+/*   Updated: 2024/09/19 14:22:51 by malbrech         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,12 +58,12 @@ int	**cd_extract_pixel(mlx_texture_t *txt)
 	pixels[txt->height] = ft_calloc(sizeof(int *), 1);
 	pixels[txt->height][0] = -1;
 	i = -1;
-	while (++i < txt->height)
+	while (++i < (int)txt->height)
 	{
 		pixels[i] = ft_calloc(sizeof(*(pixels[i])), txt->width + 1);
 		pixels[i][txt->width] = -1;
 		ii = -1;
-		while (++ii < txt->width)
+		while (++ii < (int)txt->width)
 			pixels[i][ii] = cd_get_pixel_color(txt, ii, i);
 	}
 	return (pixels);

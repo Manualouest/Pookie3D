@@ -1,21 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.c                                            :+:      :+:    :+:   */
+/*   ft_memchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malbrech <malbrech@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mhaouas <mhaouas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/11 10:05:39 by malbrech          #+#    #+#             */
-/*   Updated: 2024/09/19 14:36:45 by malbrech         ###   ########.fr       */
+/*   Created: 2023/11/01 20:10:28 by mhaouas           #+#    #+#             */
+/*   Updated: 2024/04/05 16:10:40 by mhaouas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <cub3d.h>
+#include <libft.h>
 
-void	error_handler(char *ERR_MSG, t_game *game)
+void	*ft_memchr(const void *s, int c, size_t n)
 {
-	ft_putstr_fd(ERR_MSG, 1);
-	//free_all(t_game game);
-	(void)game;
-	exit(0);
+	size_t			i;
+	unsigned char	*tmp;
+
+	i = 0;
+	tmp = (unsigned char *)s;
+	while (i < n)
+	{
+		if (tmp[i] == (unsigned char)c)
+			return (tmp + i);
+		i++;
+	}
+	return (NULL);
 }

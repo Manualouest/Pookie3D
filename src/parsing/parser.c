@@ -6,7 +6,7 @@
 /*   By: malbrech <malbrech@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 13:33:08 by malbrech          #+#    #+#             */
-/*   Updated: 2024/09/19 13:24:43 by malbrech         ###   ########.fr       */
+/*   Updated: 2024/09/19 14:36:21 by malbrech         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 // fonction principale du parser
 void		parser(t_game *game)
 {
-	check_name(game->map.path);
+	check_name_cub(game->map.path, game);
 	get_infos(game);
 }
 
@@ -27,19 +27,20 @@ void	get_infos(t_game *game)
 	int	true_line;
 	
 	true_line = 0;
-	game.map.fd = open(game.map.path, O_RDONLY);
-	buff = get_next_line(game.map.fd);
+	game->map.fd = open(game->map.path, O_RDONLY);
+	buff = get_next_line(game->map.fd);
 	i = 1;
 	while (i)
 	{
-		scanner(buff, game);
+		scanner(buff, game, &true_line);
 		if (buff == NULL)
 			break ;
 		free(buff);
-		buff = get_next_line(game.map.fd);
+		buff = get_next_line(game->map.fd);
 		i++;
 	}
 	free(buff);
+	cd_parse_map(game, &game->map);
 }
 
 // Scan les lignes de la map 1 par une pour recuperer les informations
@@ -56,14 +57,14 @@ void	scanner(char *line, t_game *game, int *true_line)
 			break ;
 		else if (is_rgb(line, i, true_line, game))
 			break ;
-		else if ((line[i] == '0' || line[i] == '1') && true_line >= 6)
+		else if ((line[i] == '0' || line[i] == '1') && *true_line >= 6)
 		{
 			cd_setup_map(line, game);
 			break ;
 		}
 		else
 		{
-			error_handler(FORMAT_ERR, game)
+			error_handler(FORMAT_ERR, game);
 			break;
 		}
 	}
@@ -74,25 +75,25 @@ int	is_direction(char *line, int i, int *true_line, t_game *game)
 {
 	if (line[i] == 'N' && line[i + 1] == 'O')
 	{
-		add_new_line(line, game.graphic.paths[NO]);
+		game->graphic.paths[NO] = line;
 		*true_line += 1;
 		return (1);
 	}
 	if (line[i] == 'S' && line[i + 1] == 'O')
 	{
-		add_new_line(line, game.graphic.paths[SO]);
+		game->graphic.paths[SO] = line;
 		*true_line += 1;
 		return (1);
 	}
 	if (line[i] == 'W' && line[i + 1] == 'E')
 	{
-		add_new_line(line, game.graphic.paths[WE]);
+		game->graphic.paths[WE] = line;
 		*true_line += 1;
 		return (1);
 	}
 	if (line[i] == 'E' && line[i + 1] == 'A')
 	{
-		add_new_line(line, game.graphic.paths[EA]);
+		game->graphic.paths[EA] = line;
 		*true_line += 1;
 		return (1);
 	}
@@ -100,17 +101,17 @@ int	is_direction(char *line, int i, int *true_line, t_game *game)
 }
 
 // Conditions pour les couleurs rgb
-void	is_rgb(char *line, int i, int *true_line, t_game *game)
+int	is_rgb(char *line, int i, int *true_line, t_game *game)
 {
 	if (line[i] == 'C')
 	{
-		add_new_line(line, game.graphic.paths[C]);
+		game->graphic.paths[C] = line;
 		*true_line += 1;
 		return (1);
 	}
 	if (line[i] == 'F')
 	{
-		add_new_line(line, game.graphic.paths[F]);
+		game->graphic.paths[F] = line;
 		*true_line += 1;
 		return (1);
 	}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbirou <mbirou@student.42.fr>              +#+  +:+       +#+        */
+/*   By: malbrech <malbrech@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 11:27:38 by mbirou            #+#    #+#             */
-/*   Updated: 2024/09/19 13:45:03 by mbirou           ###   ########.fr       */
+/*   Updated: 2024/09/19 14:56:55 by malbrech         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,7 @@
 # include <sys/time.h>
 # include <unistd.h>
 # include <MLX42/MLX42.h>
-# include "libft.h"
-# include "get_next_line_bonus.h"
+# include <libft.h>
 
 /*------------------ STRUCTURES --------------------*/
 
@@ -118,6 +117,18 @@ char	*cd_map_maker(void);
 // init_game.c
 t_game	cd_init_structs(void);
 
+// ------parser-------
+
+void	parser(t_game *game);
+void	get_infos(t_game *game);
+void	scanner(char *line, t_game *game, int *true_line);
+int		is_direction(char *line, int i, int *true_line, t_game *game);
+int		is_rgb(char *line, int i, int *true_line, t_game *game);
+void	cd_setup_map(char	*line, t_game *game);
+void	cd_parse_map(t_game *game, t_map *map);
+void	check_name_cub(char *path, t_game *game);
+void	check_name_png(char *path, t_game *game);
+
 // -----utils-----
 // tab_utils.c
 char	**add_new_line(char *line, char **tab);
@@ -128,5 +139,6 @@ void	error_handler(char *ERR_MSG, t_game *game);
 // img_to_int.c
 void	cd_img_to_int(t_textures *graphic);
 void	cd_set_txt_dimmension(t_textures *graphic, int id);
+
 
 #endif

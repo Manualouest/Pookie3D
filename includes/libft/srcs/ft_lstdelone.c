@@ -1,21 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.c                                            :+:      :+:    :+:   */
+/*   ft_lstdelone.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malbrech <malbrech@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mhaouas <mhaouas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/11 10:05:39 by malbrech          #+#    #+#             */
-/*   Updated: 2024/09/19 14:36:45 by malbrech         ###   ########.fr       */
+/*   Created: 2023/11/06 11:43:25 by mhaouas           #+#    #+#             */
+/*   Updated: 2024/04/05 16:10:40 by mhaouas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <cub3d.h>
+#include <libft.h>
 
-void	error_handler(char *ERR_MSG, t_game *game)
+void	ft_lstdelone(t_list *lst, void (*del)(void *))
 {
-	ft_putstr_fd(ERR_MSG, 1);
-	//free_all(t_game game);
-	(void)game;
-	exit(0);
+	if (!del || !lst)
+		return ;
+	del(lst->content);
+	free(lst);
 }

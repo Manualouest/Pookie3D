@@ -1,21 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.c                                            :+:      :+:    :+:   */
+/*   ft_strcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: malbrech <malbrech@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/11 10:05:39 by malbrech          #+#    #+#             */
-/*   Updated: 2024/09/19 14:36:45 by malbrech         ###   ########.fr       */
+/*   Created: 2024/05/14 14:26:18 by malbrech          #+#    #+#             */
+/*   Updated: 2024/05/14 14:26:33 by malbrech         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <cub3d.h>
+#include <libft.h>
 
-void	error_handler(char *ERR_MSG, t_game *game)
+int	ft_strcmp(char *s1, char *s2)
 {
-	ft_putstr_fd(ERR_MSG, 1);
-	//free_all(t_game game);
-	(void)game;
-	exit(0);
+	size_t			i;
+
+	if (!s1 || !s2)
+		return (0);
+	i = 0;
+	while (s1[i] || s2[i])
+	{
+		if (s1[i] != s2[i])
+			return (s1[i] - s2[i]);
+		i++;
+	}
+	return (0);
 }

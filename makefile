@@ -5,8 +5,7 @@ NAME = cub3D
 CFLAGS = -Wall -Werror -Wextra -g
 
 INCLUDES = -Iincludes/ -I$(LIBMLX)/include
-LIBFT_FOLDER = includes/libft
-LIBFT_A = includes/libft/libft.a
+LIBFT = includes/libft/libft.a
 
 # MLX
 LIBMLX = ./MLX42
@@ -19,7 +18,8 @@ SRC_NAME = main.c\
 			img_to_int.c
 
 SRC_NAME += parsing/parser.c\
-			parsing/check.c
+			parsing/check.c\
+			parsing/map_handler.c
 
 SRC_NAME += map_maker/map_maker_main.c\
 			map_maker/input_handler.c\
@@ -62,9 +62,12 @@ $(OBJ_DIR)%.o:$(SRC_DIR)%.c
 	@mkdir -p $(dir $@)
 	gcc $(CFLAGS) $< $(INCLUDES) -c -o $@
 
-$(NAME): $(OBJ)
-	make full -C $(LIBFT_FOLDER)
-	gcc -o $(NAME) $(CFLAGS) $(OBJ) $(INCLUDES) $(LIBFT_A) $(LIBS) 
+$(LIBFT) :
+	@ $(MAKE) -C includes/libft all --no-print-directory
+
+$(NAME): $(LIBFT) $(OBJ)
+	gcc -o $(NAME) $(CFLAGS) $(OBJ) $(INCLUDES) $(LIBFT) $(LIBS)
+
 
 # $(B_OBJ_DIR)%.o:$(B_SRC_DIR)%.c
 # 	@mkdir -p $(dir $@)
@@ -84,12 +87,12 @@ $(NAME): $(OBJ)
 
 
 clean:
-	@make clean -C $(LIBFT_FOLDER)
+	@ $(MAKE) -C includes/libft clean --no-print-directory
 	@rm -rf $(LIBMLX)/build
 	rm -rf $(OBJ_DIR) $(B_OBJ_DIR)
 
 fclean: clean
-	@make fclean -C $(LIBFT_FOLDER)
+	@ $(MAKE) -C includes/libft fclean --no-print-directory
 	rm -f $(NAME)
 
 re: fclean all

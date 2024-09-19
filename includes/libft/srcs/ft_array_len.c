@@ -1,21 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.c                                            :+:      :+:    :+:   */
+/*   ft_array_len.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: malbrech <malbrech@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/11 10:05:39 by malbrech          #+#    #+#             */
-/*   Updated: 2024/09/19 14:36:45 by malbrech         ###   ########.fr       */
+/*   Created: 2024/03/05 14:57:07 by mhaouas           #+#    #+#             */
+/*   Updated: 2024/05/14 16:56:04 by malbrech         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <cub3d.h>
+#include <libft.h>
 
-void	error_handler(char *ERR_MSG, t_game *game)
+size_t	ft_array_len(void *array)
 {
-	ft_putstr_fd(ERR_MSG, 1);
-	//free_all(t_game game);
-	(void)game;
-	exit(0);
+	void	**args;
+	size_t	i;
+
+	args = array;
+	i = 0;
+	if (!args || !*args)
+		return (0);
+	while (args[i])
+		i++;
+	return (i);
 }

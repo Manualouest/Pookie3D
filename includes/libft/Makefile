@@ -1,121 +1,117 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: mbirou <mbirou@student.42.fr>              +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2023/11/01 14:21:30 by mscheman          #+#    #+#              #
-#    Updated: 2024/09/02 14:26:19 by mbirou           ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
-
-MAKEFLAGS += --silent
-
-LIBFT =	LIBFT/ft_isdigit.c \
-		LIBFT/ft_strchr.c \
-		LIBFT/ft_strcount.c \
-		LIBFT/ft_memchr.c \
-		LIBFT/ft_isalnum.c \
-		LIBFT/ft_strtrim.c \
-		LIBFT/ft_striteri.c \
-		LIBFT/ft_putnbr_fd.c \
-		LIBFT/ft_calloc.c \
-		LIBFT/ft_strmapi.c \
-		LIBFT/ft_substr.c \
-		LIBFT/ft_isspace.c \
-		LIBFT/ft_isprint.c \
-		LIBFT/ft_strdup.c \
-		LIBFT/ft_itoa.c \
-		LIBFT/ft_memcpy.c \
-		LIBFT/ft_strnstr.c \
-		LIBFT/ft_tolower.c \
-		LIBFT/ft_isalpha.c \
-		LIBFT/ft_strlcpy.c \
-		LIBFT/ft_putendl_fd.c \
-		LIBFT/ft_strlen.c \
-		LIBFT/ft_atoi.c \
-		LIBFT/ft_memset.c \
-		LIBFT/ft_memcmp.c \
-		LIBFT/ft_putstr_fd.c \
-		LIBFT/ft_isascii.c \
-		LIBFT/ft_strjoin.c \
-		LIBFT/ft_strncmp.c \
-		LIBFT/ft_putchar_fd.c \
-		LIBFT/ft_strrchr.c \
-		LIBFT/ft_split.c \
-		LIBFT/ft_memmove.c \
-		LIBFT/ft_bzero.c \
-		LIBFT/ft_strlcat.c \
-		LIBFT/ft_toupper.c \
-		LIBFT/ft_strctn.c \
-
-LIST =	LIST/ft_lstdelone_bonus.c \
-		LIST/ft_lstnew_bonus.c \
-		LIST/ft_lstiter_bonus.c \
-		LIST/ft_lstadd_back_bonus.c \
-		LIST/ft_lstclear_bonus.c \
-		LIST/ft_lstlast_bonus.c \
-		LIST/ft_lstadd_front_bonus.c \
-		LIST/ft_lstmap_bonus.c \
-		LIST/ft_lstsize_bonus.c \
-
-LIBFT_OBJ = $(LIBFT:.c=.o)
-LIST_OBJ = $(LIST:.c=.o)
-
-PRINTF_LIB =	libftprintf.a
-PRINTF_OBJ =	ft_printf.o \
-				ft_printf_utils.o
-
-GNL_LIB =	libftgnl.a
-GNL_OBJ =	get_next_line_bonus.o \
-			get_next_line_utils_bonus.o \
-			slurp.o \
-
+#================ COMPILATOR ================#
+CC = cc
+#=================== FLAGS ==================#
+FLAGS = -Wall -Wextra -Werror -g -fPIE
+#=================== NAME ===================#
 NAME = libft.a
+#============= MANDATORY SOUCES =============#
+SRCS = ft_isalpha.c \
+	ft_isdigit.c \
+	ft_isalnum.c \
+	ft_isascii.c \
+	ft_isprint.c \
+	ft_strlen.c \
+	ft_memset.c \
+	ft_bzero.c \
+	ft_strlcpy.c \
+	ft_strlcat.c \
+	ft_toupper.c \
+	ft_tolower.c \
+	ft_strchr.c \
+	ft_strrchr.c \
+	ft_strcmp.c \
+	ft_strncmp.c \
+	ft_memchr.c \
+	ft_memmove.c \
+	ft_memcpy.c \
+	ft_memcmp.c \
+	ft_strnstr.c \
+	ft_atoi.c \
+	ft_calloc.c \
+	ft_strdup.c \
+	ft_substr.c \
+	ft_strjoin.c \
+	ft_strtrim.c \
+	ft_itoa.c	\
+	ft_strmapi.c \
+	ft_striteri.c \
+	ft_putchar_fd.c \
+	ft_putstr_fd.c \
+	ft_putendl_fd.c \
+	ft_putnbr_fd.c \
+	ft_split.c \
+	ft_free_2d_array.c \
+	ft_atoi_base.c \
+	ft_abs.c \
+	ft_array_len.c \
+	ft_unsplit.c \
+	ft_multi_free.c \
+	ft_multi_join.c \
+	ft_join_and_free.c \
+	ft_close.c \
+	ft_free.c
+#=============== BONUS SOURCES ==============#
+BONUS = ft_lstnew.c \
+	ft_lstadd_front.c \
+	ft_lstsize.c \
+	ft_lstlast.c \
+	ft_lstadd_back.c \
+	ft_lstdelone.c \
+	ft_lstclear.c \
+	ft_lstiter.c \
+	ft_lstmap.c
 
-COMPIL_FLAGS += -Wall -Wextra -Werror -c -g
+#============== PRINTF SOURCES ==============#
+PRINTF = ft_printf.c \
+	printf_char_print.c \
+	printf_nbr_print.c \
+	printf_hex_print.c
 
-%.o:%.c
-	cc $(CC_FLAGS) $< -c -o $@
+#================ GNL SOURCES ===============#
+GNL = gnl/get_next_line.c\
+	gnl/get_next_line_utils.c
 
-$(NAME): $(LIBFT_OBJ)
-	ar rcs $(NAME) $(LIBFT_OBJ)
+#============ TRANSFORM .c TO .o ============#
+#============== MANDATORY PART ==============#
+OBJM = $(addprefix $(OBJ_DIR), $(SRCS:.c=.o))
 
-clean:
-	rm -f $(LIBFT_OBJ)
-	rm -f $(LIST_OBJ)
-	make clean -C ./PRINTF
-	make clean -C ./GNL
+#================ BONUS PART ================#
+OBJB = $(addprefix $(OBJ_DIR), $(BONUS:.c=.o))
 
-fclean: clean
-	make fclean -C ./PRINTF
-	make fclean -C ./GNL
-	rm -f $(NAME)
+#=============== PRINTF PART ================#
+OBJPR = $(addprefix $(OBJ_DIR), $(PRINTF:.c=.o))
 
-all: $(NAME)
+#================ GNL PART ==================#
+OBJGNL = $(addprefix $(OBJ_DIR), $(GNL:.c=.o))
 
-re: fclean all
+OBJ_DIR = obj/
 
-list: $(LIST_OBJ)
-	ar rcs $(NAME) $(LIST_OBJ)
+SRCS_DIR = srcs/
 
-print: $(NAME)
-	make -C ./PRINTF
-	mv PRINTF/$(PRINTF_LIB) -t .
-	ar x $(PRINTF_LIB)
-	ar rcs $(NAME) $(PRINTF_OBJ)
-	rm -f $(PRINTF_OBJ)
-	mv $(PRINTF_LIB) -t PRINTF/
+INCLUDE_DIR = ../
 
+INCLUDES = -I$(INCLUDE_DIR)
 
-gnl: $(NAME)
-	make -C ./GNL
-	mv GNL/$(GNL_LIB) -t .
-	ar x $(GNL_LIB)
-	ar rcs $(NAME) $(GNL_OBJ) 
-	rm -f $(GNL_OBJ)
-	mv $(GNL_LIB) -t GNL/
+#============== EXECUTABLE PART =============#
 
-full: print gnl list $(LIBFT_OBJ)
-	ar rcs $(NAME) $(LIBFT_OBJ)
+all : $(NAME)
+	@echo "\033[32;47;1m** libft.a created **\033[0m"
+
+$(NAME) : $(OBJB) $(OBJM) $(OBJPR) $(OBJGNL)
+	@ar rcs $(NAME) $(OBJB) $(OBJM) $(OBJPR) $(OBJGNL)
+	
+$(OBJ_DIR)%.o : $(SRCS_DIR)%.c
+	@ mkdir -p $(dir $@)
+	@$(CC) $(FLAGS) $(INCLUDES) -c $< -o $@
+
+clean :
+	@rm -rf $(OBJ_DIR)
+	@echo "\033[32;47;1m** cleaned **\033[0m"
+
+fclean :
+	@rm -rf $(NAME) $(OBJ_DIR)
+	@echo "\033[32;47;1m** fcleaned **\033[0m"
+
+re : fclean all
+
+.PHONY : all clean fclean re

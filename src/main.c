@@ -6,7 +6,7 @@
 /*   By: malbrech <malbrech@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 09:54:35 by mbirou            #+#    #+#             */
-/*   Updated: 2024/09/18 16:15:27 by malbrech         ###   ########.fr       */
+/*   Updated: 2024/09/19 14:20:52 by malbrech         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,6 @@ int	main(int argc, char **argv)
 	game = cd_init_structs();
 	parser(&game);
 	free(map_file);
-	if (game.error == 0)
-		return (0);
-	launch_game(game);
+	//launch_game(game);
 	return (1);
 }

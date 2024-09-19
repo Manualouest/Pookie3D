@@ -3,24 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mscheman <mathieu.petru@gmail.com>         +#+  +:+       +#+        */
+/*   By: mhaouas <mhaouas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/10 18:23:15 by LeCoqBeau         #+#    #+#             */
-/*   Updated: 2023/11/15 14:56:03 by mscheman         ###   ########.fr       */
+/*   Created: 2023/11/07 17:32:40 by mhaouas           #+#    #+#             */
+/*   Updated: 2024/02/19 18:58:36 by mhaouas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_PRINTF_H
 # define FT_PRINTF_H
-# include <unistd.h>
-# include <stdarg.h>
-# include <limits.h>
 
-int	ft_printf(const char *format, ...);
-int	ft_putchr(char c);
-int	ft_putstr(char *str);
-int	ft_putnbr(long nb);
-int	ft_putnbr_hexa(unsigned long long nb, char *base);
-int	ft_putptr(unsigned long long ptr);
+# include <stdarg.h>
+# include <string.h>
+
+int	ft_printf_fd(int fd, const char *str, ...);
+int	ft_printf(const char *str, ...);
+int	ft_cputstr(int fd, char *str);
+int	ft_cputnbr(int fd, int nb);
+int	ft_cuputnbr(int fd, unsigned int nb);
+int	ft_cputchar(int fd, char c);
+int	ft_convert_to_hex(int fd, unsigned int nb, char type);
+int	ft_point_to_hex(int fd, unsigned long long nb);
 
 #endif
