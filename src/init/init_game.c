@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_game.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbirou <mbirou@student.42.fr>              +#+  +:+       +#+        */
+/*   By: malbrech <malbrech@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 09:57:40 by malbrech          #+#    #+#             */
-/*   Updated: 2024/09/19 17:36:31 by mbirou           ###   ########.fr       */
+/*   Updated: 2024/09/26 09:57:47 by malbrech         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ void	cd_init_map(t_game *game, char *map_file)
 	t_map	map;
 
 	map.map = NULL;
-	map.color = NULL;
 	map.path = map_file;
 	map.fd = 0;
 	map.height = 0;

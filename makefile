@@ -35,6 +35,8 @@ SRC_NAME += utils/tab_utils.c\
 
 SRC_NAME += init/init_game.c
 
+SRC_NAME += keys/keys.c
+
 SRC = $(addprefix $(SRC_DIR), $(SRC_NAME))
 
 OBJ_DIR = obj/

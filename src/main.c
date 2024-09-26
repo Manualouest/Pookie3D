@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbirou <mbirou@student.42.fr>              +#+  +:+       +#+        */
+/*   By: malbrech <malbrech@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 09:54:35 by mbirou            #+#    #+#             */
-/*   Updated: 2024/09/19 17:50:52 by mbirou           ###   ########.fr       */
+/*   Updated: 2024/09/26 10:54:20 by malbrech         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	main(int argc, char **argv)
 	while (game.map.map[++i])
 		printf("%s\n", game.map.map[i]);
 
-
+	//mlx_key_hook(game->mlx, (void (*))cd_keys, game);
 	cd_free_all(&game);
 	//launch_game(game);
 	return (1);

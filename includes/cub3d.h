@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbirou <mbirou@student.42.fr>              +#+  +:+       +#+        */
+/*   By: malbrech <malbrech@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 11:27:38 by mbirou            #+#    #+#             */
-/*   Updated: 2024/09/19 17:49:42 by mbirou           ###   ########.fr       */
+/*   Updated: 2024/09/26 10:42:20 by malbrech         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,6 +135,9 @@ char	**add_new_line(char *line, char **tab);
 // error.c
 void	error_handler(char *ERR_MSG, t_game *game);
 void	cd_free_all(t_game *game);
+
+// keys
+
 
 // img_to_int.c
 void	cd_img_to_int(t_textures *graphic);
