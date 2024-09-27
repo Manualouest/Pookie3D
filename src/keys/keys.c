@@ -3,12 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   keys.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malbrech <malbrech@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbirou <mbirou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 10:21:02 by malbrech          #+#    #+#             */
-/*   Updated: 2024/09/26 12:42:41 by malbrech         ###   ########.fr       */
+/*   Updated: 2024/09/27 11:12:46 by mbirou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include <cub3d.h>
 
 // Fonction qui gère les mouvements / exit le jeu 
 void	cd_keys(mlx_key_data_t keydata, t_game *game)

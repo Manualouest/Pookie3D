@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malbrech <malbrech@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbirou <mbirou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 11:27:38 by mbirou            #+#    #+#             */
-/*   Updated: 2024/09/26 10:42:20 by malbrech         ###   ########.fr       */
+/*   Updated: 2024/09/27 11:15:37 by mbirou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,40 +108,57 @@ typedef enum e_ids
 
 /*----------------- FONCTIONS -------------------*/
 
-// -----map_maker-----
-// map_maker_main.c
-char	*cd_map_maker(void);
-
-// -----init-----
-// init_game.c
-t_game	cd_init_structs(char *map_file);
-
-// ------parser-------
-
-void	parser(t_game *game);
-void	get_infos(t_game *game);
-void	scanner(char *line, t_game *game, int *true_line);
-int		is_direction(char *line, int i, int *true_line, t_game *game);
-int		is_rgb(char *line, int i, int *true_line, t_game *game);
-void	cd_setup_map(char	*line, t_game *game);
-void	cd_parse_map(t_game *game, t_map *map);
-void	check_name_cub(char *path, t_game *game);
-void	check_name_png(char *path, t_game *game);
-
-// -----utils-----
-// tab_utils.c
-char	**add_new_line(char *line, char **tab);
-
-// error.c
-void	error_handler(char *ERR_MSG, t_game *game);
-void	cd_free_all(t_game *game);
-
-// keys
+// -----map_maker--------------------------------------------------------------
+// --map_maker_main.c
+char		*cd_map_maker(void);
 
 
-// img_to_int.c
-void	cd_img_to_int(t_textures *graphic);
-void	cd_set_txt_dimmension(t_textures *graphic, int id);
+// -----init-------------------------------------------------------------------
+// --init_game.c
+t_game		cd_init_structs(char *map_file);
+
+// --init_single_struct.c
+t_ray_info	cd_create_rays(void);
+
+
+// ------parsing---------------------------------------------------------------
+// --parser.c
+void		parser(t_game *game);
+void		get_infos(t_game *game);
+void		scanner(char *line, t_game *game, int *true_line);
+int			is_direction(char *line, int i, int *true_line, t_game *game);
+int			is_rgb(char *line, int i, int *true_line, t_game *game);
+
+// --map_handler.c
+void		cd_setup_map(char	*line, t_game *game);
+void		cd_parse_map(t_game *game, t_map *map);
+
+// --check.c
+void		check_name_cub(char *path, t_game *game);
+void		check_name_png(char *path, t_game *game);
+
+
+// -----utils------------------------------------------------------------------
+// --tab_utils.c
+char		**add_new_line(char *line, char **tab);
+
+
+// -----keys-------------------------------------------------------------------
+// --keys.c
+// void	cd_keys(mlx_key_data_t keydata, t_game *game);
+
+// --wall_edition.c
+// void		cd_edit_wall(t_game *game, char new_wall);
+
+
+// -----main-------------------------------------------------------------------
+// --error.c
+void		error_handler(char *ERR_MSG, t_game *game);
+void		cd_free_all(t_game *game);
+
+// --img_to_int.c
+void		cd_img_to_int(t_textures *graphic);
+void		cd_set_txt_dimmension(t_textures *graphic, int id);
 
 
 #endif
