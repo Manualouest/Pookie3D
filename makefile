@@ -28,7 +28,8 @@ SRC_NAME += map_maker/map_maker_main.c\
 			map_maker/map_setup.c\
 			map_maker/utils.c\
 			map_maker/img_utils.c\
-			map_maker/setup_screens.c
+			map_maker/setup_screens.c\
+			map_maker/rand_gen.c
 
 SRC_NAME += utils/tab_utils.c\
 			utils/string_utils.c

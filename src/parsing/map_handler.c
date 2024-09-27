@@ -6,7 +6,7 @@
 /*   By: mbirou <mbirou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 12:01:16 by mbirou            #+#    #+#             */
-/*   Updated: 2024/09/19 17:49:59 by mbirou           ###   ########.fr       */
+/*   Updated: 2024/09/27 10:43:23 by mbirou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ char	*cd_resize_map_line(char *line, int line_len, int width)
 		line_len ++;
 	}
 	free(line);
-	return(new_line);
+	return (new_line);
 }
 
 int	cd_check_edges(t_map *map)

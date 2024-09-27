@@ -6,7 +6,7 @@
 /*   By: mbirou <mbirou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 15:55:42 by mbirou            #+#    #+#             */
-/*   Updated: 2024/09/16 16:51:12 by mbirou           ###   ########.fr       */
+/*   Updated: 2024/09/27 10:41:01 by mbirou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ void	cd_write_file(t_map_editor *m_edit, t_map_info m_info)
 		write(fd, "\n", 1);
 	}
 	i = -1;
+	cd_clean_map(m_edit);
 	while (m_edit->map[++i])
 		write(fd, m_edit->map[i], ft_strlen(m_edit->map[i]));
 	cd_free_tab(m_edit->map);

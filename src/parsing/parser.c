@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malbrech <malbrech@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbirou <mbirou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 13:33:08 by malbrech          #+#    #+#             */
-/*   Updated: 2024/09/19 15:58:53 by malbrech         ###   ########.fr       */
+/*   Updated: 2024/09/27 10:43:52 by mbirou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <cub3d.h>
 
 // fonction principale du parser
-void		parser(t_game *game)
+void	parser(t_game *game)
 {
 	check_name_cub(game->map.path, game);
 	get_infos(game);
@@ -24,8 +24,8 @@ void	get_infos(t_game *game)
 {
 	char	*buff;
 	int		i;
-	int	true_line;
-	
+	int		true_line;
+
 	true_line = 0;
 	game->map.fd = open(game->map.path, O_RDONLY);
 	buff = get_next_line(game->map.fd);
@@ -46,7 +46,7 @@ void	get_infos(t_game *game)
 void	scanner(char *line, t_game *game, int *true_line)
 {
 	int	i;
-	
+
 	i = 0;
 	while (line[i])
 	{
@@ -64,7 +64,7 @@ void	scanner(char *line, t_game *game, int *true_line)
 		else
 		{
 			error_handler(FORMAT_ERR, game);
-			break;
+			break ;
 		}
 	}
 }

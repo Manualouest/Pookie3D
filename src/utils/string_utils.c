@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   string_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malbrech <malbrech@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbirou <mbirou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 16:16:56 by malbrech          #+#    #+#             */
-/*   Updated: 2024/09/26 13:17:54 by malbrech         ###   ########.fr       */
+/*   Updated: 2024/09/27 10:42:52 by mbirou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <cub3d.h>\
+#include <cub3d.h>
 
 void	format_d_tab(char **paths)
 {
@@ -47,8 +47,8 @@ void	skip_direction(char *line, int *ii)
 
 void	format_d_line(char *line, int *ii)
 {
-	int new_size;
-	int	i;
+	int		new_size;
+	int		i;
 	char	*
 
 	new_size = 0;
@@ -60,5 +60,3 @@ void	format_d_line(char *line, int *ii)
 	}
 	
 }
-
-
