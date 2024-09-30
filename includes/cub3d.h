@@ -6,7 +6,7 @@
 /*   By: mbirou <mbirou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 11:27:38 by mbirou            #+#    #+#             */
-/*   Updated: 2024/09/27 11:15:37 by mbirou           ###   ########.fr       */
+/*   Updated: 2024/09/30 17:16:17 by mbirou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ typedef struct s_map
 	int			height;
 	int			width;
 	int			fd;
+	float		fov;
 	t_position	player;
 }	t_map;
 
@@ -82,6 +83,8 @@ typedef struct s_game
 {
 	t_map		map;
 	mlx_t		*mlx;
+	mlx_image_t	*screen;
+	mlx_image_t	*fps;
 	t_ray_info	rays;
 	t_textures	graphic;		
 }	t_game;
@@ -102,7 +105,7 @@ typedef enum e_ids
 
 # define CUB_ERR ".cub file required"
 # define PNG_ERR ".png file required"
-# define FORMAT_ERR "The map doesn't follow the game's format"
+# define FORMAT_ERR "The map doesn't follow the game's format: "
 # define BAD_CHAR "Invalid character in map"
 # define BAD_MAP "Map borders are invalid"
 
@@ -111,7 +114,6 @@ typedef enum e_ids
 // -----map_maker--------------------------------------------------------------
 // --map_maker_main.c
 char		*cd_map_maker(void);
-
 
 // -----init-------------------------------------------------------------------
 // --init_game.c
@@ -142,14 +144,24 @@ void		check_name_png(char *path, t_game *game);
 // --tab_utils.c
 char		**add_new_line(char *line, char **tab);
 
+// --math.c
+float		cd_clamp(float num, float min, float max);
+
 
 // -----keys-------------------------------------------------------------------
 // --keys.c
-// void	cd_keys(mlx_key_data_t keydata, t_game *game);
+void	cd_keys(mlx_key_data_t keydata, t_game *game);
 
 // --wall_edition.c
 // void		cd_edit_wall(t_game *game, char new_wall);
 
+
+// -----raycast----------------------------------------------------------------
+// --raycast.c
+void		cd_render(void *vgame);
+
+// --draw_walls.c
+void		cd_draw_walls(t_game *game, t_ray_info *ray, int x);
 
 // -----main-------------------------------------------------------------------
 // --error.c

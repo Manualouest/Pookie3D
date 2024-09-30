@@ -6,7 +6,7 @@
 /*   By: mbirou <mbirou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 11:45:54 by mbirou            #+#    #+#             */
-/*   Updated: 2024/09/27 10:39:02 by mbirou           ###   ########.fr       */
+/*   Updated: 2024/09/30 17:42:23 by mbirou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,10 +54,13 @@ int	**cd_extract_pixel(mlx_texture_t *txt)
 	int	i;
 	int	ii;
 
-	pixels = ft_calloc(sizeof(*pixels), txt->height + 1);
-	pixels[txt->height] = ft_calloc(sizeof(int *), 1);
-	pixels[txt->height][0] = -1;
-	i = -1;
+	pixels = ft_calloc(sizeof(*pixels), txt->height + 2);
+	pixels[0] = ft_calloc(sizeof(int *), 2);
+	pixels[0][0] = (int)txt->width;
+	pixels[0][1] = (int)txt->height;
+	pixels[txt->height + 1] = ft_calloc(sizeof(int *), 1);
+	pixels[txt->height + 1][0] = -1;
+	i = 0;
 	while (++i < (int)txt->height)
 	{
 		pixels[i] = ft_calloc(sizeof(*(pixels[i])), txt->width + 1);
@@ -77,15 +80,16 @@ void	cd_img_to_int(t_textures *graphic)
 	i = -1;
 	while (graphic->paths && graphic->paths[++i] && i <= 5)
 	{
+		// printf("%s\n", ft_split(ft_split(graphic->paths[i], ' ')[1], '\n')[0]);
 		if (i <= 3)
-			txt = mlx_load_png(graphic->paths[i]);
+			txt = mlx_load_png(ft_split(ft_split(graphic->paths[i], ' ')[1], '\n')[0]);
 		if (i == 0)
 			graphic->no = cd_extract_pixel(txt);
 		else if (i == 1)
 			graphic->so = cd_extract_pixel(txt);
 		else if (i == 2)
 			graphic->we = cd_extract_pixel(txt);
-		else
+		else if (i == 3)
 			graphic->ea = cd_extract_pixel(txt);
 		if (i <= 3)
 			mlx_delete_texture(txt);
@@ -102,19 +106,19 @@ void	cd_set_txt_dimmension(t_textures *graphic, int id)
 	int	i;
 	int	**txt;
 
-	if (graphic->dim_id == id)
-		return ;
 	if (id == 0)
 		txt = graphic->no;
 	if (id == 1)
 		txt = graphic->so;
 	if (id == 2)
 		txt = graphic->we;
-	if (id == 3)
+	else
 		txt = graphic->ea;
 	i = -1;
 	while (txt[++i][0] != -1)
 		;
+	// 	printf("%d, %d, %x\n", i, txt[i][0], txt[i][0]);
+	// printf("stop %d, %d, %x\n", i, txt[i][0], txt[i][0]);
 	graphic->height = i;
 	i = -1;
 	while (txt[0][++i] != -1)

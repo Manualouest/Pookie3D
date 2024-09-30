@@ -6,7 +6,7 @@
 /*   By: mbirou <mbirou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 09:57:40 by malbrech          #+#    #+#             */
-/*   Updated: 2024/09/27 10:44:13 by mbirou           ###   ########.fr       */
+/*   Updated: 2024/09/30 16:53:46 by mbirou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ void	cd_init_map(t_game *game, char *map_file)
 	map.fd = 0;
 	map.height = 0;
 	map.width = 0;
+	map.fov = M_PI / 3.;
 	cd_init_player(&map);
 	game->map = map;
 }
@@ -76,6 +77,9 @@ void	cd_init_graphic(t_game *game)
 	graphic.paths[4] = NULL;
 	graphic.paths[5] = NULL;
 	graphic.paths[6] = NULL;
+	graphic.width = 0;
+	graphic.height = 0;
+	graphic.dim_id = -1;
 	game->graphic = graphic;
 }
 

@@ -6,7 +6,7 @@
 /*   By: mbirou <mbirou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 12:13:07 by mbirou            #+#    #+#             */
-/*   Updated: 2024/09/27 10:40:40 by mbirou           ###   ########.fr       */
+/*   Updated: 2024/09/30 14:44:15 by mbirou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	cd_key_handler(mlx_key_data_t keydata, void *vm_edit)
 	else if (keydata.key == MLX_KEY_DOWN)
 		m_edit->p_vars.y += 1;
 	if (keydata.key == MLX_KEY_LEFT)
-		m_edit->p_vars.x *= 1;
+		m_edit->p_vars.x -= 1;
 	else if (keydata.key == MLX_KEY_RIGHT)
 		m_edit->p_vars.x += 1;
 }
