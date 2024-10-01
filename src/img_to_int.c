@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   img_to_int.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbirou <mbirou@student.42.fr>              +#+  +:+       +#+        */
+/*   By: malbrech <malbrech@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 11:45:54 by mbirou            #+#    #+#             */
-/*   Updated: 2024/10/01 11:25:12 by mbirou           ###   ########.fr       */
+/*   Updated: 2024/10/01 16:03:02 by malbrech         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,9 +85,8 @@ void	cd_img_to_int(t_textures *graphic)
 	i = -1;
 	while (graphic->paths && graphic->paths[++i] && i <= 5)
 	{
-		// printf("%s\n", ft_split(ft_split(graphic->paths[i], ' ')[1], '\n')[0]);
 		if (i <= 3)
-			txt = mlx_load_png(ft_split(ft_split(graphic->paths[i], ' ')[1], '\n')[0]);
+			txt = mlx_load_png(graphic->paths[i]);
 		if (i == 0)
 			graphic->no = cd_extract_pixel(txt, 0);
 		else if (i == 1)

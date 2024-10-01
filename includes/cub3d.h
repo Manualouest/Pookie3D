@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbirou <mbirou@student.42.fr>              +#+  +:+       +#+        */
+/*   By: malbrech <malbrech@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 11:27:38 by mbirou            #+#    #+#             */
-/*   Updated: 2024/09/30 17:16:17 by mbirou           ###   ########.fr       */
+/*   Updated: 2024/10/01 15:45:08 by malbrech         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,16 +141,24 @@ void		check_name_png(char *path, t_game *game);
 
 
 // -----utils------------------------------------------------------------------
+
+// --string_utils.c
+void	format_d_tab(char *paths[7]);
+void	skip_direction(char *line, int *ii);
+char	*format_d_line(char *line, int *ii);
+
 // --tab_utils.c
 char		**add_new_line(char *line, char **tab);
 
 // --math.c
 float		cd_clamp(float num, float min, float max);
+float		cd_clamp_two(float num, float min, float max);
 
 
 // -----keys-------------------------------------------------------------------
 // --keys.c
 void	cd_keys(mlx_key_data_t keydata, t_game *game);
+void	cd_moove_forward(t_game *game);
 
 // --wall_edition.c
 // void		cd_edit_wall(t_game *game, char new_wall);

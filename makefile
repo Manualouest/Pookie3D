@@ -32,8 +32,8 @@ SRC_NAME += parsing/parser.c\
 # 			map_maker/rand_gen.c
 
 SRC_NAME += utils/tab_utils.c\
+			utils/string_utils.c\
 			utils/math.c
-			# utils/string_utils.c\
 
 SRC_NAME += init/init_game.c
 

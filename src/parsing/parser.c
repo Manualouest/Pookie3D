@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbirou <mbirou@student.42.fr>              +#+  +:+       +#+        */
+/*   By: malbrech <malbrech@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 13:33:08 by malbrech          #+#    #+#             */
-/*   Updated: 2024/09/27 11:14:21 by mbirou           ###   ########.fr       */
+/*   Updated: 2024/10/01 15:41:11 by malbrech         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void	parser(t_game *game)
 {
 	check_name_cub(game->map.path, game);
 	get_infos(game);
+	format_d_tab(game->graphic.paths);
 }
 
 // Recupere les infos depuis la map

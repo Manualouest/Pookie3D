@@ -1,31 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   math.c                                             :+:      :+:    :+:   */
+/*   free_game.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: malbrech <malbrech@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/30 13:46:20 by mbirou            #+#    #+#             */
-/*   Updated: 2024/10/01 16:05:27 by malbrech         ###   ########.fr       */
+/*   Created: 2024/10/01 12:04:05 by malbrech          #+#    #+#             */
+/*   Updated: 2024/10/01 12:27:25 by malbrech         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <cub3d.h>
 
-float	cd_clamp(float num, float min, float max)
+void	cd_terminate_game(t_game *game)
 {
-	while (num < min)
-		num += max;
-	while (num > max)
-		num -= max;
-	return (num);
-}
-
-float	cd_clamp_two(float num, float min, float max)
-{
-	if (num < min)
-		return (min);
-	if (num > max)
-		return (max);
-	return (num);
+	
 }
