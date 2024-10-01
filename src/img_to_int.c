@@ -6,7 +6,7 @@
 /*   By: mbirou <mbirou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 11:45:54 by mbirou            #+#    #+#             */
-/*   Updated: 2024/09/30 17:42:23 by mbirou           ###   ########.fr       */
+/*   Updated: 2024/10/01 11:25:12 by mbirou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	cd_get_pixel_color(mlx_texture_t *txt, int x, int y)
 	return (r << 24 | g << 16 | b << 8 | a);
 }
 
-int	**cd_extract_pixel(mlx_texture_t *txt)
+int	**cd_extract_pixel(mlx_texture_t *txt, int is_flipped)
 {
 	int	**pixels;
 	int	i;
@@ -56,8 +56,8 @@ int	**cd_extract_pixel(mlx_texture_t *txt)
 
 	pixels = ft_calloc(sizeof(*pixels), txt->height + 2);
 	pixels[0] = ft_calloc(sizeof(int *), 2);
-	pixels[0][0] = (int)txt->width;
-	pixels[0][1] = (int)txt->height;
+	pixels[0][0] = (int)txt->width - 1;
+	pixels[0][1] = (int)txt->height - 1;
 	pixels[txt->height + 1] = ft_calloc(sizeof(int *), 1);
 	pixels[txt->height + 1][0] = -1;
 	i = 0;
@@ -67,7 +67,12 @@ int	**cd_extract_pixel(mlx_texture_t *txt)
 		pixels[i][txt->width] = -1;
 		ii = -1;
 		while (++ii < (int)txt->width)
-			pixels[i][ii] = cd_get_pixel_color(txt, ii, i);
+		{
+			if (!is_flipped)
+				pixels[i][ii] = cd_get_pixel_color(txt, ii, i);
+			else
+				pixels[i][ii] = cd_get_pixel_color(txt, pixels[0][0] - ii, i);
+		}
 	}
 	return (pixels);
 }
@@ -84,13 +89,13 @@ void	cd_img_to_int(t_textures *graphic)
 		if (i <= 3)
 			txt = mlx_load_png(ft_split(ft_split(graphic->paths[i], ' ')[1], '\n')[0]);
 		if (i == 0)
-			graphic->no = cd_extract_pixel(txt);
+			graphic->no = cd_extract_pixel(txt, 0);
 		else if (i == 1)
-			graphic->so = cd_extract_pixel(txt);
+			graphic->so = cd_extract_pixel(txt, 1);
 		else if (i == 2)
-			graphic->we = cd_extract_pixel(txt);
+			graphic->we = cd_extract_pixel(txt, 1);
 		else if (i == 3)
-			graphic->ea = cd_extract_pixel(txt);
+			graphic->ea = cd_extract_pixel(txt, 0);
 		if (i <= 3)
 			mlx_delete_texture(txt);
 		else if (i == 4)
