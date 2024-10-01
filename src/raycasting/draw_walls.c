@@ -6,7 +6,7 @@
 /*   By: mbirou <mbirou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 14:00:37 by mbirou            #+#    #+#             */
-/*   Updated: 2024/10/01 16:44:49 by mbirou           ###   ########.fr       */
+/*   Updated: 2024/10/01 18:30:38 by mbirou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,12 +47,12 @@ void	cd_draw_walls(t_game *game, t_ray_info *ray, int x)
 		+ (((float)game->screen->height - 1.) / 2.) * game->map.player.pitch;
 	y_ratio = (((float)texture[0][1]) / (float)(down - up));
 	y = -1;
-	while (++y < up && y < (int)game->screen->height - 1)
+	while (++y < up && y < down)
 		mlx_put_pixel(game->screen, x, y, game->graphic.c);
 	y --;
 	while (++y < down && y < (int)game->screen->height - 1)
 		mlx_put_pixel(game->screen, x, y,
-			texture[(int)((y - up + 1) * y_ratio)][(int)ray->t_x]);
+			texture[(int)((float)(y - up + 1) * y_ratio)][(int)ray->t_x]);
 	y --;
 	while (++y < (int)game->screen->height - 1)
 		mlx_put_pixel(game->screen, x, y, game->graphic.f);

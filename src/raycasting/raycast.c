@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycast.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malbrech <malbrech@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbirou <mbirou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 13:23:18 by mbirou            #+#    #+#             */
-/*   Updated: 2024/10/01 17:30:39 by malbrech         ###   ########.fr       */
+/*   Updated: 2024/10/01 18:31:13 by mbirou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,5 +117,5 @@ void	cd_render(void *vgame)
 		cd_cast_ray(game, &game->rays);
 		cd_draw_walls(game, &game->rays, i);
 	}
-	game->fps = cd_slow_raycast(game, time, 1000);
+	game->fps = cd_slow_raycast(game, time, 60);
 }
