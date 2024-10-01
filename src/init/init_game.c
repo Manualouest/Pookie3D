@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_game.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbirou <mbirou@student.42.fr>              +#+  +:+       +#+        */
+/*   By: malbrech <malbrech@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 09:57:40 by malbrech          #+#    #+#             */
-/*   Updated: 2024/09/30 16:53:46 by mbirou           ###   ########.fr       */
+/*   Updated: 2024/10/01 18:18:48 by malbrech         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,5 +90,6 @@ t_game	cd_init_structs(char *map_file)
 	cd_init_map(&game, map_file);
 	cd_init_rays(&game);
 	cd_init_graphic(&game);
+	cd_init_keys(&game);
 	return (game);
 }

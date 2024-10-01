@@ -35,7 +35,8 @@ SRC_NAME += utils/tab_utils.c\
 			utils/string_utils.c\
 			utils/math.c
 
-SRC_NAME += init/init_game.c
+SRC_NAME += init/init_game.c\
+			init/init_game_part.c
 
 SRC_NAME += keys/keys.c\
 			keys/keys_part.c

@@ -6,7 +6,7 @@
 /*   By: malbrech <malbrech@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 11:27:38 by mbirou            #+#    #+#             */
-/*   Updated: 2024/10/01 17:32:26 by malbrech         ###   ########.fr       */
+/*   Updated: 2024/10/01 19:20:23 by malbrech         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,18 @@ typedef struct s_map
 	t_position	player;
 }	t_map;
 
+typedef struct s_keys
+{
+	int	w;
+	int	s;
+	int	a;
+	int	d;
+	int	up;
+	int	down;
+	int	left;
+	int	right;
+}	t_keys;
+
 typedef struct s_ray_info
 {
 	float	x;
@@ -86,7 +98,8 @@ typedef struct s_game
 	mlx_image_t	*screen;
 	mlx_image_t	*fps;
 	t_ray_info	rays;
-	t_textures	graphic;		
+	t_textures	graphic;
+	t_keys		keys;	
 }	t_game;
 
 /*------------------- ENUM ----------------------*/
@@ -118,6 +131,7 @@ char		*cd_map_maker(void);
 // -----init-------------------------------------------------------------------
 // --init_game.c
 t_game		cd_init_structs(char *map_file);
+void		cd_init_keys(t_game *game);
 
 // --init_single_struct.c
 t_ray_info	cd_create_rays(void);
@@ -163,6 +177,9 @@ void	cd_moove_backward(t_game *game);
 void	cd_moove_left(t_game *game);
 void	cd_moove_right(t_game *game);
 void	cd_camera(t_game *game);
+void	cd_moove(t_game *game);
+void	cd_keys_conditions(mlx_key_data_t keydata, t_game *game);
+void	cd_camera_conditions(mlx_key_data_t keydata, t_game *game);
 
 // --wall_edition.c
 // void		cd_edit_wall(t_game *game, char new_wall);

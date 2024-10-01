@@ -1,35 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_single_struct.c                               :+:      :+:    :+:   */
+/*   init_game_part.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbirou <mbirou@student.42.fr>              +#+  +:+       +#+        */
+/*   By: malbrech <malbrech@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 10:52:56 by mbirou            #+#    #+#             */
-/*   Updated: 2024/09/27 10:55:21 by mbirou           ###   ########.fr       */
+/*   Updated: 2024/10/01 19:12:01 by malbrech         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <cub3d.h>
 
-t_ray_info	cd_create_rays(void)
+void	cd_init_keys(t_game *game)
 {
-	t_ray_info	rays;
+	t_keys keys;
 
-	rays.x = 0;
-	rays.y = 0;
-	rays.t_x = 0;
-	rays.angle = 0;
-	rays.distance = 0;
-	rays.wall_height = 0;
-	rays.dx = 0;
-	rays.dy = 0;
-	rays.delta_dx = 0;
-	rays.delta_dy = 0;
-	rays.side_dx = 0;
-	rays.side_dy = 0;
-	rays.side = 0;
-	rays.step_x = 0;
-	rays.step_y = 0;
-	return (rays);
+	keys.w = 0;
+	keys.s = 0;
+	keys.a = 0;
+	keys.d = 0;
+	keys.up = 0;
+	keys.down = 0;
+	keys.left = 0;
+	keys.right = 0;
+	game->keys = keys;
 }
