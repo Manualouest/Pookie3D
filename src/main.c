@@ -6,7 +6,7 @@
 /*   By: mbirou <mbirou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 09:54:35 by mbirou            #+#    #+#             */
-/*   Updated: 2024/09/30 16:58:32 by mbirou           ###   ########.fr       */
+/*   Updated: 2024/10/01 17:18:11 by mbirou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,10 @@ int	main(int argc, char **argv)
 	// 	printf("%s\n", game.map.map[i]);
 
 
-	game.mlx = mlx_init(1240, 720, "Pookie3d", false);
-
-	game.screen = mlx_new_image(game.mlx, 1240, 720);
+	// game.mlx = mlx_init(1240, 720, "Pookie3d", false);
+	game.mlx = mlx_init(1920, 1016, "Pookie3d", false);
+	
+	game.screen = mlx_new_image(game.mlx, 1920, 1016);
 	mlx_image_to_window(game.mlx, game.screen, 0, 0);
 
 	mlx_key_hook(game.mlx, (void (*))cd_keys, (void *)&game);
