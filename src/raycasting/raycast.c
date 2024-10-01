@@ -6,7 +6,7 @@
 /*   By: mbirou <mbirou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 13:23:18 by mbirou            #+#    #+#             */
-/*   Updated: 2024/10/01 11:41:27 by mbirou           ###   ########.fr       */
+/*   Updated: 2024/10/01 16:54:12 by mbirou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void	cd_cast_ray(t_game *game, t_ray_info *ray)
 	cd_init_ray_vars(game, ray);
 	cd_ray_loop(game, ray);
 	effect = cos(cd_clamp(game->map.player.view - ray->angle, 0., 2. * M_PI));
-	ray->distance = floor(ray->distance * effect * 1000.) / 1000.;
+	ray->distance = floor(ray->distance * effect * 10000.) / 10000.;
 	ray->wall_height = 1000. / ray->distance;
 }
 
