@@ -6,7 +6,7 @@
 /*   By: malbrech <malbrech@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 11:27:38 by mbirou            #+#    #+#             */
-/*   Updated: 2024/10/01 15:45:08 by malbrech         ###   ########.fr       */
+/*   Updated: 2024/10/01 17:32:26 by malbrech         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,6 +159,10 @@ float		cd_clamp_two(float num, float min, float max);
 // --keys.c
 void	cd_keys(mlx_key_data_t keydata, t_game *game);
 void	cd_moove_forward(t_game *game);
+void	cd_moove_backward(t_game *game);
+void	cd_moove_left(t_game *game);
+void	cd_moove_right(t_game *game);
+void	cd_camera(t_game *game);
 
 // --wall_edition.c
 // void		cd_edit_wall(t_game *game, char new_wall);

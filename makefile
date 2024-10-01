@@ -37,7 +37,8 @@ SRC_NAME += utils/tab_utils.c\
 
 SRC_NAME += init/init_game.c
 
-SRC_NAME += keys/keys.c
+SRC_NAME += keys/keys.c\
+			keys/keys_part.c
 
 SRC_NAME += raycasting/raycast.c\
 			raycasting/draw_walls.c

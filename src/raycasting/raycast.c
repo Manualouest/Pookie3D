@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycast.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbirou <mbirou@student.42.fr>              +#+  +:+       +#+        */
+/*   By: malbrech <malbrech@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 13:23:18 by mbirou            #+#    #+#             */
-/*   Updated: 2024/10/01 17:26:08 by mbirou           ###   ########.fr       */
+/*   Updated: 2024/10/01 17:30:39 by malbrech         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void	cd_cast_ray(t_game *game, t_ray_info *ray)
 	cd_init_ray_vars(game, ray);
 	cd_ray_loop(game, ray);
 	effect = cos(cd_clamp(game->map.player.view - ray->angle, 0., 2. * M_PI));
-	ray->wall_height = (game->screen->height + game->screen->width) / 2. / (floor(ray->distance * effect * 1000.) / 1000.);
+	ray->wall_height = 1000. / (floor(ray->distance * effect * 1000.) / 1000.);
 }
 
 mlx_image_t	*cd_slow_raycast(t_game *game, struct timeval start_time,
