@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   wall_edition.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbirou <mbirou@student.42.fr>              +#+  +:+       +#+        */
+/*   By: malbrech <malbrech@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 10:49:46 by mbirou            #+#    #+#             */
-/*   Updated: 2024/09/27 11:06:09 by mbirou           ###   ########.fr       */
+/*   Updated: 2024/10/02 21:44:32 by malbrech         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <cub3d.h>
+#include <cub3d_bonus.h>
 
 int	cd_is_outer_wall(t_game *game, t_ray_info rays)
 {

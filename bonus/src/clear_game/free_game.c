@@ -6,11 +6,11 @@
 /*   By: malbrech <malbrech@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 12:04:05 by malbrech          #+#    #+#             */
-/*   Updated: 2024/10/01 12:27:25 by malbrech         ###   ########.fr       */
+/*   Updated: 2024/10/02 21:44:31 by malbrech         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <cub3d.h>
+#include <cub3d_bonus.h>
 
 void	cd_terminate_game(t_game *game)
 {

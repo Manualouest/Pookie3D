@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   check.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbirou <mbirou@student.42.fr>              +#+  +:+       +#+        */
+/*   By: malbrech <malbrech@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 16:18:09 by malbrech          #+#    #+#             */
-/*   Updated: 2024/09/27 10:44:00 by mbirou           ###   ########.fr       */
+/*   Updated: 2024/10/02 21:44:33 by malbrech         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <cub3d.h>
+#include <cub3d_bonus.h>
 
 //fonction pout checker le type du fichier (.cub)
 void	check_name_cub(char *path, t_game *game)

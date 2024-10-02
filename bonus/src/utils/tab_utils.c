@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   tab_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbirou <mbirou@student.42.fr>              +#+  +:+       +#+        */
+/*   By: malbrech <malbrech@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 10:13:17 by malbrech          #+#    #+#             */
-/*   Updated: 2024/09/27 10:42:46 by mbirou           ###   ########.fr       */
+/*   Updated: 2024/10/02 21:44:34 by malbrech         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <cub3d.h>
+#include <cub3d_bonus.h>
 
 // len d'un tab
 int	tab_len(char	**tab)

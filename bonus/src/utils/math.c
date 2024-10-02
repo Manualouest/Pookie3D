@@ -6,11 +6,11 @@
 /*   By: malbrech <malbrech@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 13:46:20 by mbirou            #+#    #+#             */
-/*   Updated: 2024/10/01 16:05:27 by malbrech         ###   ########.fr       */
+/*   Updated: 2024/10/02 21:44:34 by malbrech         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <cub3d.h>
+#include <cub3d_bonus.h>
 
 float	cd_clamp(float num, float min, float max)
 {

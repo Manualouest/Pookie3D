@@ -6,11 +6,11 @@
 /*   By: malbrech <malbrech@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 13:23:18 by mbirou            #+#    #+#             */
-/*   Updated: 2024/10/01 19:16:35 by malbrech         ###   ########.fr       */
+/*   Updated: 2024/10/02 21:44:34 by malbrech         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <cub3d.h>
+#include <cub3d_bonus.h>
 
 void	cd_init_ray_vars(t_game *game, t_ray_info *ray)
 {

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub3d.h                                            :+:      :+:    :+:   */
+/*   cub3d_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: malbrech <malbrech@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 11:27:38 by mbirou            #+#    #+#             */
-/*   Updated: 2024/10/01 19:20:23 by malbrech         ###   ########.fr       */
+/*   Updated: 2024/10/02 21:41:49 by malbrech         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,9 @@ typedef struct s_keys
 	int	down;
 	int	left;
 	int	right;
+	int	space;
+	int	sneak;
+	int	ctrl;
 }	t_keys;
 
 typedef struct s_ray_info
@@ -178,7 +181,8 @@ void	cd_moove_left(t_game *game);
 void	cd_moove_right(t_game *game);
 void	cd_camera(t_game *game);
 void	cd_moove(t_game *game);
-void	cd_keys_conditions(mlx_key_data_t keydata, t_game *game);
+void	cd_directions_conditions(mlx_key_data_t keydata, t_game *game);
+void	cd_actions_conditions(mlx_key_data_t keydata, t_game *game);
 void	cd_camera_conditions(mlx_key_data_t keydata, t_game *game);
 
 // --wall_edition.c

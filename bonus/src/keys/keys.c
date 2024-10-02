@@ -6,11 +6,11 @@
 /*   By: malbrech <malbrech@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 10:21:02 by malbrech          #+#    #+#             */
-/*   Updated: 2024/10/02 21:14:48 by malbrech         ###   ########.fr       */
+/*   Updated: 2024/10/02 21:44:32 by malbrech         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <cub3d.h>
+#include <cub3d_bonus.h>
 
 /* Trucs a implementer pour le bonus :
 
@@ -26,7 +26,8 @@ void	cd_keys(mlx_key_data_t keydata, t_game *game)
 {
 	if (keydata.key == MLX_KEY_ESCAPE && keydata.action == MLX_PRESS)
 		mlx_close_window(game->mlx);
-	cd_keys_conditions(keydata, game);
+	cd_directions_conditions(keydata, game);
+	cd_actions_conditions(keydata, game);
 	cd_camera_conditions(keydata, game);
 	
 }
@@ -40,7 +41,7 @@ void	cd_moove(t_game *game)
 	cd_camera(game);
 }
 
-void	cd_keys_conditions(mlx_key_data_t keydata, t_game *game)
+void	cd_directions_conditions(mlx_key_data_t keydata, t_game *game)
 {
 	if (keydata.key == MLX_KEY_W && keydata.action == MLX_PRESS)
 		game->keys.w = 1;
@@ -58,10 +59,20 @@ void	cd_keys_conditions(mlx_key_data_t keydata, t_game *game)
 		game->keys.d = 1;
 	if (keydata.key == MLX_KEY_D && keydata.action == MLX_RELEASE)
 		game->keys.d = 0;
+}
+
+void	cd_actions_conditions(mlx_key_data_t keydata, t_game *game)
+{
 	if (keydata.key == MLX_KEY_SPACE && keydata.action == MLX_PRESS)
 		game->keys.space = 1;
-	if (keydata.key == MLX_KEY_SPACE && keydata.action == MLX_RELEASE)
-		game->keys.space = 0;
+	if (keydata.key == MLX_KEY_LEFT_CONTROL && keydata.action == MLX_PRESS)
+		game->keys.ctrl = 1;
+	if (keydata.key == MLX_KEY_LEFT_CONTROL && keydata.action == MLX_RELEASE)
+		game->keys.ctrl = 0;
+	if (keydata.key == MLX_KEY_LEFT_SHIFT && keydata.action == MLX_PRESS)
+		game->keys.shift = 1;
+	if (keydata.key == MLX_KEY_LEFT_SHIFT && keydata.action == MLX_RELEASE)
+		game->keys.shift = 0;
 }
 
 void	cd_camera_conditions(mlx_key_data_t keydata, t_game *game)
