@@ -2,6 +2,8 @@
 
 NAME = cub3D
 
+B_NAME = pookie3d
+
 CFLAGS = -Wall -Werror -Wextra -g
 
 INCLUDES = -Iincludes/ -I$(LIBMLX)/include
@@ -50,15 +52,49 @@ OBJ_DIR = obj/
 OBJ_NAME = $(SRC_NAME:.c=.o)
 OBJ = $(patsubst %, $(OBJ_DIR)%, $(OBJ_NAME))
 
-# # Bonus
-# B_SRC_DIR = bonus/
-# B_SRC_NAME = 
+# Bonus
 
-# B_SRC = $(addprefix $(B_SRC_DIR), $(B_SRC_NAME))
+B_SRC_DIR = bonus/src/
 
-# B_OBJ_DIR = b_obj/
-# B_OBJ_NAME = $(B_SRC_NAME:.c=.o)
-# B_OBJ = $(patsubst %, $(B_OBJ_DIR)%, $(B_OBJ_NAME))
+B_SRC_NAME = main.c\
+			error.c\
+			img_to_int.c
+
+B_SRC_NAME += parsing/parser.c\
+			parsing/check.c\
+			parsing/map_handler.c
+
+B_SRC_NAME += map_maker/map_maker_main.c\
+			map_maker/input_handler.c\
+			map_maker/map_editor.c\
+			map_maker/vars_setup.c\
+			map_maker/map_setup.c\
+			map_maker/utils.c\
+			map_maker/img_utils.c\
+			map_maker/setup_screens.c\
+			map_maker/rand_gen.c
+
+B_SRC_NAME += utils/tab_utils.c\
+			utils/string_utils.c\
+			utils/math.c
+
+B_SRC_NAME += init/init_game.c\
+			init/init_game_part.c
+
+B_SRC_NAME += keys/keys.c\
+			keys/keys_part_two.c\
+			keys/keys_part.c
+
+B_SRC_NAME += raycasting/raycast.c\
+			raycasting/draw_walls.c
+
+B_SRC = $(addprefix $(SRC_DIR), $(SRC_NAME))
+
+
+B_OBJ_DIR = b_obj/
+B_OBJ_NAME = $(B_SRC_NAME:.c=.o)
+B_OBJ = $(patsubst %, $(B_OBJ_DIR)%, $(B_OBJ_NAME))
+
 
 # Compilation
 
@@ -71,29 +107,18 @@ $(OBJ_DIR)%.o:$(SRC_DIR)%.c
 	@mkdir -p $(dir $@)
 	gcc $(CFLAGS) $< $(INCLUDES) -c -o $@
 
+$(B_OBJ_DIR)%.o:$(B_SRC_DIR)%.c
+	@mkdir -p $(dir $@)
+	gcc $(CFLAGS) $< $(INCLUDES) -c -o $@
+
 $(LIBFT) :
 	@ $(MAKE) -C includes/libft all --no-print-directory
 
 $(NAME): $(LIBFT) $(OBJ)
 	gcc -o $(NAME) $(CFLAGS) $(OBJ) $(INCLUDES) $(LIBFT) $(LIBS)
 
-
-# $(B_OBJ_DIR)%.o:$(B_SRC_DIR)%.c
-# 	@mkdir -p $(dir $@)
-# 	cc $(CFLAGS) $< -c -o $@
-
-# bonus: $(B_OBJ)
-# 	@make full -C $(LIBFT_FOLDER)
-# 	cc -o $(NAME) $(CFLAGS) $(B_OBJ) $(LIBFT_A) $(OTHER_LIBS)
-
-
-# Opti Modes
-#opti: CFLAGS += -O3
-#opti: $(NAME)
-
-# bopti: CFLAGS += -O3
-# bopti: bonus
-
+bonus: libmlx $(LIBFT) $(B_OBJ)
+	gcc -o $(B_NAME) $(CFLAGS) $(B_OBJ) $(INCLUDES) $(LIBFT) $(LIBS)
 
 clean:
 	@ $(MAKE) -C includes/libft clean --no-print-directory
@@ -102,8 +127,8 @@ clean:
 
 fclean: clean
 	@ $(MAKE) -C includes/libft fclean --no-print-directory
-	rm -f $(NAME)
+	rm -f $(NAME) $(B_NAME)
 
 re: fclean all
 
-# bre: fclean bonus
+bre: fclean bonus

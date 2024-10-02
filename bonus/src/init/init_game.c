@@ -6,7 +6,7 @@
 /*   By: malbrech <malbrech@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 09:57:40 by malbrech          #+#    #+#             */
-/*   Updated: 2024/10/02 21:44:32 by malbrech         ###   ########.fr       */
+/*   Updated: 2024/10/02 22:25:10 by malbrech         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,5 +91,6 @@ t_game	cd_init_structs(char *map_file)
 	cd_init_rays(&game);
 	cd_init_graphic(&game);
 	cd_init_keys(&game);
+	cd_init_speed(&game);
 	return (game);
 }

@@ -6,7 +6,7 @@
 /*   By: malbrech <malbrech@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 11:45:54 by mbirou            #+#    #+#             */
-/*   Updated: 2024/10/02 21:44:30 by malbrech         ###   ########.fr       */
+/*   Updated: 2024/10/02 23:11:21 by malbrech         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ void	cd_img_to_int(t_textures *graphic)
 	int				i;
 
 	i = -1;
-	while (graphic->paths && graphic->paths[++i] && i <= 5)
+	while (graphic->paths[++i] && i <= 5)
 	{
 		if (i <= 3)
 			txt = mlx_load_png(graphic->paths[i]);
