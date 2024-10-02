@@ -6,7 +6,7 @@
 /*   By: mbirou <mbirou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 10:05:39 by malbrech          #+#    #+#             */
-/*   Updated: 2024/09/30 17:32:38 by mbirou           ###   ########.fr       */
+/*   Updated: 2024/10/02 21:25:47 by mbirou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,11 @@
 void	cd_free_int_tab(int **tab)
 {
 	int	i;
+	int	len;
 
 	i = -1;
-	while (tab != 0 && tab[i][0] != -1)
+	len = tab[0][1] + 2;
+	while (++i <= len)
 		free(tab[i]);
 	free(tab);
 }
@@ -37,7 +39,10 @@ void	cd_free_all(t_game *game)
 	cd_free_int_tab(game->graphic.no);
 	cd_free_int_tab(game->graphic.we);
 	cd_free_int_tab(game->graphic.ea);
-	i = -1;
+	mlx_delete_image(game->mlx, game->screen);
+	if (game->fps)
+		mlx_delete_image(game->mlx, game->fps);
+	mlx_terminate(game->mlx);
 }
 
 void	error_handler(char *ERR_MSG, t_game *game)
