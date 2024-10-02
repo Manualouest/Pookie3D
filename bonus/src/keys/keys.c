@@ -6,7 +6,7 @@
 /*   By: malbrech <malbrech@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 10:21:02 by malbrech          #+#    #+#             */
-/*   Updated: 2024/10/02 22:34:33 by malbrech         ###   ########.fr       */
+/*   Updated: 2024/10/03 00:43:29 by malbrech         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,8 @@ void	cd_keys(mlx_key_data_t keydata, t_game *game)
 	cd_directions_conditions(keydata, game);
 	cd_actions_conditions(keydata, game);
 	cd_camera_conditions(keydata, game);
-	
+	player_speed_controller(game);
+	player_height_controller(game);
 }
 
 void	cd_moove(t_game *game)
@@ -38,27 +39,25 @@ void	cd_moove(t_game *game)
 	cd_moove_backward(game);
 	cd_moove_left(game);
 	cd_moove_right(game);
-	cd_sneak(game);
-	cd_sprint(game);
 	cd_jump(game);
 	cd_camera(game);
 }
 
 void	cd_directions_conditions(mlx_key_data_t keydata, t_game *game)
 {
-	if (keydata.key == MLX_KEY_W && keydata.action == MLX_PRESS && game->keys.s == 0)
+	if (keydata.key == MLX_KEY_W && keydata.action == MLX_PRESS)
 		game->keys.w = 1;
 	if (keydata.key == MLX_KEY_W && keydata.action == MLX_RELEASE)
 		game->keys.w = 0;
-	if (keydata.key == MLX_KEY_S && keydata.action == MLX_PRESS && game->keys.w == 0)
+	if (keydata.key == MLX_KEY_S && keydata.action == MLX_PRESS)
 		game->keys.s = 1;
 	if (keydata.key == MLX_KEY_S && keydata.action == MLX_RELEASE)
 		game->keys.s = 0;
-	if (keydata.key == MLX_KEY_A && keydata.action == MLX_PRESS && game->keys.d == 0)
+	if (keydata.key == MLX_KEY_A && keydata.action == MLX_PRESS)
 		game->keys.a = 1;
 	if (keydata.key == MLX_KEY_A && keydata.action == MLX_RELEASE)
 		game->keys.a = 0;
-	if (keydata.key == MLX_KEY_D && keydata.action == MLX_PRESS && game->keys.a == 0)
+	if (keydata.key == MLX_KEY_D && keydata.action == MLX_PRESS)
 		game->keys.d = 1;
 	if (keydata.key == MLX_KEY_D && keydata.action == MLX_RELEASE)
 		game->keys.d = 0;

@@ -6,7 +6,7 @@
 /*   By: malbrech <malbrech@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 11:27:38 by mbirou            #+#    #+#             */
-/*   Updated: 2024/10/02 23:14:11 by malbrech         ###   ########.fr       */
+/*   Updated: 2024/10/03 00:26:38 by malbrech         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,13 +75,16 @@ typedef struct s_keys
 	int	ctrl;
 }	t_keys;
 
-typedef struct s_speed_infos
+typedef struct s_data_infos
 {
 	float	run;
 	float	crouch;
 	float	walk;
 	float	player_speed;
-}	t_speed_infos;
+	float	crouch_height;
+	float	normal_height;
+	float	jump_height;
+}	t_data_infos;
 
 typedef struct s_ray_info
 {
@@ -111,7 +114,7 @@ typedef struct s_game
 	t_ray_info		rays;
 	t_textures		graphic;
 	t_keys			keys;
-	t_speed_infos	speed;
+	t_data_infos	data;
 }	t_game;
 
 /*------------------- ENUM ----------------------*/
@@ -146,7 +149,7 @@ t_game		cd_init_structs(char *map_file);
 void		cd_init_keys(t_game *game);
 
 // --init_single_struct.c
-void		cd_init_speed(t_game *game);
+void		cd_init_data_infos(t_game *game);
 t_ray_info	cd_create_rays(void);
 
 
@@ -180,7 +183,10 @@ char		**add_new_line(char *line, char **tab);
 // --math.c
 float		cd_clamp(float num, float min, float max);
 float		cd_clamp_two(float num, float min, float max);
+
+// --controllers.c
 void		player_speed_controller(t_game *game);
+void		player_height_controller(t_game *game);
 
 // -----keys-------------------------------------------------------------------
 // --keys.c
@@ -189,8 +195,6 @@ void	cd_moove_forward(t_game *game);
 void	cd_moove_backward(t_game *game);
 void	cd_moove_left(t_game *game);
 void	cd_moove_right(t_game *game);
-void	cd_sneak(t_game *game);
-void	cd_sprint(t_game *game);
 void	cd_jump(t_game *game);
 void	cd_camera(t_game *game);
 void	cd_moove(t_game *game);

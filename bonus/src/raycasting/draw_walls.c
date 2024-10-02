@@ -6,7 +6,7 @@
 /*   By: malbrech <malbrech@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 14:00:37 by mbirou            #+#    #+#             */
-/*   Updated: 2024/10/02 21:44:34 by malbrech         ###   ########.fr       */
+/*   Updated: 2024/10/02 23:34:36 by malbrech         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,11 @@ void	cd_draw_walls(t_game *game, t_ray_info *ray, int x)
 
 	texture = cd_get_texture(game, ray);
 	up = ((float)game->screen->height - 1.) / 2. - ray->wall_height / 2.
-		+ (((float)game->screen->height - 1.) / 2.) * game->map.player.pitch;
+		+ (((float)game->screen->height - 1.) / 2.) * game->map.player.pitch
+		+ ray->wall_height * game->map.player.height;
 	down = ((float)game->screen->height - 1.) / 2. + ray->wall_height / 2.
-		+ (((float)game->screen->height - 1.) / 2.) * game->map.player.pitch;
+		+ (((float)game->screen->height - 1.) / 2.) * game->map.player.pitch
+		+ ray->wall_height * game->map.player.height; 
 	y_ratio = (((float)texture[0][1]) / (float)(down - up));
 	y = -1;
 	while (++y < up && y < down)

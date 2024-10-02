@@ -6,7 +6,7 @@
 /*   By: malbrech <malbrech@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 09:57:40 by malbrech          #+#    #+#             */
-/*   Updated: 2024/10/02 22:25:10 by malbrech         ###   ########.fr       */
+/*   Updated: 2024/10/03 00:30:36 by malbrech         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	cd_init_player(t_map *map)
 	player.x = -1;
 	player.y = -1;
 	player.view = -1;
-	player.height = 0.5;
+	player.height = 0.15;
 	player.pitch = 0;
 	map->player = player;
 }
@@ -91,6 +91,6 @@ t_game	cd_init_structs(char *map_file)
 	cd_init_rays(&game);
 	cd_init_graphic(&game);
 	cd_init_keys(&game);
-	cd_init_speed(&game);
+	cd_init_data_infos(&game);
 	return (game);
 }

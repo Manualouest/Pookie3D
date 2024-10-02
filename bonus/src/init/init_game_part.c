@@ -6,7 +6,7 @@
 /*   By: malbrech <malbrech@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 10:52:56 by mbirou            #+#    #+#             */
-/*   Updated: 2024/10/02 23:14:33 by malbrech         ###   ########.fr       */
+/*   Updated: 2024/10/03 00:50:06 by malbrech         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,16 @@ void	cd_init_keys(t_game *game)
 	game->keys = keys;
 }
 
-void	cd_init_speed(t_game *game)
+void	cd_init_data_infos(t_game *game)
 {
-	t_speed_infos speed;
+	t_data_infos	data;
 
-	speed.run = 0.2;
-	speed.crouch = 0.05;
-	speed.walk = 0.1;
-	game->speed = speed;
+	data.run = 0.15;
+	data.crouch = 0.03;
+	data.walk = 0.1;
+	data.player_speed = 0.1;
+	data.crouch_height = -0.1;
+	data.normal_height = 0.2;
+	data.jump_height = 0.3;
+	game->data = data;
 }
