@@ -6,7 +6,7 @@
 /*   By: malbrech <malbrech@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 10:21:02 by malbrech          #+#    #+#             */
-/*   Updated: 2024/10/01 19:21:08 by malbrech         ###   ########.fr       */
+/*   Updated: 2024/10/02 21:14:48 by malbrech         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,10 @@ void	cd_keys_conditions(mlx_key_data_t keydata, t_game *game)
 		game->keys.d = 1;
 	if (keydata.key == MLX_KEY_D && keydata.action == MLX_RELEASE)
 		game->keys.d = 0;
+	if (keydata.key == MLX_KEY_SPACE && keydata.action == MLX_PRESS)
+		game->keys.space = 1;
+	if (keydata.key == MLX_KEY_SPACE && keydata.action == MLX_RELEASE)
+		game->keys.space = 0;
 }
 
 void	cd_camera_conditions(mlx_key_data_t keydata, t_game *game)
