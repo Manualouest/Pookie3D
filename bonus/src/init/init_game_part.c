@@ -6,7 +6,7 @@
 /*   By: malbrech <malbrech@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 10:52:56 by mbirou            #+#    #+#             */
-/*   Updated: 2024/10/03 00:50:06 by malbrech         ###   ########.fr       */
+/*   Updated: 2024/10/03 06:04:12 by malbrech         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ void	cd_init_data_infos(t_game *game)
 	data.player_speed = 0.1;
 	data.crouch_height = -0.1;
 	data.normal_height = 0.2;
-	data.jump_height = 0.3;
+	data.jump_height = 0.4;
+	data.increment = 0.017;
+	data.coeff = 10;
 	game->data = data;
 }

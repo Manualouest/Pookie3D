@@ -6,7 +6,7 @@
 /*   By: malbrech <malbrech@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 11:27:38 by mbirou            #+#    #+#             */
-/*   Updated: 2024/10/03 00:26:38 by malbrech         ###   ########.fr       */
+/*   Updated: 2024/10/03 06:06:58 by malbrech         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,8 @@ typedef struct s_data_infos
 	float	crouch_height;
 	float	normal_height;
 	float	jump_height;
+	float	increment;
+	float	coeff;
 }	t_data_infos;
 
 typedef struct s_ray_info
