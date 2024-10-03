@@ -6,7 +6,7 @@
 /*   By: mbirou <mbirou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 09:57:40 by malbrech          #+#    #+#             */
-/*   Updated: 2024/10/03 07:45:13 by mbirou           ###   ########.fr       */
+/*   Updated: 2024/10/03 08:41:50 by mbirou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	cd_init_player(t_map *map)
 	player.x = -1;
 	player.y = -1;
 	player.view = -1;
-	player.height = 0.15;
+	player.height = 0.1;
 	player.pitch = 0;
 	map->player = player;
 }

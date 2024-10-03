@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   keys.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malbrech <malbrech@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbirou <mbirou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 10:21:02 by malbrech          #+#    #+#             */
-/*   Updated: 2024/10/03 00:43:29 by malbrech         ###   ########.fr       */
+/*   Updated: 2024/10/03 08:48:29 by mbirou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,10 +67,10 @@ void	cd_actions_conditions(mlx_key_data_t keydata, t_game *game)
 {
 	if (keydata.key == MLX_KEY_SPACE && keydata.action == MLX_PRESS)
 		game->keys.space = 1;
-	if (keydata.key == MLX_KEY_LEFT_CONTROL && keydata.action == MLX_PRESS
+	if (keydata.key == MLX_KEY_LEFT_ALT && keydata.action == MLX_PRESS
 		&& game->keys.shift == 0)
 		game->keys.ctrl = 1;
-	if (keydata.key == MLX_KEY_LEFT_CONTROL && keydata.action == MLX_RELEASE)
+	if (keydata.key == MLX_KEY_LEFT_ALT && keydata.action == MLX_RELEASE)
 		game->keys.ctrl = 0;
 	if (keydata.key == MLX_KEY_LEFT_SHIFT && keydata.action == MLX_PRESS
 		&& game->keys.ctrl == 0)

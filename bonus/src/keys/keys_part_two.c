@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   keys_part_two.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malbrech <malbrech@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbirou <mbirou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 21:20:43 by malbrech          #+#    #+#             */
-/*   Updated: 2024/10/03 07:34:46 by malbrech         ###   ########.fr       */
+/*   Updated: 2024/10/03 09:22:23 by mbirou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,26 +16,23 @@ void	cd_jump(t_game *game)
 {
 	if (game->keys.space == 1)
 	{
-		if (game->map.player.height < game->data.jump_height
-			&& game->map.player.height >= game->data.normal_height)
+		if (game->data.coeff == -1)
+			game->data.coeff --;
+		if (game->data.coeff > 0 && (int)game->data.coeff % 2)
 		{
-			game->data.coeff = game->data.coeff * 1.2;
-			game->map.player.height 
-				= cd_clamp_two(pow((game->map.player.height), 2) * game->data.coeff + 0.1,
-				0.2, 0.4);
+			game->data.coeff -= 2;
+			game->map.player.height += game->data.coeff / 1000.;
 		}
-		if (game->map.player.height > game->data.normal_height
-			&& game->map.player.height <= game->data.jump_height)
+		else if (game->data.coeff > -51 && !((int)game->data.coeff % 2))
 		{
-			game->data.coeff = game->data.coeff * 0.8;
-			game->map.player.height 
-				= cd_clamp_two(pow((game->map.player.height), 2) * game->data.coeff + 0.1,
-				0.2, 0.4);
-			if (game->map.player.height <= game->data.normal_height)
-			{
-				game->map.player.height = game->data.normal_height;
-				game->keys.space = 0;
-			}
+			game->data.coeff -= 2;
+			game->map.player.height += game->data.coeff / 1000.;
+		}
+		if (game->map.player.height <= game->data.normal_height)
+		{
+			game->map.player.height = game->data.normal_height;
+			game->data.coeff = 41;
+			game->keys.space = 0;
 		}
 	}
 }
