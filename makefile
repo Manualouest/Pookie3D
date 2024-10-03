@@ -55,6 +55,8 @@ B_SRC_NAME += parsing/parser.c\
 			parsing/check.c\
 			parsing/map_handler.c
 
+B_SRC_NAME += animactions/mooves.c
+
 B_SRC_NAME += map_maker/map_maker_main.c\
 			map_maker/input_handler.c\
 			map_maker/map_editor.c\
@@ -73,7 +75,6 @@ B_SRC_NAME += init/init_game.c\
 			init/init_game_part.c
 
 B_SRC_NAME += keys/keys.c\
-			keys/keys_part_two.c\
 			keys/keys_part.c
 
 B_SRC_NAME += raycasting/raycast.c\
