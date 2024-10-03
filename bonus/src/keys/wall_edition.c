@@ -6,7 +6,7 @@
 /*   By: malbrech <malbrech@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 10:49:46 by mbirou            #+#    #+#             */
-/*   Updated: 2024/10/02 21:44:32 by malbrech         ###   ########.fr       */
+/*   Updated: 2024/10/03 16:11:31 by malbrech         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	cd_edit_wall(t_game *game, char new_wall)
 	int			y;
 
 	rays = cd_create_rays();
-	rays.angle = game->map.player.view;
+	rays.angle = game->player.view;
 	// rays = cd_cast_ray(rays);
 	if (rays.distance > 5)
 		return ;

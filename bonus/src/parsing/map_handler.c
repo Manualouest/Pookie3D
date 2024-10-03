@@ -6,7 +6,7 @@
 /*   By: malbrech <malbrech@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 12:01:16 by mbirou            #+#    #+#             */
-/*   Updated: 2024/10/02 21:44:33 by malbrech         ###   ########.fr       */
+/*   Updated: 2024/10/03 16:11:31 by malbrech         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,12 @@ void	cd_setup_map(char	*line, t_game *game)
 	while (++i >= 0 && line[i] != '\n')
 	{
 		if (line[i] != ' ' && line[i] != '0' && line[i] != '1'
-			&& game->map.player.x == -1 && (line[i] == 'N' || line[i] == 'S'
+			&& game->player.x == -1 && (line[i] == 'N' || line[i] == 'S'
 				|| line[i] == 'E' || line[i] == 'W'))
 		{
-			game->map.player.x = i + 0.5;
-			game->map.player.y = game->map.height + 0.5;
-			game->map.player.view = cd_set_orientation(line[i]);
+			game->player.x = i + 0.5;
+			game->player.y = game->map.height + 0.5;
+			game->player.view = cd_set_orientation(line[i]);
 			line[i] = '0';
 		}
 		else if (line[i] != ' ' && line[i] != '0' && line[i] != '1')

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbirou <mbirou@student.42.fr>              +#+  +:+       +#+        */
+/*   By: malbrech <malbrech@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 11:27:38 by mbirou            #+#    #+#             */
-/*   Updated: 2024/10/03 07:46:06 by mbirou           ###   ########.fr       */
+/*   Updated: 2024/10/03 16:15:07 by malbrech         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,24 +40,26 @@ typedef struct	s_textures
 	int		dim_id;
 }		t_textures;
 
-typedef struct s_position
+typedef struct s_data_player
 {
 	float	x;
 	float	y;
 	float	view;
 	float	height;
 	float	pitch;
-}	t_position;
+	float	speed;
+	float	coeff;
+}	t_data_player;
 
 typedef struct s_map
 {
-	char		**map;
-	char		*path;
-	int			height;
-	int			width;
-	int			fd;
-	float		fov;
-	t_position	player;
+	char			**map;
+	char			*path;
+	int				height;
+	int				width;
+	int				fd;
+	float			fov;
+	t_data_player	player;
 }	t_map;
 
 typedef struct s_keys
@@ -74,19 +76,6 @@ typedef struct s_keys
 	int	shift;
 	int	ctrl;
 }	t_keys;
-
-typedef struct s_data_infos
-{
-	float	run;
-	float	crouch;
-	float	walk;
-	float	player_speed;
-	float	crouch_height;
-	float	normal_height;
-	float	jump_height;
-	float	increment;
-	float	coeff;
-}	t_data_infos;
 
 typedef struct s_ray_info
 {
@@ -117,7 +106,7 @@ typedef struct s_game
 	t_ray_info		rays;
 	t_textures		graphic;
 	t_keys			keys;
-	t_data_infos	data;
+	t_data_player	player;
 }	t_game;
 
 /*------------------- ENUM ----------------------*/
@@ -131,6 +120,21 @@ typedef enum e_ids
 	C,
 	F
 }				t_ids;
+
+/*---------------- DEFINE VALUES ----------------*/
+// --Screen dimensions
+# define SCREEN_W 1920
+# define SCREEN_H 1016
+
+// --Speeds
+# define RUNNING_SPEED 0.2
+# define CROUCH_SPEED 0.03
+# define WALKING_SPEED 0.1
+# define CAMERA_SPEED 0.03
+
+//--Heights
+# define CROUCH_HEIGHT -0.1
+# define NORMAL_HEIGHT 0.1
 
 /*---------------- ERROR MSG --------------------*/
 
@@ -152,7 +156,6 @@ t_game		cd_init_structs(char *map_file);
 void		cd_init_keys(t_game *game);
 
 // --init_single_struct.c
-void		cd_init_data_infos(t_game *game);
 t_ray_info	cd_create_rays(void);
 
 

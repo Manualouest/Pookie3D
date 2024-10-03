@@ -6,7 +6,7 @@
 /*   By: malbrech <malbrech@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 09:54:35 by mbirou            #+#    #+#             */
-/*   Updated: 2024/10/02 21:44:31 by malbrech         ###   ########.fr       */
+/*   Updated: 2024/10/03 15:07:19 by malbrech         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,9 @@ int	main(int argc, char **argv)
 
 
 	// game.mlx = mlx_init(1240, 720, "Pookie3d", false);
-	game.mlx = mlx_init(1920, 1016, "Pookie3d", false);
+	game.mlx = mlx_init(SCREEN_W, SCREEN_H, "Pookie3d", false);
 	
-	game.screen = mlx_new_image(game.mlx, 1920, 1016);
+	game.screen = mlx_new_image(game.mlx,SCREEN_W, SCREEN_H);
 	mlx_image_to_window(game.mlx, game.screen, 0, 0);
 
 	mlx_key_hook(game.mlx, (void (*))cd_keys, (void *)&game);

@@ -3,25 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   init_game.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbirou <mbirou@student.42.fr>              +#+  +:+       +#+        */
+/*   By: malbrech <malbrech@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 09:57:40 by malbrech          #+#    #+#             */
-/*   Updated: 2024/10/03 08:41:50 by mbirou           ###   ########.fr       */
+/*   Updated: 2024/10/03 16:20:51 by malbrech         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <cub3d_bonus.h>
 
-void	cd_init_player(t_map *map)
+void	cd_init_player(t_game *game)
 {
-	t_position	player;
+	t_data_player	player;
 
 	player.x = -1;
 	player.y = -1;
 	player.view = -1;
 	player.height = 0.1;
 	player.pitch = 0;
-	map->player = player;
+	player.speed = WALKING_SPEED;
+	player.coeff = 41;
+	game->player = player;
 }
 
 void	cd_init_map(t_game *game, char *map_file)
@@ -34,7 +36,6 @@ void	cd_init_map(t_game *game, char *map_file)
 	map.height = 0;
 	map.width = 0;
 	map.fov = M_PI / 3.;
-	cd_init_player(&map);
 	game->map = map;
 }
 
@@ -89,9 +90,9 @@ t_game	cd_init_structs(char *map_file)
 	t_game	game;
 
 	cd_init_map(&game, map_file);
+	cd_init_player(&game);
 	cd_init_rays(&game);
 	cd_init_graphic(&game);
 	cd_init_keys(&game);
-	cd_init_data_infos(&game);
 	return (game);
 }

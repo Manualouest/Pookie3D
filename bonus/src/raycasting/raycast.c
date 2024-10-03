@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycast.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbirou <mbirou@student.42.fr>              +#+  +:+       +#+        */
+/*   By: malbrech <malbrech@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 13:23:18 by mbirou            #+#    #+#             */
-/*   Updated: 2024/10/03 07:44:49 by mbirou           ###   ########.fr       */
+/*   Updated: 2024/10/03 16:11:31 by malbrech         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,28 +14,28 @@
 
 void	cd_init_ray_vars(t_game *game, t_ray_info *ray)
 {
-	ray->x = (int)game->map.player.x;
-	ray->y = (int)game->map.player.y;
+	ray->x = (int)game->player.x;
+	ray->y = (int)game->player.y;
 	ray->dx = cos(ray->angle);
 	ray->dy = sin(ray->angle);
 	ray->delta_dx = fabs(1. / ray->dx);
 	ray->delta_dy = fabs(1. / ray->dy);
 	ray->step_x = 1;
-	ray->side_dx = (ray->x + 1. - game->map.player.x) * ray->delta_dx;
+	ray->side_dx = (ray->x + 1. - game->player.x) * ray->delta_dx;
 	if (ray->dx < 0)
 	{
 		ray->step_x = -1;
-		ray->side_dx = (game->map.player.x - ray->x) * ray->delta_dx;
+		ray->side_dx = (game->player.x - ray->x) * ray->delta_dx;
 	}
 	ray->step_y = 1;
-	ray->side_dy = (ray->y + 1. - game->map.player.y) * ray->delta_dy;
+	ray->side_dy = (ray->y + 1. - game->player.y) * ray->delta_dy;
 	if (ray->dy < 0)
 	{
 		ray->step_y = -1;
-		ray->side_dy = (game->map.player.y - ray->y) * ray->delta_dy;
+		ray->side_dy = (game->player.y - ray->y) * ray->delta_dy;
 	}
 	ray->side = 0;
-	ray->effect = cos(cd_clamp(game->map.player.view - ray->angle, 0.,
+	ray->effect = cos(cd_clamp(game->player.view - ray->angle, 0.,
 					2. * M_PI));
 }
 
@@ -115,7 +115,7 @@ void	cd_render(void *vgame)
 	i = -1;
 	while (++i < ((int)game->screen->width - 1))
 	{
-		game->rays.angle = (game->map.player.view - (game->map.fov / 2.)
+		game->rays.angle = (game->player.view - (game->map.fov / 2.)
 			+ i * (game->map.fov / ((float)game->screen->width - 1.)));
 		game->rays.angle = cd_clamp(game->rays.angle, 0., 2. * M_PI);
 		cd_cast_ray(game, &game->rays);
