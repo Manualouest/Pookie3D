@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_walls.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malbrech <malbrech@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbirou <mbirou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 14:00:37 by mbirou            #+#    #+#             */
-/*   Updated: 2024/10/02 23:34:36 by malbrech         ###   ########.fr       */
+/*   Updated: 2024/10/03 07:46:17 by mbirou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,3 +59,19 @@ void	cd_draw_walls(t_game *game, t_ray_info *ray, int x)
 	while (++y < (int)game->screen->height - 1)
 		mlx_put_pixel(game->screen, x, y, game->graphic.f);
 }
+
+void	cd_draw_c_f(t_game *game, int x)
+{
+	int	y;
+	int	mid;
+
+	y = -1;
+	mid = (game->graphic.height ) / 2.
+		+ (((float)game->graphic.height - 1.) / 2.) * game->map.player.pitch;
+	while (++y < mid)
+		mlx_put_pixel(game->screen, x, y, game->graphic.c);
+	y --;
+	while (++y < game->graphic.height)
+		mlx_put_pixel(game->screen, x, y, game->graphic.f);
+}
+

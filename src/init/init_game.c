@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_game.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malbrech <malbrech@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbirou <mbirou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 09:57:40 by malbrech          #+#    #+#             */
-/*   Updated: 2024/10/01 18:18:48 by malbrech         ###   ########.fr       */
+/*   Updated: 2024/10/03 07:36:37 by mbirou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ void	cd_init_rays(t_game *game)
 	rays.side = 0;
 	rays.step_x = 0;
 	rays.step_y = 0;
+	rays.effect = 0;
 	game->rays = rays;
 }
 
@@ -77,8 +78,8 @@ void	cd_init_graphic(t_game *game)
 	graphic.paths[4] = NULL;
 	graphic.paths[5] = NULL;
 	graphic.paths[6] = NULL;
-	graphic.width = 0;
-	graphic.height = 0;
+	graphic.width = 1920;
+	graphic.height = 1016;
 	graphic.dim_id = -1;
 	game->graphic = graphic;
 }

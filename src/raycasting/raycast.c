@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycast.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malbrech <malbrech@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbirou <mbirou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 13:23:18 by mbirou            #+#    #+#             */
-/*   Updated: 2024/10/01 19:16:35 by malbrech         ###   ########.fr       */
+/*   Updated: 2024/10/03 07:49:55 by mbirou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,13 +35,17 @@ void	cd_init_ray_vars(t_game *game, t_ray_info *ray)
 		ray->side_dy = (game->map.player.y - ray->y) * ray->delta_dy;
 	}
 	ray->side = 0;
+	ray->effect = cos(cd_clamp(game->map.player.view - ray->angle, 0.,
+					2. * M_PI));
 }
 
 void	cd_ray_loop(t_game *game, t_ray_info *ray)
 {
 	while (ray->x > 0 && ray->x < game->map.width
 		&& ray->y > 0 && ray->y < game->map.height
-		&& game->map.map[(int)ray->y][(int)ray->x] == '0')
+		&& game->map.map[(int)ray->y][(int)ray->x] == '0'
+		&& (ray->side_dx - ray->delta_dx) * ray->effect < 501
+		&& (ray->side_dy - ray->delta_dy) * ray->effect < 501)
 	{
 		if (ray->side_dx < ray->side_dy)
 		{
@@ -64,12 +68,12 @@ void	cd_ray_loop(t_game *game, t_ray_info *ray)
 
 void	cd_cast_ray(t_game *game, t_ray_info *ray)
 {
-	float	effect;
-
 	cd_init_ray_vars(game, ray);
 	cd_ray_loop(game, ray);
-	effect = cos(cd_clamp(game->map.player.view - ray->angle, 0., 2. * M_PI));
-	ray->wall_height = 1000. / (floor(ray->distance * effect * 1000.) / 1000.);
+	ray->wall_height = 1000. / (floor(ray->distance * ray->effect * 1000.)
+						/ 1000.);
+	if (ray->wall_height < 2)
+		ray->wall_height = 0;
 }
 
 mlx_image_t	*cd_slow_raycast(t_game *game, struct timeval start_time,
@@ -115,7 +119,10 @@ void	cd_render(void *vgame)
 			+ i * (game->map.fov / ((float)game->screen->width - 1.)));
 		game->rays.angle = cd_clamp(game->rays.angle, 0., 2. * M_PI);
 		cd_cast_ray(game, &game->rays);
-		cd_draw_walls(game, &game->rays, i);
+		if (game->rays.wall_height != 0)
+			cd_draw_walls(game, &game->rays, i);
+		else
+			cd_draw_c_f(game, i);
 	}
 	cd_moove(game);
 	game->fps = cd_slow_raycast(game, time, 60);

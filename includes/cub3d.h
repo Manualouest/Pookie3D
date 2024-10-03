@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malbrech <malbrech@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbirou <mbirou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 11:27:38 by mbirou            #+#    #+#             */
-/*   Updated: 2024/10/01 19:20:23 by malbrech         ###   ########.fr       */
+/*   Updated: 2024/10/03 07:32:47 by mbirou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,7 @@ typedef struct s_ray_info
 	int		side;
 	int		step_x;
 	int		step_y;
+	float	effect;
 }            t_ray_info;
 
 typedef struct s_game
@@ -191,6 +192,7 @@ void		cd_render(void *vgame);
 
 // --draw_walls.c
 void		cd_draw_walls(t_game *game, t_ray_info *ray, int x);
+void		cd_draw_c_f(t_game *game, int x);
 
 // -----main-------------------------------------------------------------------
 // --error.c
