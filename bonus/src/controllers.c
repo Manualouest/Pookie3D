@@ -6,7 +6,7 @@
 /*   By: malbrech <malbrech@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 23:50:08 by malbrech          #+#    #+#             */
-/*   Updated: 2024/10/03 16:13:09 by malbrech         ###   ########.fr       */
+/*   Updated: 2024/10/03 17:03:01 by malbrech         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,26 +30,17 @@ void	player_height_controller(t_game *game)
 		&& !game->keys.space)
 		game->player.height = NORMAL_HEIGHT;
 }
+// Il reste le vertical a gerer attention fonction incomplete
+void    mouse_controller(t_game *game)
+{
+	int	x;
+	int	y;
+	int	screen_center_x = SCREEN_W / 2;
+	int	screen_center_y = SCREEN_H / 2;
 
-// void    mouse_controller(t_game *game)
-// {
-//     int    x;
-//     int    y;
-//     int    screen_center_x = SCREEN_W / 2;  // Le centre de l'écran en X
-//     int    screen_center_y = SCREEN_H / 2;  // Le centre de l'écran en Y
-
-//     // Récupérer la position actuelle de la souris
-//     mlx_get_mouse_pos(data->mlx, data->win, &x, &y);
-
-//     // Calcul de la différence entre la position actuelle de la souris et le centre de l'écran
-//     int delta_x = x - screen_center_x;
-//     int delta_y = y - screen_center_y;
-
-//     // Mettre à jour l'angle du joueur en fonction de delta_x
-//     data->player->angle += delta_x * ROTATE_SPEED;
-
-//     // Vous pouvez aussi faire un traitement pour delta_y si vous avez un axe de pitch (haut-bas)
-
-//     // Recentrer la souris au milieu de l'écran
-//     mlx_set_mouse_pos(data->mlx, data->win, screen_center_x, screen_center_y);
-// }
+	mlx_get_mouse_pos(game->mlx, &x, &y);
+	int delta_x = x - screen_center_x;
+	int delta_y = y - screen_center_y;
+	game->player.view += delta_x * ROTATE_SPEED;
+	mlx_set_mouse_pos(game->mlx, screen_center_x, screen_center_y);
+}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   keys.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbirou <mbirou@student.42.fr>              +#+  +:+       +#+        */
+/*   By: malbrech <malbrech@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 10:21:02 by malbrech          #+#    #+#             */
-/*   Updated: 2024/10/03 08:48:29 by mbirou           ###   ########.fr       */
+/*   Updated: 2024/10/03 16:47:16 by malbrech         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ void	cd_moove(t_game *game)
 	cd_moove_right(game);
 	cd_jump(game);
 	cd_camera(game);
+	mouse_controller(game);
 }
 
 void	cd_directions_conditions(mlx_key_data_t keydata, t_game *game)
