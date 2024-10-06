@@ -6,7 +6,7 @@
 /*   By: mbirou <mbirou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 10:05:39 by malbrech          #+#    #+#             */
-/*   Updated: 2024/10/02 21:23:22 by mbirou           ###   ########.fr       */
+/*   Updated: 2024/10/02 21:24:52 by mbirou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	cd_free_int_tab(int **tab)
 	int	len;
 
 	i = -1;
-	len = tab[0][1];
+	len = tab[0][1] + 2;
 	while (++i <= len)
 		free(tab[i]);
 	free(tab);

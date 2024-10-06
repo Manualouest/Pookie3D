@@ -83,7 +83,7 @@ void	cd_img_to_int(t_textures *graphic)
 	int				i;
 
 	i = -1;
-	while (graphic->paths && graphic->paths[++i] && i <= 5)
+	while (graphic->paths[++i] && i <= 5)
 	{
 		if (i <= 3)
 			txt = mlx_load_png(graphic->paths[i]);
