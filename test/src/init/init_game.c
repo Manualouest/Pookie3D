@@ -6,7 +6,7 @@
 /*   By: mbirou <mbirou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 09:57:40 by malbrech          #+#    #+#             */
-/*   Updated: 2024/10/03 07:36:37 by mbirou           ###   ########.fr       */
+/*   Updated: 2024/10/06 15:57:40 by mbirou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,6 @@ void	cd_init_graphic(t_game *game)
 	graphic.paths[6] = NULL;
 	graphic.width = 1920;
 	graphic.height = 1016;
-	graphic.dim_id = -1;
 	game->graphic = graphic;
 }
 

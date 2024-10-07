@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_walls.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbirou <manutea.birou@gmail.com>           +#+  +:+       +#+        */
+/*   By: mbirou <mbirou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 14:00:37 by mbirou            #+#    #+#             */
-/*   Updated: 2024/10/06 14:31:34 by mbirou           ###   ########.fr       */
+/*   Updated: 2024/10/06 17:34:27 by mbirou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,29 @@ int	**cd_get_texture(t_game *game, t_ray_info *ray)
 	return (texture);
 }
 
+void	cd_draw_floor(t_game *game, t_ray_info *ray, int x, int down)
+{
+	float	dist;
+	float	weight;
+	float	floorx;
+	float	floory;
+	int		ftextx;
+	int		ftexty;
+	int		y;
+
+	y = down;
+	while (++y < game->graphic.height)
+	{
+		dist = y - down;
+		weight = dist / ray->wall_height;
+		floorx = weight * floor(ray->x) + (1. - weight) * (float)game->map.player.x;
+		floory = weight * floor(ray->y) + (1. - weight) * (float)game->map.player.y;
+		ftextx = (int)(floorx * game->graphic.ea[0][0]) % game->graphic.ea[0][0];
+		ftexty = (int)(floory * game->graphic.ea[0][1]) % game->graphic.ea[0][1];
+		mlx_put_pixel(game->screen, x, y, game->graphic.ea[ftextx + 1][ftexty]);
+	}
+}
+
 void	cd_draw_walls(t_game *game, t_ray_info *ray, int x)
 {
 	int		**texture;
@@ -43,8 +66,7 @@ void	cd_draw_walls(t_game *game, t_ray_info *ray, int x)
 	texture = cd_get_texture(game, ray);
 	up = ((float)game->graphic.height - 1.) / 2. - ray->wall_height / 2.
 		+ (((float)game->graphic.height - 1.) / 2.) * game->map.player.pitch;
-	down = ((float)game->graphic.height - 1.) / 2. + ray->wall_height / 2.
-		+ (((float)game->graphic.height - 1.) / 2.) * game->map.player.pitch;
+	down = up + ray->wall_height;
 	y_ratio = (((float)texture[0][1]) / (float)(down - up));
 	y = -1;
 	while (++y < up && y < down)
@@ -52,10 +74,11 @@ void	cd_draw_walls(t_game *game, t_ray_info *ray, int x)
 	y --;
 	while (++y < down && y < (int)game->graphic.height - 1)
 		mlx_put_pixel(game->screen, x, y,
-			texture[(int)ray->t_x][(int)((float)(y - up + 1) * y_ratio)]);
-	y --;
-	while (++y < (int)game->graphic.height - 1)
-		mlx_put_pixel(game->screen, x, y, game->graphic.f);
+			texture[(int)ray->t_x + 1][(int)((float)(y - up) * y_ratio)]);
+	// y --;
+	// while (++y < (int)game->graphic.height - 1)
+	cd_draw_floor(game, ray, x, down);
+		// mlx_put_pixel(game->screen, x, y, game->graphic.f);
 }
 
 void	cd_draw_c_f(t_game *game, int x)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   img_to_int.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbirou <manutea.birou@gmail.com>           +#+  +:+       +#+        */
+/*   By: mbirou <mbirou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 11:45:54 by mbirou            #+#    #+#             */
-/*   Updated: 2024/10/06 13:34:44 by mbirou           ###   ########.fr       */
+/*   Updated: 2024/10/06 16:05:09 by mbirou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,13 +68,12 @@ int	**cd_extract_pixel(mlx_texture_t *txt, int is_flipped)
 		ii = -1;
 		while (++ii < (int)txt->height)
 		{
-			// if (!is_flipped)
+			if (!is_flipped)
 				pixels[i][ii] = cd_get_pixel_color(txt, i, ii);
-			// else
-			// 	pixels[i][ii] = cd_get_pixel_color(txt, i, pixels[0][0] - ii);
+			else
+				pixels[i][ii] = cd_get_pixel_color(txt, pixels[0][0] - i, ii);
 		}
 	}
-	(void)is_flipped;
 	return (pixels);
 }
 
@@ -129,5 +128,4 @@ void	cd_set_txt_dimmension(t_textures *graphic, int id)
 	while (txt[0][++i] != -1)
 		;
 	graphic->width = i;
-	graphic->dim_id = id;
 }
