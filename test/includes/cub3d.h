@@ -6,7 +6,7 @@
 /*   By: mbirou <mbirou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 11:27:38 by mbirou            #+#    #+#             */
-/*   Updated: 2024/10/06 15:04:17 by mbirou           ###   ########.fr       */
+/*   Updated: 2024/10/11 16:23:12 by mbirou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,10 @@ typedef struct s_position
 	float	view;
 	float	height;
 	float	pitch;
+	float	planex;
+	float	planey;
+	float	dirx;
+	float	diry;
 }	t_position;
 
 typedef struct s_map
@@ -76,7 +80,7 @@ typedef struct s_ray_info
 	float	x;
 	float	y;
 	float	t_x;
-	float	angle;
+	// float	angle;
 	float	distance;
 	float	wall_height;
 	double	dx;
@@ -88,7 +92,6 @@ typedef struct s_ray_info
 	int		side;
 	int		step_x;
 	int		step_y;
-	float	effect;
 }            t_ray_info;
 
 typedef struct s_game
@@ -200,7 +203,6 @@ void		cd_free_all(t_game *game);
 
 // --img_to_int.c
 void		cd_img_to_int(t_textures *graphic);
-void		cd_set_txt_dimmension(t_textures *graphic, int id);
 
 
 #endif

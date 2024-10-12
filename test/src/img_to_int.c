@@ -6,7 +6,7 @@
 /*   By: mbirou <mbirou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 11:45:54 by mbirou            #+#    #+#             */
-/*   Updated: 2024/10/06 16:05:09 by mbirou           ###   ########.fr       */
+/*   Updated: 2024/10/11 16:01:38 by mbirou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,29 +103,4 @@ void	cd_img_to_int(t_textures *graphic)
 			graphic->f = cd_create_rgba(graphic->paths[i]);
 		free(graphic->paths[i]);
 	}
-}
-
-void	cd_set_txt_dimmension(t_textures *graphic, int id)
-{
-	int	i;
-	int	**txt;
-
-	if (id == 0)
-		txt = graphic->no;
-	if (id == 1)
-		txt = graphic->so;
-	if (id == 2)
-		txt = graphic->we;
-	else
-		txt = graphic->ea;
-	i = -1;
-	while (txt[++i][0] != -1)
-		;
-	// 	printf("%d, %d, %x\n", i, txt[i][0], txt[i][0]);
-	// printf("stop %d, %d, %x\n", i, txt[i][0], txt[i][0]);
-	graphic->height = i;
-	i = -1;
-	while (txt[0][++i] != -1)
-		;
-	graphic->width = i;
 }

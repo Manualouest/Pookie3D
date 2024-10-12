@@ -3,21 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   raycast.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbirou <manutea.birou@gmail.com>           +#+  +:+       +#+        */
+/*   By: mbirou <mbirou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 13:23:18 by mbirou            #+#    #+#             */
-/*   Updated: 2024/10/06 14:29:56 by mbirou           ###   ########.fr       */
+/*   Updated: 2024/10/12 06:13:58 by mbirou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <cub3d.h>
 
-void	cd_init_ray_vars(t_game *game, t_ray_info *ray)
+void	cd_init_ray_vars(t_game *game, t_ray_info *ray, float x)
 {
+	float	cam_x;
+
 	ray->x = (int)game->map.player.x;
 	ray->y = (int)game->map.player.y;
-	ray->dx = cos(ray->angle);
-	ray->dy = sin(ray->angle);
+	cam_x = 2. * x / ((float)game->graphic.width - 1.);
+	ray->dx = game->map.player.dirx + (game->map.player.planex * cam_x - game->map.player.planex);
+	ray->dy = game->map.player.diry + (game->map.player.planey * cam_x - game->map.player.planey);
+	// mlx_put_pixel(game->screen, (int)(ray->dx * 100 + game->graphic.width / 2.), (int)(ray->dy * 100 + game->graphic.height / 2.), 0xFF0000FF);
 	ray->delta_dx = fabs(1. / ray->dx);
 	ray->delta_dy = fabs(1. / ray->dy);
 	ray->step_x = 1;
@@ -35,17 +39,15 @@ void	cd_init_ray_vars(t_game *game, t_ray_info *ray)
 		ray->side_dy = (game->map.player.y - ray->y) * ray->delta_dy;
 	}
 	ray->side = 0;
-	ray->effect = cos(cd_clamp(game->map.player.view - ray->angle, 0.,
-					2. * M_PI));
 }
 
 void	cd_ray_loop(t_game *game, t_ray_info *ray)
 {
 	while (ray->x > 0 && ray->x < game->map.width
 		&& ray->y > 0 && ray->y < game->map.height
-		&& game->map.map[(int)ray->y][(int)ray->x] == '0'
-		&& (ray->side_dx - ray->delta_dx) * ray->effect < 501
-		&& (ray->side_dy - ray->delta_dy) * ray->effect < 501)
+		&& game->map.map[(int)ray->y][(int)ray->x] == game->map.map[(int)game->map.player.y][(int)game->map.player.x]
+		&& (ray->side_dx - ray->delta_dx) < (float)game->graphic.height / 2.
+		&& (ray->side_dy - ray->delta_dy) < (float)game->graphic.height / 2.)
 	{
 		if (ray->side_dx < ray->side_dy)
 		{
@@ -66,12 +68,11 @@ void	cd_ray_loop(t_game *game, t_ray_info *ray)
 		ray->distance = ray->side_dy - ray->delta_dy;
 }
 
-void	cd_cast_ray(t_game *game, t_ray_info *ray)
+void	cd_cast_ray(t_game *game, t_ray_info *ray, int x)
 {
-	cd_init_ray_vars(game, ray);
+	cd_init_ray_vars(game, ray, x);
 	cd_ray_loop(game, ray);
-	ray->wall_height = 1000. / (floor(ray->distance * ray->effect * 1000.)
-						/ 1000.);
+	ray->wall_height = (float)game->graphic.height / ray->distance;
 	if (ray->wall_height < 2)
 		ray->wall_height = 0;
 }
@@ -106,23 +107,20 @@ void	cd_render(void *vgame)
 {
 	struct timeval	time;
 	t_game	*game;
-	int		i;
+	int		x;
 
 	gettimeofday(&time, NULL);
 	game = (t_game *)vgame;
 	if (game->fps)
 		mlx_delete_image(game->mlx, game->fps);
-	i = -1;
-	while (++i < ((int)game->screen->width - 1))
+	x = -1;
+	while (++x < ((int)game->graphic.width - 1))
 	{
-		game->rays.angle = (game->map.player.view - (game->map.fov / 2.)
-			+ i * (game->map.fov / ((float)game->screen->width - 1.)));
-		game->rays.angle = cd_clamp(game->rays.angle, 0., 2. * M_PI);
-		cd_cast_ray(game, &game->rays);
+		cd_cast_ray(game, &game->rays, x);
 		if (game->rays.wall_height != 0)
-			cd_draw_walls(game, &game->rays, i);
+			cd_draw_walls(game, &game->rays, x);
 		else
-			cd_draw_c_f(game, i);
+			cd_draw_c_f(game, x);
 	}
 	cd_moove(game);
 	game->fps = cd_slow_raycast(game, time, 1000);

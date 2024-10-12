@@ -6,7 +6,7 @@
 /*   By: mbirou <mbirou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 14:00:37 by mbirou            #+#    #+#             */
-/*   Updated: 2024/10/06 17:34:27 by mbirou           ###   ########.fr       */
+/*   Updated: 2024/10/12 06:11:15 by mbirou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,8 @@ void	cd_draw_floor(t_game *game, t_ray_info *ray, int x, int down)
 	}
 }
 
+
+
 void	cd_draw_walls(t_game *game, t_ray_info *ray, int x)
 {
 	int		**texture;
@@ -75,10 +77,11 @@ void	cd_draw_walls(t_game *game, t_ray_info *ray, int x)
 	while (++y < down && y < (int)game->graphic.height - 1)
 		mlx_put_pixel(game->screen, x, y,
 			texture[(int)ray->t_x + 1][(int)((float)(y - up) * y_ratio)]);
-	// y --;
-	// while (++y < (int)game->graphic.height - 1)
-	cd_draw_floor(game, ray, x, down);
-		// mlx_put_pixel(game->screen, x, y, game->graphic.f);
+	y --;
+	while (++y < (int)game->graphic.height - 1)
+		mlx_put_pixel(game->screen, x, y, game->graphic.f);
+	// cd_draw_floor(game, ray, x, down);
+	// test(game);
 }
 
 void	cd_draw_c_f(t_game *game, int x)

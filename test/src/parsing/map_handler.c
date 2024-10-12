@@ -6,23 +6,43 @@
 /*   By: mbirou <mbirou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 12:01:16 by mbirou            #+#    #+#             */
-/*   Updated: 2024/09/27 10:43:23 by mbirou           ###   ########.fr       */
+/*   Updated: 2024/10/12 06:01:57 by mbirou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <cub3d.h>
 
-float	cd_set_orientation(char o)
+void	cd_set_orientation(t_game *game, char o)
 {
 	if (o == 'N')
-		return (1.5 * M_PI + 0.01);
-	if (o == 'S')
-		return (0.5 * M_PI + 0.01);
-	if (o == 'W')
-		return (M_PI + 0.01);
-	if (o == 'E')
-		return (0.01);
-	return (-1);
+	{
+		// game->map.player.view = (1.5 * M_PI + 0.01);
+		game->map.player.dirx = 0;
+		game->map.player.diry = 1;
+	}
+	else if (o == 'S')
+	{
+		// game->map.player.view = (0.5 * M_PI + 0.01);
+		game->map.player.dirx = 0;
+		game->map.player.diry = -1;
+	}
+	else if (o == 'W')
+	{
+		// game->map.player.view = (M_PI + 0.01);
+		game->map.player.dirx = -1;
+		game->map.player.diry = 0;
+	}
+	else
+	{
+		// game->map.player.view = (0.01);
+		game->map.player.dirx = 1;
+		game->map.player.diry = 0;
+	}
+	// float line_length = tan(66. / 2. * (M_PI / 180.));
+	// float plane = set_vector(line_length *
+	// 	-cb->player.facing.y, line_length * cb->player.facing.x);
+	game->map.player.planex = 0.9549296585499998935 * game->map.player.diry;// + ((game->map.player.diry + game->map.player.dirx) * 0.5);
+	game->map.player.planey = 0.9549296585499998935 * game->map.player.dirx;// + ((game->map.player.diry + game->map.player.dirx) * 0.5);
 }
 
 void	cd_setup_map(char	*line, t_game *game)
@@ -38,7 +58,7 @@ void	cd_setup_map(char	*line, t_game *game)
 		{
 			game->map.player.x = i + 0.5;
 			game->map.player.y = game->map.height + 0.5;
-			game->map.player.view = cd_set_orientation(line[i]);
+			cd_set_orientation(game, line[i]);
 			line[i] = '0';
 		}
 		else if (line[i] != ' ' && line[i] != '0' && line[i] != '1')

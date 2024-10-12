@@ -6,7 +6,7 @@
 /*   By: mbirou <mbirou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 09:57:40 by malbrech          #+#    #+#             */
-/*   Updated: 2024/10/06 15:57:40 by mbirou           ###   ########.fr       */
+/*   Updated: 2024/10/11 18:51:07 by mbirou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ void	cd_init_player(t_map *map)
 	player.view = -1;
 	player.height = 0.5;
 	player.pitch = 0;
+	player.planex = 0.;
+	player.planey = 0.66;
 	map->player = player;
 }
 
@@ -45,7 +47,6 @@ void	cd_init_rays(t_game *game)
 	rays.x = 0;
 	rays.y = 0;
 	rays.t_x = 0;
-	rays.angle = 0;
 	rays.distance = 0;
 	rays.wall_height = 0;
 	rays.dx = 0;
@@ -57,7 +58,6 @@ void	cd_init_rays(t_game *game)
 	rays.side = 0;
 	rays.step_x = 0;
 	rays.step_y = 0;
-	rays.effect = 0;
 	game->rays = rays;
 }
 
