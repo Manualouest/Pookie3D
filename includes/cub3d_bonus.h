@@ -6,7 +6,7 @@
 /*   By: malbrech <malbrech@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 11:27:38 by mbirou            #+#    #+#             */
-/*   Updated: 2024/10/03 16:53:13 by malbrech         ###   ########.fr       */
+/*   Updated: 2024/10/15 08:34:30 by malbrech         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,7 +131,7 @@ typedef enum e_ids
 # define CROUCH_SPEED 0.03
 # define WALKING_SPEED 0.1
 # define CAMERA_SPEED 0.03
-# define ROTATE_SPEED 0.0000001
+# define ROTATE_SPEED 0.0025
 
 //--Heights
 # define CROUCH_HEIGHT -0.1

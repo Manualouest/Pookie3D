@@ -90,31 +90,40 @@ B_OBJ = $(patsubst %, $(B_OBJ_DIR)%, $(B_OBJ_NAME))
 
 # Compilation
 
-all: libmlx $(NAME)
+all: MLX $(NAME)
 
-libmlx:
-	@cmake $(LIBMLX) -B $(LIBMLX)/build && make -C $(LIBMLX)/build -j4
+MLX :
+	@if ls | grep -q "MLX42"; then \
+		clear; \
+		echo "\033[32;47;1m** MLX42 already exist **\033[1;m"; \
+	else \
+		git clone https://github.com/codam-coding-college/MLX42.git; \
+		cmake ./MLX42 -B ./MLX42/build; \
+		make -C ./MLX42/build --no-print-directory -j4; \
+		make --directory ./MLX42/build; \
+	fi
 
 $(OBJ_DIR)%.o:$(SRC_DIR)%.c
 	@mkdir -p $(dir $@)
-	gcc $(CFLAGS) $< $(INCLUDES) -c -o $@
+	@gcc $(CFLAGS) $< $(INCLUDES) -c -o $@
 
 $(B_OBJ_DIR)%.o:$(B_SRC_DIR)%.c
 	@mkdir -p $(dir $@)
-	gcc $(CFLAGS) $< $(INCLUDES) -c -o $@
+	@gcc $(CFLAGS) $< $(INCLUDES) -c -o $@
 
 $(LIBFT) :
 	@ $(MAKE) -C includes/libft all --no-print-directory
 
-$(NAME): $(LIBFT) $(OBJ)
-	gcc -o $(NAME) $(CFLAGS) $(OBJ) $(INCLUDES) $(LIBFT) $(LIBS)
+$(NAME): MLX $(LIBFT) $(OBJ)
+	@gcc -o $(NAME) $(CFLAGS) $(OBJ) $(INCLUDES) $(LIBFT) $(LIBS)
+	@echo "\033[32;47;1m** FINISH **\033[1;m"
 
-bonus: libmlx $(LIBFT) $(B_OBJ)
-	gcc -o $(B_NAME) $(CFLAGS) $(B_OBJ) $(INCLUDES) $(LIBFT) $(LIBS)
+bonus: MLX  $(LIBFT) $(B_OBJ)
+	@gcc -o $(B_NAME) $(CFLAGS) $(B_OBJ) $(INCLUDES) $(LIBFT) $(LIBS)
+	@echo "\033[32;47;1m** FINISH BONUS **\033[1;m"
 
 clean:
 	@ $(MAKE) -C includes/libft clean --no-print-directory
-	@rm -rf $(LIBMLX)/build
 	rm -rf $(OBJ_DIR) $(B_OBJ_DIR)
 
 fclean: clean
@@ -123,4 +132,7 @@ fclean: clean
 
 re: fclean all
 
-bre: fclean bonus
+end: 
+	rm -rf MLX42
+
+bruh: fclean bonus

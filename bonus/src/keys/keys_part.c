@@ -6,7 +6,7 @@
 /*   By: malbrech <malbrech@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 17:08:13 by malbrech          #+#    #+#             */
-/*   Updated: 2024/10/03 16:19:34 by malbrech         ###   ########.fr       */
+/*   Updated: 2024/10/15 14:32:15 by malbrech         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,44 +14,96 @@
 
 void	cd_moove_forward(t_game *game)
 {
+	float	testx;
+	float	testy;
 	if (game->keys.w == 1)
 	{
-		game->player.x += cos(game->player.view)
+		testx = game->player.x + cos(game->player.view)
 			* game->player.speed;
-		game->player.y += sin(game->player.view)
+		testy = game->player.y + sin(game->player.view)
 			* game->player.speed;
+		if (game->map.map[(int)testy][(int)game->player.x] == '1')
+		{
+			if (game->map.map[(int)game->player.y][(int)testx] == '1')
+				return ;
+			game->player.x = testx;
+			return ;
+		}
+		game->player.y = testy;
+		if (game->map.map[(int)game->player.y][(int)testx] == '1')
+			return ;
+		game->player.x = testx;
 	}
 }
 void	cd_moove_backward(t_game *game)
 {
+	float	testx;
+	float	testy;
 	if (game->keys.s == 1)
 	{
-		game->player.x -= cos(game->player.view)
+		testx = game->player.x - cos(game->player.view)
 			* game->player.speed;
-		game->player.y -= sin(game->player.view)
+		testy = game->player.y - sin(game->player.view)
 			* game->player.speed;
+		if (game->map.map[(int)testy][(int)game->player.x] == '1')
+		{
+			if (game->map.map[(int)game->player.y][(int)testx] == '1')
+				return ;
+			game->player.x = testx;
+			return ;
+		}
+		game->player.y = testy;
+		if (game->map.map[(int)game->player.y][(int)testx] == '1')
+			return ;
+		game->player.x = testx;
 	}
 }
 
 void	cd_moove_left(t_game *game)
 {
+	float	testx;
+	float	testy;
 	if (game->keys.a == 1)
 	{
-		game->player.x -= cos(game->player.view + 0.5 * M_PI)
+		testx = game->player.x - cos(game->player.view + 0.5 * M_PI)
 			* game->player.speed;
-		game->player.y -= sin(game->player.view + 0.5 * M_PI)
+		testy = game->player.y - sin(game->player.view + 0.5 * M_PI)
 			* game->player.speed;
+		if (game->map.map[(int)testy][(int)game->player.x] == '1')
+		{
+			if (game->map.map[(int)game->player.y][(int)testx] == '1')
+				return ;
+			game->player.x = testx;
+			return ;
+		}
+		game->player.y = testy;
+		if (game->map.map[(int)game->player.y][(int)testx] == '1')
+			return ;
+		game->player.x = testx;
 	}
 }
 
 void	cd_moove_right(t_game *game)
 {
+	float	testx;
+	float	testy;
 	if (game->keys.d == 1)
 	{
-		game->player.x += cos(game->player.view + 0.5 * M_PI)
+		testx = game->player.x + cos(game->player.view + 0.5 * M_PI)
 			* game->player.speed;
-		game->player.y += sin(game->player.view + 0.5 * M_PI)
+		testy = game->player.y + sin(game->player.view + 0.5 * M_PI)
 			* game->player.speed;
+		if (game->map.map[(int)testy][(int)game->player.x] == '1')
+		{
+			if (game->map.map[(int)game->player.y][(int)testx] == '1')
+				return ;
+			game->player.x = testx;
+			return ;
+		}
+		game->player.y = testy;
+		if (game->map.map[(int)game->player.y][(int)testx] == '1')
+			return ;
+		game->player.x = testx;
 	}
 }
 
