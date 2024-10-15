@@ -6,7 +6,7 @@
 /*   By: malbrech <malbrech@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 23:50:08 by malbrech          #+#    #+#             */
-/*   Updated: 2024/10/15 10:06:29 by malbrech         ###   ########.fr       */
+/*   Updated: 2024/10/15 16:16:00 by malbrech         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,6 @@ void    mouse_controller(t_game *game)
 	int delta_x = x - screen_center_x;
 	int delta_y = y - screen_center_y;
 	game->player.view += delta_x * ROTATE_SPEED;
-	game->player.pitch -= delta_y * ROTATE_SPEED; // attention pour l'instant au segfault
+	game->player.pitch = cd_clamp_two(game->player.pitch - delta_y * ROTATE_SPEED, -0.75, 0.85);
 	mlx_set_mouse_pos(game->mlx, screen_center_x, screen_center_y);
 }

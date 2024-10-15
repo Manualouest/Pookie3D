@@ -6,20 +6,11 @@
 /*   By: malbrech <malbrech@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 10:21:02 by malbrech          #+#    #+#             */
-/*   Updated: 2024/10/03 16:47:16 by malbrech         ###   ########.fr       */
+/*   Updated: 2024/10/15 16:36:53 by malbrech         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <cub3d_bonus.h>
-
-/* Trucs a implementer pour le bonus :
-
-Define les vitesse du player:
-WALK | SPRINT
-
-Le jump et le sprint
-
-*/
 
 // Fonction qui gère les mouvements
 void	cd_keys(mlx_key_data_t keydata, t_game *game)
