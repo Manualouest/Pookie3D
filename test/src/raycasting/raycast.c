@@ -6,7 +6,7 @@
 /*   By: mbirou <mbirou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 13:23:18 by mbirou            #+#    #+#             */
-/*   Updated: 2024/10/12 06:13:58 by mbirou           ###   ########.fr       */
+/*   Updated: 2024/10/15 19:37:06 by mbirou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,13 @@ mlx_image_t	*cd_slow_raycast(t_game *game, struct timeval start_time,
 	return (img);
 	mlx_delete_image(game->mlx, img);
 }
+void	cd_setup_c_f_info(t_game *game)
+{
+	game->c_f_info.dirx0 = game->map.player.dirx - game->map.player.planex;
+	game->c_f_info.diry0 = game->map.player.diry - game->map.player.planey;
+	game->c_f_info.dirx1 = game->map.player.dirx + game->map.player.planex;
+	game->c_f_info.diry1 = game->map.player.diry + game->map.player.planey;
+}
 
 void	cd_render(void *vgame)
 {
@@ -113,6 +120,7 @@ void	cd_render(void *vgame)
 	game = (t_game *)vgame;
 	if (game->fps)
 		mlx_delete_image(game->mlx, game->fps);
+	cd_setup_c_f_info(game);
 	x = -1;
 	while (++x < ((int)game->graphic.width - 1))
 	{

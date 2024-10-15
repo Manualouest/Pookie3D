@@ -6,7 +6,7 @@
 /*   By: mbirou <mbirou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 11:27:38 by mbirou            #+#    #+#             */
-/*   Updated: 2024/10/11 16:23:12 by mbirou           ###   ########.fr       */
+/*   Updated: 2024/10/15 19:32:17 by mbirou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,16 @@ typedef struct s_ray_info
 	int		step_y;
 }            t_ray_info;
 
+typedef struct s_f_c_info
+{
+	float	dirx0;
+	float	diry0;
+	float	dirx1;
+	float	diry1;
+	int		mid;
+}			t_f_c_info;
+
+
 typedef struct s_game
 {
 	t_map		map;
@@ -101,6 +111,7 @@ typedef struct s_game
 	mlx_image_t	*screen;
 	mlx_image_t	*fps;
 	t_ray_info	rays;
+	t_f_c_info	c_f_info;
 	t_textures	graphic;
 	t_keys		keys;
 }	t_game;
