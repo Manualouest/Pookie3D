@@ -6,7 +6,7 @@
 /*   By: malbrech <malbrech@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 11:27:38 by mbirou            #+#    #+#             */
-/*   Updated: 2024/10/15 08:34:30 by malbrech         ###   ########.fr       */
+/*   Updated: 2024/10/16 15:56:19 by malbrech         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,12 @@
 # include <libft.h>
 
 /*------------------ STRUCTURES --------------------*/
+
+typedef struct s_position
+{
+	int	x;
+	int	y;
+}	t_position;
 
 typedef struct	s_textures
 {

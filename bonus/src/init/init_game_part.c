@@ -6,7 +6,7 @@
 /*   By: malbrech <malbrech@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 10:52:56 by mbirou            #+#    #+#             */
-/*   Updated: 2024/10/03 16:14:42 by malbrech         ###   ########.fr       */
+/*   Updated: 2024/10/16 15:48:00 by malbrech         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,4 +29,3 @@ void	cd_init_keys(t_game *game)
 	keys.ctrl = 0;
 	game->keys = keys;
 }
-

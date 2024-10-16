@@ -49,7 +49,8 @@ B_SRC_DIR = bonus/src/
 B_SRC_NAME = main.c\
 			error.c\
 			controllers.c\
-			img_to_int.c
+			img_to_int.c\
+			minimap.c
 
 B_SRC_NAME += parsing/parser.c\
 			parsing/check.c\
