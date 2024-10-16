@@ -6,7 +6,7 @@
 /*   By: mbirou <manutea.birou@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 14:00:37 by mbirou            #+#    #+#             */
-/*   Updated: 2024/10/16 09:34:23 by mbirou           ###   ########.fr       */
+/*   Updated: 2024/10/16 12:04:34 by mbirou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,30 @@ void	cd_draw_floor(t_game *game)
 	}
 }
 
-void	cd_draw_roof_floor(t_game *game, int y, int x, int type)
+int	cd_darken_color(uint32_t color, float amount)
+{
+	uint32_t	darkened;
+	uint32_t	rgb;
+
+	rgb = color >> 8;
+	amount /= 10.;
+	darkened = ((int)fmax((rgb >> 16) - 0x10 * amount, 0x00) << 16) + \
+		((int)fmax(((rgb & 0xff00) >> 8) - 0x10 * amount, 0x00) << 8) + \
+		(int)fmax(((rgb & 0xff) - 0x10 * amount), 0x00);
+	// printf("1: %X, 2:%X, 3:%X\n", color, darkened, rgb);
+	return (darkened << 8 | (color & 0xFF));
+	// int	r;
+	// int	g;
+	// int	b;
+
+	// r = ((color >> 24) & 0xFF) & (int)(0xFF * amount);
+	// g = ((color >> 16) & 0xFF) & (int)(0xFF * amount);
+	// b = ((color >> 8) & 0xFF) & (int)(0xFF * amount);
+	// // printf("1: %d, 2: %d\n", color, (r << 24 | g << 16 | b << 8 | (color & 0xFF)));
+	// return (r << 24 | g << 16 | b << 8 | (color & 0xFF));
+}
+
+void	cd_draw_roof_floor(t_game *game, float y, float x, int type)
 {
 	float	row_dist;
 	float	floorx;
@@ -94,7 +117,9 @@ void	cd_draw_roof_floor(t_game *game, int y, int x, int type)
 	floory += x * row_dist * game->c_f_info.stepxy;
 	tx = ((float)game->graphic.ea[0][0] * (floorx - floor(floorx)));
 	ty = ((float)game->graphic.ea[0][1] * (floory - floor(floory)));
-	mlx_put_pixel(game->screen, x, y, game->graphic.ea[tx + 1][ty]);
+	uint32_t color = cd_darken_color(game->graphic.ea[tx + 1][ty], game->c_f_info.mid / fabs(y - game->c_f_info.mid));
+	mlx_put_pixel(game->screen, x, y, color);
+	// mlx_put_pixel(game->screen, x, y, game->graphic.ea[tx + 1][ty]);
 }
 
 void	cd_draw_walls(t_game *game, t_ray_info *ray, int x)
@@ -119,7 +144,8 @@ void	cd_draw_walls(t_game *game, t_ray_info *ray, int x)
 	y --;
 	while (++y < down && y < (int)game->graphic.height)
 		mlx_put_pixel(game->screen, x, y,
-			texture[(int)ray->t_x + 1][(int)((float)(y - up) * y_ratio)]);
+			cd_darken_color(texture[(int)ray->t_x + 1][(int)((float)(y - up) * y_ratio)], game->graphic.height / ray->wall_height));
+			// texture[(int)ray->t_x + 1][(int)((float)(y - up) * y_ratio)]);
 	y --;
 	while (++y < (int)game->graphic.height)
 		cd_draw_roof_floor(game, y, x, 1);
