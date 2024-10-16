@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbirou <mbirou@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mbirou <manutea.birou@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 11:27:38 by mbirou            #+#    #+#             */
-/*   Updated: 2024/10/15 19:32:17 by mbirou           ###   ########.fr       */
+/*   Updated: 2024/10/16 09:31:31 by mbirou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,8 @@ typedef struct	s_textures
 	int		c;
 	int 	f;
 	char	*paths[7];
-	int		width;
-	int		height;
+	float	width;
+	float	height;
 }		t_textures;
 
 typedef struct s_position
@@ -100,7 +100,9 @@ typedef struct s_f_c_info
 	float	diry0;
 	float	dirx1;
 	float	diry1;
-	int		mid;
+	float	mid;
+	float	stepxx;
+	float	stepxy;
 }			t_f_c_info;
 
 

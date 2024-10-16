@@ -6,7 +6,7 @@
 /*   By: mbirou <manutea.birou@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 14:00:37 by mbirou            #+#    #+#             */
-/*   Updated: 2024/10/05 19:38:22 by mbirou           ###   ########.fr       */
+/*   Updated: 2024/10/16 09:30:50 by mbirou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,10 @@ void	cd_draw_walls(t_game *game, t_ray_info *ray, int x)
 	float	y_ratio;
 
 	texture = cd_get_texture(game, ray);
-	up = ((float)game->graphic.height - 1.) / 2. - ray->wall_height / 2.
-		+ (((float)game->graphic.height - 1.) / 2.) * game->map.player.pitch;
-	down = ((float)game->graphic.height - 1.) / 2. + ray->wall_height / 2.
-		+ (((float)game->graphic.height - 1.) / 2.) * game->map.player.pitch;
+	up = (game->graphic.height - 1.) / 2. - ray->wall_height / 2.
+		+ ((game->graphic.height - 1.) / 2.) * game->map.player.pitch;
+	down = (game->graphic.height - 1.) / 2. + ray->wall_height / 2.
+		+ ((game->graphic.height - 1.) / 2.) * game->map.player.pitch;
 	y_ratio = (((float)texture[0][1]) / (float)(down - up));
 	y = -1;
 	while (++y < up && y < down)
@@ -65,7 +65,7 @@ void	cd_draw_c_f(t_game *game, int x)
 
 	y = -1;
 	mid = (game->graphic.height ) / 2.
-		+ (((float)game->graphic.height - 1.) / 2.) * game->map.player.pitch;
+		+ ((game->graphic.height - 1.) / 2.) * game->map.player.pitch;
 	while (++y < mid)
 		mlx_put_pixel(game->screen, x, y, game->graphic.c);
  	y --;

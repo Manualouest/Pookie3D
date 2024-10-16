@@ -6,7 +6,7 @@
 /*   By: mbirou <manutea.birou@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 13:23:18 by mbirou            #+#    #+#             */
-/*   Updated: 2024/10/06 13:26:17 by mbirou           ###   ########.fr       */
+/*   Updated: 2024/10/16 09:30:50 by mbirou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,8 +128,8 @@ mlx_image_t	*cd_slow_raycast(t_game *game, struct timeval start_time,
 // 	rayDirX1 = cos(game->map.player.view + game->map.fov / 2.) + game->map.player.x;
 // 	rayDirY1 = sin(game->map.player.view + game->map.fov / 2.) + game->map.player.y;
 
-// 	p = y - ((float)game->graphic.height - 1.) / 2.
-// 		- (((float)game->graphic.height - 1.) / 2.) * game->map.player.pitch;;
+// 	p = y - (game->graphic.height - 1.) / 2.
+// 		- ((game->graphic.height - 1.) / 2.) * game->map.player.pitch;;
 
 // 	posZ = 0.5 * game->screen->width;
 // 	rowDistance = posZ / p;
