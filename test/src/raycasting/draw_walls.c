@@ -6,7 +6,7 @@
 /*   By: mbirou <manutea.birou@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 14:00:37 by mbirou            #+#    #+#             */
-/*   Updated: 2024/10/16 12:04:34 by mbirou           ###   ########.fr       */
+/*   Updated: 2024/10/17 13:55:15 by mbirou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,9 +83,13 @@ int	cd_darken_color(uint32_t color, float amount)
 
 	rgb = color >> 8;
 	amount /= 10.;
-	darkened = ((int)fmax((rgb >> 16) - 0x10 * amount, 0x00) << 16) + \
-		((int)fmax(((rgb & 0xff00) >> 8) - 0x10 * amount, 0x00) << 8) + \
-		(int)fmax(((rgb & 0xff) - 0x10 * amount), 0x00);
+	// darkened = ((int)fmax((rgb >> 16) - 0x10 * amount, 0x00) << 16) +
+	// 	((int)fmax(((rgb & 0xff00) >> 8) - 0x10 * amount, 0x00) << 8) +
+	// 	(int)fmax(((rgb & 0xff) - 0x10 * amount), 0x00);
+
+	darkened = (int)cd_clamp_two((rgb >> 16) - 0x10 * amount, 0, 0xFF) << 16;
+	darkened += (int)cd_clamp_two(((rgb & 0xff00) >> 8) - 0x10 * amount, 0, 0xFF) << 8;
+	darkened += (int)cd_clamp_two((rgb & 0xff) - 0x10 * amount, 0, 0xFF);
 	// printf("1: %X, 2:%X, 3:%X\n", color, darkened, rgb);
 	return (darkened << 8 | (color & 0xFF));
 	// int	r;

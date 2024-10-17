@@ -6,7 +6,7 @@
 /*   By: mbirou <manutea.birou@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 13:23:18 by mbirou            #+#    #+#             */
-/*   Updated: 2024/10/16 12:11:18 by mbirou           ###   ########.fr       */
+/*   Updated: 2024/10/17 13:54:34 by mbirou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,14 +116,14 @@ void	cd_setup_c_f_info(t_game *game)
 
 void	cd_render(void *vgame)
 {
-	// struct timeval	time;
+	struct timeval	time;
 	t_game	*game;
 	int		x;
 
-	// gettimeofday(&time, NULL);
+	gettimeofday(&time, NULL);
 	game = (t_game *)vgame;
-	// if (game->fps)
-	// 	mlx_delete_image(game->mlx, game->fps);
+	if (game->fps)
+		mlx_delete_image(game->mlx, game->fps);
 	cd_setup_c_f_info(game);
 	x = -1;
 	while (++x < ((int)game->graphic.width))
@@ -135,5 +135,5 @@ void	cd_render(void *vgame)
 			cd_draw_c_f(game, x);
 	}
 	cd_moove(game);
-	// game->fps = cd_slow_raycast(game, time, 1000);
+	game->fps = cd_slow_raycast(game, time, 1000);
 }

@@ -97,8 +97,8 @@ $(NAME): $(LIBFT) $(OBJ)
 
 clean:
 	@ $(MAKE) -C includes/libft clean --no-print-directory
-	@rm -rf $(LIBMLX)/build
 	rm -rf $(OBJ_DIR) $(B_OBJ_DIR)
+	# @rm -rf $(LIBMLX)/build
 
 fclean: clean
 	@ $(MAKE) -C includes/libft fclean --no-print-directory
