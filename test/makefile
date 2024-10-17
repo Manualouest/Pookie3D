@@ -42,7 +42,8 @@ SRC_NAME += keys/keys.c\
 			keys/keys_part.c
 
 SRC_NAME += raycasting/raycast.c\
-			raycasting/draw_walls.c
+			raycasting/draw_walls.c\
+			raycasting/make_floor.c
 
 SRC = $(addprefix $(SRC_DIR), $(SRC_NAME))
 

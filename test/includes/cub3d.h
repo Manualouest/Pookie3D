@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbirou <manutea.birou@gmail.com>           +#+  +:+       +#+        */
+/*   By: mbirou <mbirou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 11:27:38 by mbirou            #+#    #+#             */
-/*   Updated: 2024/10/16 11:31:43 by mbirou           ###   ########.fr       */
+/*   Updated: 2024/10/17 19:59:20 by mbirou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@
 # include <MLX42/MLX42.h>
 # include <libft.h>
 
+# include <pthread.h>
+
 /*------------------ STRUCTURES --------------------*/
 
 typedef struct	s_textures
@@ -37,6 +39,7 @@ typedef struct	s_textures
 	char	*paths[7];
 	float	width;
 	float	height;
+	float	up_op;
 }		t_textures;
 
 typedef struct s_position
@@ -96,15 +99,30 @@ typedef struct s_ray_info
 
 typedef struct s_f_c_info
 {
-	float	dirx0;
-	float	diry0;
-	float	dirx1;
-	float	diry1;
-	float	mid;
-	float	stepxx;
-	float	stepxy;
-}			t_f_c_info;
-
+	pthread_t		floor_maker;
+	float			dirx0;
+	float			diry0;
+	float			dirx1;
+	float			diry1;
+	float			stepx;
+	float			stepy;
+	float			floorx;
+	float			floory;
+	float			row_dst;
+	float			mid;
+	int				height;
+	int				width;
+	int				pos_x;
+	int				pos_y;
+	int				x;
+	int				y;
+	int				**floor_t;
+	int				**roof_t;
+	mlx_image_t		*floor;
+	int				floor_status;
+	int				game_status;
+	pthread_mutex_t	status_check;
+}					t_f_c_info;
 
 typedef struct s_game
 {
@@ -206,8 +224,14 @@ void	cd_camera_conditions(mlx_key_data_t keydata, t_game *game);
 void		cd_render(void *vgame);
 
 // --draw_walls.c
+void		cd_draw_floor(t_game *game);
+int			cd_darken_color(uint32_t color, float amount);
 void		cd_draw_walls(t_game *game, t_ray_info *ray, int x);
 void		cd_draw_c_f(t_game *game, int x);
+
+// --floor_maker.c
+int			cd_is_floor_done(t_f_c_info *info);
+void		cd_floor_maker(t_f_c_info *info);
 
 // -----main-------------------------------------------------------------------
 // --error.c
@@ -215,6 +239,7 @@ void		error_handler(char *ERR_MSG, t_game *game);
 void		cd_free_all(t_game *game);
 
 // --img_to_int.c
+int			**cd_extract_pixel(mlx_texture_t *txt, int is_flipped);
 void		cd_img_to_int(t_textures *graphic);
 
 

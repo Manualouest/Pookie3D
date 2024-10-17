@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_walls.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbirou <manutea.birou@gmail.com>           +#+  +:+       +#+        */
+/*   By: mbirou <mbirou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 14:00:37 by mbirou            #+#    #+#             */
-/*   Updated: 2024/10/17 13:55:15 by mbirou           ###   ########.fr       */
+/*   Updated: 2024/10/17 20:06:42 by mbirou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ int	cd_darken_color(uint32_t color, float amount)
 	uint32_t	rgb;
 
 	rgb = color >> 8;
-	amount /= 10.;
+	amount *= 0.1;
 	// darkened = ((int)fmax((rgb >> 16) - 0x10 * amount, 0x00) << 16) +
 	// 	((int)fmax(((rgb & 0xff00) >> 8) - 0x10 * amount, 0x00) << 8) +
 	// 	(int)fmax(((rgb & 0xff) - 0x10 * amount), 0x00);
@@ -113,19 +113,28 @@ void	cd_draw_roof_floor(t_game *game, float y, float x, int type)
 
 	if (!type)
 		return ;
-	row_dist = (game->graphic.height) / 2.
-		/ (y - game->c_f_info.mid + 0.01);
-	floorx = type * game->map.player.x + row_dist * game->c_f_info.dirx0;
-	floory = type * game->map.player.y + row_dist * game->c_f_info.diry0;
-	floorx += x * row_dist * game->c_f_info.stepxx;
-	floory += x * row_dist * game->c_f_info.stepxy;
+	row_dist = (game->graphic.height)
+		/ ((y - game->c_f_info.mid + 0.01) * 2.);
+	if (type == -1)
+	{
+		floorx = -game->map.player.x + row_dist * game->c_f_info.dirx0;
+		floory = -game->map.player.y + row_dist * game->c_f_info.diry0;
+	}
+	else
+	{
+		floorx = game->map.player.x + row_dist * game->c_f_info.dirx0;
+		floory = game->map.player.y + row_dist * game->c_f_info.diry0;
+	}
+	floorx += x * row_dist * game->c_f_info.stepx;
+	floory += x * row_dist * game->c_f_info.stepy;
 	tx = ((float)game->graphic.ea[0][0] * (floorx - floor(floorx)));
 	ty = ((float)game->graphic.ea[0][1] * (floory - floor(floory)));
-	uint32_t color = cd_darken_color(game->graphic.ea[tx + 1][ty], game->c_f_info.mid / fabs(y - game->c_f_info.mid));
-	mlx_put_pixel(game->screen, x, y, color);
-	// mlx_put_pixel(game->screen, x, y, game->graphic.ea[tx + 1][ty]);
+	mlx_put_pixel(game->screen, x, y, game->graphic.ea[tx + 1][ty]);
 }
-
+	// uint32_t color = game->graphic.ea[tx + 1][ty];
+	// uint32_t color = cd_darken_color(game->graphic.ea[tx + 1][ty], game->c_f_info.mid / fabs(y - game->c_f_info.mid));
+	// mlx_put_pixel(game->screen, x, y, game->graphic.ea[tx + 1][ty]);
+	
 void	cd_draw_walls(t_game *game, t_ray_info *ray, int x)
 {
 	int		**texture;
@@ -135,17 +144,19 @@ void	cd_draw_walls(t_game *game, t_ray_info *ray, int x)
 	float	y_ratio;
 
 	texture = cd_get_texture(game, ray);
-	up = (game->graphic.height) / 2. - ray->wall_height / 2.
-		+ ((game->graphic.height) / 2.) * game->map.player.pitch;
+	// up = (game->graphic.height) / 2. - ray->wall_height / 2.
+	// 	+ ((game->graphic.height) / 2.) * game->map.player.pitch;
+	up = game->graphic.up_op - ray->wall_height / 2.;
 	down = up + ray->wall_height;
 	y_ratio = (((float)texture[0][1]) / (float)(down - up));
 	y = -1;
-	game->c_f_info.mid = (int)((game->graphic.height) / 2.
-		+ ((game->graphic.height) / 2.) * game->map.player.pitch);
 	while (++y < up && y < down)
 		cd_draw_roof_floor(game, y, x, -1);
 		// mlx_put_pixel(game->screen, x, y, game->graphic.c);
 	y --;
+	// y = up - 1;
+	// if (y < 0)
+	// 	y = -1;
 	while (++y < down && y < (int)game->graphic.height)
 		mlx_put_pixel(game->screen, x, y,
 			cd_darken_color(texture[(int)ray->t_x + 1][(int)((float)(y - up) * y_ratio)], game->graphic.height / ray->wall_height));
@@ -168,10 +179,10 @@ void	cd_draw_c_f(t_game *game, int x)
 	mid = (game->graphic.height ) / 2.
 		+ ((game->graphic.height) / 2.) * game->map.player.pitch;
 	while (++y < mid)
-		cd_draw_roof_floor(game, y, x, -1);
-		// mlx_put_pixel(game->screen, x, y, game->graphic.c);
+		mlx_put_pixel(game->screen, x, y, game->graphic.c);
+		// cd_draw_roof_floor(game, y, x, -1);
 	y --;
 	while (++y < game->graphic.height)
-		cd_draw_roof_floor(game, y, x, 1);
-		// mlx_put_pixel(game->screen, x, y, game->graphic.f);
+		mlx_put_pixel(game->screen, x, y, game->graphic.f);
+		// cd_draw_roof_floor(game, y, x, 1);
 }
