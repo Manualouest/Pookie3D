@@ -6,7 +6,7 @@
 /*   By: malbrech <malbrech@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 09:54:35 by mbirou            #+#    #+#             */
-/*   Updated: 2024/10/15 14:08:05 by malbrech         ###   ########.fr       */
+/*   Updated: 2024/10/22 17:10:51 by malbrech         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ int	main(int argc, char **argv)
 	game.screen = NULL;
 	game.fps = NULL;
 	parser(&game);
+	cd_minimap(&game);
 	
 	cd_img_to_int(&game.graphic);
 

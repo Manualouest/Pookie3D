@@ -6,29 +6,23 @@
 /*   By: malbrech <malbrech@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 15:45:38 by malbrech          #+#    #+#             */
-/*   Updated: 2024/10/16 16:16:54 by malbrech         ###   ########.fr       */
+/*   Updated: 2024/10/22 17:24:16 by malbrech         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <cub3d_bonus.h>
-
-//a modifier pour faire la minimap
-void	cd_minimap_conditions(t_game *game, t_position pos, int *i, int *j)
+// a modifier encore une fois pour que ca fonctionne putain
+void	cd_minimap_conditions(t_game *game, t_position pos, int *i, int *ii)
 {
-	if (game->full[*i][*j] == '1')
-		ft_put_texture(game, "./texture/WOODA.png", pos.x, pos.y);
-	else if (game->full[*i][*j] == '0')
-		ft_put_texture(game, "./texture/Grass.png", pos.x, pos.y);
-	else if (game->full[*i][*j] == 'C')
-	{
-		ft_put_texture(game, "./texture/Grass.png", pos.x, pos.y);
-		ft_put_texture(game, "./texture/Coins.png", pos.x, pos.y);
-	}
-	else if (game->full[*i][*j] == 'P')
-		ft_put_texture(game, "./texture/Grass.png",
-			game->map.player.x, game->map.player.y);
-	else if (game->full[*i][*j] == 'E')
-		ft_put_texture(game, "./texture/exit.png", pos.x, pos.y);
+	if (game->map.map[*i][*ii] == '1')
+		mlx_put_pixel(game->screen, pos.x, pos.y, game->graphic.c);
+	else if (game->map.map[*i][*ii] == '0')
+		mlx_put_pixel(game->screen, pos.x, pos.y, game->graphic.c);
+	else if (game->map.map[*i][*ii] == 'N'
+				|| game->map.map[*i][*ii] == 'W'
+				|| game->map.map[*i][*ii] == 'E'
+				|| game->map.map[*i][*ii] == 'S')
+		mlx_put_pixel(game->screen, pos.x, pos.y, game->graphic.c);
 }
 
 //Fonction qui va faire la mini map
@@ -46,9 +40,9 @@ void	cd_minimap(t_game *game)
 		ii = 0;
 		while (game->map.map[i][ii] != 0)
 		{
-			cd_map_conditions(game, pos, &i, &ii);
+			cd_minimap_conditions(game, pos, &i, &ii);
 			pos.x += 64;
-			j++;
+			ii++;
 		}
 		pos.x = 0;
 		pos.y += 64;

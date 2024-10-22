@@ -6,7 +6,7 @@
 /*   By: malbrech <malbrech@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 11:27:38 by mbirou            #+#    #+#             */
-/*   Updated: 2024/10/16 15:56:19 by malbrech         ###   ########.fr       */
+/*   Updated: 2024/10/22 14:05:44 by malbrech         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -227,6 +227,11 @@ void		cd_render(void *vgame);
 // --draw_walls.c
 void		cd_draw_walls(t_game *game, t_ray_info *ray, int x);
 void		cd_draw_c_f(t_game *game, int x);
+
+// -----minimap----------------------------------------------------------------
+void		cd_minimap(t_game *game);
+void		cd_put_texture(t_game *game, char *path, int x, int y);
+void		cd_minimap_conditions(t_game *game, t_position pos, int *i, int *ii);
 
 // -----main-------------------------------------------------------------------
 // --error.c
