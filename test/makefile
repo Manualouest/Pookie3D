@@ -2,7 +2,7 @@
 
 NAME = cub3D
 
-CFLAGS = -Wall -Werror -Wextra -g
+CFLAGS = -Wall -Werror -Wextra -g -O3
 
 INCLUDES = -Iincludes/ -I$(LIBMLX)/include
 LIBFT = includes/libft/libft.a
@@ -15,25 +15,27 @@ LIBS = $(LIBMLX)/build/libmlx42.a -ldl -lglfw -pthread -lm
 SRC_DIR = src/
 SRC_NAME = main.c\
 			error.c\
-			img_to_int.c
+			img_to_int.c\
+			thread_utils.c
 
 SRC_NAME += parsing/parser.c\
 			parsing/check.c\
 			parsing/map_handler.c
 
-SRC_NAME += map_maker/map_maker_main.c\
-			map_maker/input_handler.c\
-			map_maker/map_editor.c\
-			map_maker/vars_setup.c\
-			map_maker/map_setup.c\
-			map_maker/utils.c\
-			map_maker/img_utils.c\
-			map_maker/setup_screens.c\
-			map_maker/rand_gen.c
+# SRC_NAME += map_maker/map_maker_main.c\
+# 			map_maker/input_handler.c\
+# 			map_maker/map_editor.c\
+# 			map_maker/vars_setup.c\
+# 			map_maker/map_setup.c\
+# 			map_maker/utils.c\
+# 			map_maker/img_utils.c\
+# 			map_maker/setup_screens.c\
+# 			map_maker/rand_gen.c
 
 SRC_NAME += utils/tab_utils.c\
 			utils/string_utils.c\
-			utils/math.c
+			utils/math.c\
+			utils/array_utils.c
 
 SRC_NAME += init/init_game.c\
 			init/init_game_part.c

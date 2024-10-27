@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycast.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbirou <mbirou@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mbirou <manutea.birou@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 13:23:18 by mbirou            #+#    #+#             */
-/*   Updated: 2024/10/17 20:04:50 by mbirou           ###   ########.fr       */
+/*   Updated: 2024/10/27 22:04:22 by mbirou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,11 @@ void	cd_init_ray_vars(t_game *game, t_ray_info *ray, float x)
 
 void	cd_ray_loop(t_game *game, t_ray_info *ray)
 {
-	while (ray->x > 0 && ray->x < game->map.width
-		&& ray->y > 0 && ray->y < game->map.height
-		&& game->map.map[(int)ray->y][(int)ray->x] == game->map.map[(int)game->map.player.y][(int)game->map.player.x]
-		&& (ray->side_dx - ray->delta_dx) < game->graphic.height / 5.
-		&& (ray->side_dy - ray->delta_dy) < game->graphic.height / 5.)
+	while (ray->x >= 0 && ray->x < game->map.width
+		&& ray->y >= 0 && ray->y < game->map.height
+		&& game->graphic.wmap[(int)ray->y][(int)ray->x] == 0
+		&& ((ray->side == 0 && ray->side_dx - ray->delta_dx < 33) //(game->graphic.height) * 0.5
+		|| (ray->side == 1 && ray->side_dy - ray->delta_dy < 33)))	 //(game->graphic.height) * 0.5))
 	{
 		if (ray->side_dx < ray->side_dy)
 		{
@@ -73,7 +73,7 @@ void	cd_cast_ray(t_game *game, t_ray_info *ray, int x)
 	cd_init_ray_vars(game, ray, x);
 	cd_ray_loop(game, ray);
 	ray->wall_height = game->graphic.height / ray->distance;
-	if (ray->wall_height <= 6)
+	if (ray->wall_height < 30)
 		ray->wall_height = 0;
 }
 
@@ -104,23 +104,23 @@ mlx_image_t	*cd_slow_raycast(t_game *game, struct timeval start_time,
 }
 void	cd_launch_floor(t_game *game)
 {
-	game->c_f_info.dirx0 = game->map.player.dirx - game->map.player.planex;
-	game->c_f_info.diry0 = game->map.player.diry - game->map.player.planey;
-	game->c_f_info.dirx1 = game->map.player.dirx + game->map.player.planex;
-	game->c_f_info.diry1 = game->map.player.diry + game->map.player.planey;
-	game->c_f_info.stepx = (game->c_f_info.dirx1 - game->c_f_info.dirx0)
+	game->c_f_info.dx0 = game->map.player.dirx - game->map.player.planex;
+	game->c_f_info.dy0 = game->map.player.diry - game->map.player.planey;
+	game->c_f_info.dx1 = game->map.player.dirx + game->map.player.planex;
+	game->c_f_info.dy1 = game->map.player.diry + game->map.player.planey;
+	game->c_f_info.stepx = (game->c_f_info.dx1 - game->c_f_info.dx0)
 		/ game->graphic.width;
-	game->c_f_info.stepy = (game->c_f_info.diry1 - game->c_f_info.diry0)
+	game->c_f_info.stepy = (game->c_f_info.dy1 - game->c_f_info.dy0)
 		/ game->graphic.width;
-	game->c_f_info.pos_x = game->map.player.x;
-	game->c_f_info.pos_y = game->map.player.y;
-	game->c_f_info.height = game->graphic.height;
-	game->c_f_info.width = game->graphic.width;
-	game->c_f_info.mid = (int)((game->graphic.height) / 2.
-		+ ((game->graphic.height) / 2.) * game->map.player.pitch);
-	// if (game->c_f_info.floor)
-	// 	mlx_delete_image(game->mlx, game->c_f_info.floor);
-	// game->c_f_info.floor = mlx_new_image(game->mlx, game->graphic.width,
+	// game->c_f_info.pos_x = game->map.player.x;
+	// game->c_f_info.pos_y = game->map.player.y;
+	// game->c_f_info.height = game->graphic.height;
+	// game->c_f_info.width = game->graphic.width;
+	game->c_f_info.mid = (int)(game->graphic.height
+		+ game->graphic.height * game->map.player.pitch) >> 1;
+	// if (game->c_f_info.img)
+	// 	mlx_delete_image(game->mlx, game->c_f_info.img);
+	// game->c_f_info.img = mlx_new_image(game->mlx, game->graphic.width,
 	// 	game->graphic.height);
 	// pthread_mutex_lock(&game->c_f_info.status_check);
 	// game->c_f_info.floor_status = 0;
@@ -138,10 +138,10 @@ void	cd_render(void *vgame)
 	if (game->fps)
 		mlx_delete_image(game->mlx, game->fps);
 	cd_launch_floor(game);
-	game->graphic.up_op = (game->graphic.height) / 2.
-		+ ((game->graphic.height) / 2.) * game->map.player.pitch;
-	// ft_memset(game->screen->pixels, 0, game->graphic.width * game->graphic.height * 4);
+	game->graphic.up_op = (game->graphic.height 
+		+ game->graphic.height * game->map.player.pitch) * 0.5;
 	x = -1;
+	mlx_resize_image(game->screen, game->graphic.width, game->graphic.height);
 	while (++x < ((int)game->graphic.width))
 	{
 		cd_cast_ray(game, &game->rays, x);
@@ -150,11 +150,7 @@ void	cd_render(void *vgame)
 		else
 			cd_draw_c_f(game, x);
 	}
-	// while (!cd_is_floor_done(&game->c_f_info))
-	// 	usleep(10);
-	// mlx_image_to_window(game->mlx, game->c_f_info.floor, 0, 0);
-	// game->c_f_info.floor->instances[0].z = 1;
+	mlx_resize_image(game->screen, game->graphic.width * game->graphic.width_mod, game->graphic.height);
 	cd_moove(game);
-	game->fps = cd_slow_raycast(game, time, 1000);
-	game->fps->instances[0].z = 3;
+	game->fps = cd_slow_raycast(game, time, 10000);
 }

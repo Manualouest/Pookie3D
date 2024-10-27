@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   img_to_int.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbirou <mbirou@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mbirou <manutea.birou@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 11:45:54 by mbirou            #+#    #+#             */
-/*   Updated: 2024/10/11 16:01:38 by mbirou           ###   ########.fr       */
+/*   Updated: 2024/10/25 10:52:20 by mbirou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,24 +83,12 @@ void	cd_img_to_int(t_textures *graphic)
 	int				i;
 
 	i = -1;
-	while (graphic->paths[++i] && i <= 5)
+	while (++i < 95)
 	{
-		if (i <= 3)
-			txt = mlx_load_png(graphic->paths[i]);
-		if (i == 0)
-			graphic->no = cd_extract_pixel(txt, 0);
-		else if (i == 1)
-			graphic->so = cd_extract_pixel(txt, 1);
-		else if (i == 2)
-			graphic->we = cd_extract_pixel(txt, 1);
-		else if (i == 3)
-			graphic->ea = cd_extract_pixel(txt, 0);
-		if (i <= 3)
-			mlx_delete_texture(txt);
-		else if (i == 4)
-			graphic->f = cd_create_rgba(graphic->paths[i]);
-		else if (i == 5)
-			graphic->f = cd_create_rgba(graphic->paths[i]);
+		if (graphic->slots[i] == 0)
+			continue ;
+		txt = mlx_load_png(graphic->paths[i]);
+		graphic->txts[i] = cd_extract_pixel(txt, 0);
 		free(graphic->paths[i]);
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: mbirou <manutea.birou@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 17:08:13 by malbrech          #+#    #+#             */
-/*   Updated: 2024/10/16 12:09:33 by mbirou           ###   ########.fr       */
+/*   Updated: 2024/10/24 23:12:33 by mbirou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,36 +14,64 @@
 
 void	cd_moove_forward(t_game *game)
 {
+	float	xcheck;
+	float	ycheck;
 	if (game->keys.w == 1)
 	{
-		game->map.player.x += game->map.player.dirx * 3. * game->mlx->delta_time;
-		game->map.player.y += game->map.player.diry * 3. * game->mlx->delta_time;
+		xcheck = game->map.player.x + game->map.player.dirx * 3. * game->mlx->delta_time;
+		ycheck = game->map.player.y + game->map.player.diry * 3. * game->mlx->delta_time;
+		if (!game->graphic.wmap[(int)ycheck][(int)xcheck])
+		{
+			game->map.player.x = xcheck;
+			game->map.player.y = ycheck;
+		}
 	}
 }
 void	cd_moove_backward(t_game *game)
 {
+	float	xcheck;
+	float	ycheck;
 	if (game->keys.s == 1)
 	{
-		game->map.player.x -= game->map.player.dirx * 3. * game->mlx->delta_time;
-		game->map.player.y -= game->map.player.diry * 3. * game->mlx->delta_time;
+		xcheck = game->map.player.x - game->map.player.dirx * 3. * game->mlx->delta_time;
+		ycheck = game->map.player.y - game->map.player.diry * 3. * game->mlx->delta_time;
+		if (!game->graphic.wmap[(int)ycheck][(int)xcheck])
+		{
+			game->map.player.x = xcheck;
+			game->map.player.y = ycheck;
+		}
 	}
 }
 
 void	cd_moove_left(t_game *game)
 {
+	float	xcheck;
+	float	ycheck;
 	if (game->keys.a == 1)
 	{
-		game->map.player.x -= (game->map.player.planex) * 3. * game->mlx->delta_time;
-		game->map.player.y -= (game->map.player.planey) * 3. * game->mlx->delta_time;
+		xcheck = game->map.player.x - (game->map.player.planex) * 3. * game->mlx->delta_time;
+		ycheck = game->map.player.y - (game->map.player.planey) * 3. * game->mlx->delta_time;
+		if (!game->graphic.wmap[(int)ycheck][(int)xcheck])
+		{
+			game->map.player.x = xcheck;
+			game->map.player.y = ycheck;
+		}
 	}
 }
 
 void	cd_moove_right(t_game *game)
 {
+	float	xcheck;
+	float	ycheck;
 	if (game->keys.d == 1)
 	{
-		game->map.player.x += (game->map.player.planex) * 3. * game->mlx->delta_time;
-		game->map.player.y += (game->map.player.planey) * 3. * game->mlx->delta_time;
+		xcheck = game->map.player.x + (game->map.player.planex) * 3. * game->mlx->delta_time;
+		ycheck = game->map.player.y + (game->map.player.planey) * 3. * game->mlx->delta_time;
+		if (!game->graphic.wmap[(int)ycheck][(int)xcheck])
+		{
+			game->map.player.x = xcheck;
+			game->map.player.y = ycheck;
+		}
 	}
 }
 

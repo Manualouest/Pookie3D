@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbirou <mbirou@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mbirou <manutea.birou@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 09:54:35 by mbirou            #+#    #+#             */
-/*   Updated: 2024/10/17 19:53:31 by mbirou           ###   ########.fr       */
+/*   Updated: 2024/10/27 21:56:00 by mbirou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@ int	main(int argc, char **argv)
 	t_game		game;
 	char		*map_file;
 
-	if (argc == 1)
-		map_file = cd_map_maker();
-	else
+	// if (argc == 1)
+	// 	map_file = cd_map_maker();
+	// else
 		map_file = ft_strdup(argv[1]);
 	if (!map_file)
 		return (0);
@@ -46,17 +46,18 @@ int	main(int argc, char **argv)
 
 	// game.mlx = mlx_init(1240, 720, "Pookie3d", false);
 	
-
-	// mlx_texture_t	*txt = mlx_load_png("./pngs/test.png");
-	// game.c_f_info.floor_t = cd_extract_pixel(txt, 0);
-	// mlx_delete_texture(txt);
-
-	// pthread_mutex_init(&game.c_f_info.status_check, NULL);
-	// game.c_f_info.floor_status = 1;
-	// game.c_f_info.game_status = 1;
-	// game.c_f_info.floor = NULL;
-	// pthread_create(&game.c_f_info.floor_maker, NULL, (void (*))cd_floor_maker,
-	// 	&game.c_f_info);
+	// int	j = -1;
+	// int	jj;
+	// while (game.graphic.fmap[++j][0] != -1)
+	// {
+	// 	jj = -1;
+	// 	printf("y: %d||", j);
+	// 	while (game.graphic.fmap[j][++jj] != -1)
+	// 		printf("%d", game.graphic.fmap[j][jj]);
+	// 	printf("||\n");
+	// }
+	// return (0);	
+	// cd_thread_init(&game);
 
 	game.mlx = mlx_init(game.graphic.width, game.graphic.height, "Pookie3d", true);
 	
@@ -64,16 +65,15 @@ int	main(int argc, char **argv)
 
 	game.screen = mlx_new_image(game.mlx, game.graphic.width, game.graphic.height);
 	mlx_image_to_window(game.mlx, game.screen, 0, 0);
-	game.screen->instances[0].z = 2;
+	// mlx_resize_image(game.screen, game.graphic.width, game.graphic.height);
+	// game.screen->instances[0].z = 2;
 	mlx_key_hook(game.mlx, (void (*))cd_keys, (void *)&game);
 	
 	mlx_loop_hook(game.mlx, cd_render, (void *)&game);
 	mlx_loop(game.mlx);
 
-	// pthread_mutex_lock(&game.c_f_info.status_check);
-	// (&game.c_f_info)->game_status = 0;
-	// pthread_mutex_unlock(&game.c_f_info.status_check);
-	// pthread_join(game.c_f_info.floor_maker, NULL);
+
+	// cd_thread_destroy(&game);
 
 	cd_free_all(&game);
 	//launch_game(game);

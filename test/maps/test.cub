@@ -1,7 +1,7 @@
 NO ./pngs/sillycat1.png
 SO ./pngs/sillycat2.png
 WE ./pngs/sillycat3.png
-EA ./pngs/sillycat4.png
+EA ./pngs/floor_hex.png
 C 190,190,190
 F 100,100,100
 11111111111111

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   keys.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malbrech <malbrech@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbirou <manutea.birou@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 10:21:02 by malbrech          #+#    #+#             */
-/*   Updated: 2024/10/01 19:21:08 by malbrech         ###   ########.fr       */
+/*   Updated: 2024/10/27 22:14:50 by mbirou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,16 @@ Le jump et le sprint
 // Fonction qui gère les mouvements
 void	cd_keys(mlx_key_data_t keydata, t_game *game)
 {
+	if (keydata.key == MLX_KEY_K && keydata.action == MLX_PRESS && game->graphic.width_mod > 1)
+	{
+		game->graphic.width_mod /= 2;
+		game->graphic.width *= 2;
+	}
+	else if (keydata.key == MLX_KEY_L && keydata.action == MLX_PRESS && game->graphic.width_mod < 128)
+	{
+		game->graphic.width_mod *= 2;
+		game->graphic.width /= 2;
+	}
 	if (keydata.key == MLX_KEY_ESCAPE && keydata.action == MLX_PRESS)
 		mlx_close_window(game->mlx);
 	cd_keys_conditions(keydata, game);

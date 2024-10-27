@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_game.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbirou <mbirou@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mbirou <manutea.birou@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 09:57:40 by malbrech          #+#    #+#             */
-/*   Updated: 2024/10/17 20:01:32 by mbirou           ###   ########.fr       */
+/*   Updated: 2024/10/27 21:55:24 by mbirou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,22 +64,28 @@ void	cd_init_rays(t_game *game)
 void	cd_init_graphic(t_game *game)
 {
 	t_textures	graphic;
+	int			i;
 
-	graphic.no = 0;
-	graphic.so = 0;
-	graphic.we = 0;
-	graphic.ea = 0;
-	graphic.f = 0;
-	graphic.c = 0;
-	graphic.paths[0] = NULL;
-	graphic.paths[1] = NULL;
-	graphic.paths[2] = NULL;
-	graphic.paths[3] = NULL;
-	graphic.paths[4] = NULL;
-	graphic.paths[5] = NULL;
-	graphic.paths[6] = NULL;
+	graphic.wmap = malloc(sizeof(int *));
+	graphic.wmap[0] = malloc(sizeof(int));
+	graphic.wmap[0][0] = -1;
+	graphic.tmap = malloc(sizeof(int *));
+	graphic.tmap[0] = malloc(sizeof(int));
+	graphic.tmap[0][0] = -1;
+	graphic.fmap = malloc(sizeof(int *));
+	graphic.fmap[0] = malloc(sizeof(int));
+	graphic.fmap[0][0] = -1;
+	graphic.rmap = malloc(sizeof(int *));
+	graphic.rmap[0] = malloc(sizeof(int));
+	graphic.rmap[0][0] = -1;
 	graphic.width = 1920;
+	graphic.width_mod = 1;
 	graphic.height = 1016;
+	i = 0;
+	while (++i < 95)
+		graphic.slots[i] = 0;
+	graphic.dim = 0;
+	graphic.incr = 0;
 	game->graphic = graphic;
 }
 
