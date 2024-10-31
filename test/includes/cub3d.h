@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbirou <manutea.birou@gmail.com>           +#+  +:+       +#+        */
+/*   By: malbrech <malbrech@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 11:27:38 by mbirou            #+#    #+#             */
-/*   Updated: 2024/10/27 21:54:54 by mbirou           ###   ########.fr       */
+/*   Updated: 2024/10/28 16:12:58 by malbrech         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -261,6 +261,7 @@ void		cd_free_all(t_game *game);
 // --img_to_int.c
 int			**cd_extract_pixel(mlx_texture_t *txt, int is_flipped);
 void		cd_img_to_int(t_textures *graphic);
+int			cd_create_rgba(char	*color);
 
 // --thread_utils.c
 

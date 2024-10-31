@@ -6,7 +6,7 @@
 /*   By: malbrech <malbrech@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 09:54:35 by mbirou            #+#    #+#             */
-/*   Updated: 2024/10/22 17:10:51 by malbrech         ###   ########.fr       */
+/*   Updated: 2024/10/31 14:26:59 by malbrech         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,6 @@ int	main(int argc, char **argv)
 	game.screen = NULL;
 	game.fps = NULL;
 	parser(&game);
-	cd_minimap(&game);
-	
 	cd_img_to_int(&game.graphic);
 
 	// printf("paths:\n");
@@ -51,6 +49,7 @@ int	main(int argc, char **argv)
 	mlx_set_setting(MLX_STRETCH_IMAGE, 1);
 	game.screen = mlx_new_image(game.mlx,SCREEN_W, SCREEN_H);
 	mlx_image_to_window(game.mlx, game.screen, 0, 0);
+	//cd_minimap(&game);
 
 	mlx_key_hook(game.mlx, (void (*))cd_keys, (void *)&game);
 	

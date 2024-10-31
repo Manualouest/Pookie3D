@@ -6,7 +6,7 @@
 /*   By: malbrech <malbrech@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 11:27:38 by mbirou            #+#    #+#             */
-/*   Updated: 2024/10/22 14:05:44 by malbrech         ###   ########.fr       */
+/*   Updated: 2024/10/31 15:10:48 by malbrech         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,8 @@ typedef struct s_data_player
 	float	height;
 	float	pitch;
 	float	speed;
-	float	coeff;
+	float	jump_coeff;
+	float	jog_coeff;
 }	t_data_player;
 
 typedef struct s_map
@@ -65,7 +66,6 @@ typedef struct s_map
 	int				width;
 	int				fd;
 	float			fov;
-	t_data_player	player;
 }	t_map;
 
 typedef struct s_keys
@@ -142,6 +142,7 @@ typedef enum e_ids
 //--Heights
 # define CROUCH_HEIGHT -0.1
 # define NORMAL_HEIGHT 0.1
+# define JOG_HEIGHT 0.95
 
 /*---------------- ERROR MSG --------------------*/
 
@@ -215,6 +216,7 @@ void	cd_moove(t_game *game);
 void	cd_directions_conditions(mlx_key_data_t keydata, t_game *game);
 void	cd_actions_conditions(mlx_key_data_t keydata, t_game *game);
 void	cd_camera_conditions(mlx_key_data_t keydata, t_game *game);
+void	cd_walk(t_game *game);
 
 // --wall_edition.c
 // void		cd_edit_wall(t_game *game, char new_wall);
@@ -231,7 +233,7 @@ void		cd_draw_c_f(t_game *game, int x);
 // -----minimap----------------------------------------------------------------
 void		cd_minimap(t_game *game);
 void		cd_put_texture(t_game *game, char *path, int x, int y);
-void		cd_minimap_conditions(t_game *game, t_position pos, int *i, int *ii);
+void		cd_minimap_conditions(t_game *game, t_position *pos, int *i, int *ii);
 
 // -----main-------------------------------------------------------------------
 // --error.c
@@ -241,6 +243,6 @@ void		cd_free_all(t_game *game);
 // --img_to_int.c
 void		cd_img_to_int(t_textures *graphic);
 void		cd_set_txt_dimmension(t_textures *graphic, int id);
-
+int			cd_create_rgba(char	*color);
 
 #endif

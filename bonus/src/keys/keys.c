@@ -6,7 +6,7 @@
 /*   By: malbrech <malbrech@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 10:21:02 by malbrech          #+#    #+#             */
-/*   Updated: 2024/10/15 16:36:53 by malbrech         ###   ########.fr       */
+/*   Updated: 2024/10/31 15:11:44 by malbrech         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ void	cd_moove(t_game *game)
 	cd_moove_left(game);
 	cd_moove_right(game);
 	cd_jump(game);
+	cd_walk(game);
 	cd_camera(game);
 	mouse_controller(game);
 }

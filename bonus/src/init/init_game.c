@@ -6,7 +6,7 @@
 /*   By: malbrech <malbrech@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 09:57:40 by malbrech          #+#    #+#             */
-/*   Updated: 2024/10/03 16:20:51 by malbrech         ###   ########.fr       */
+/*   Updated: 2024/10/31 15:58:00 by malbrech         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ void	cd_init_player(t_game *game)
 	player.height = 0.1;
 	player.pitch = 0;
 	player.speed = WALKING_SPEED;
-	player.coeff = 41;
+	player.jump_coeff = 41;
+	player.jog_coeff = 52;
 	game->player = player;
 }
 
