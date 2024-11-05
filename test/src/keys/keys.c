@@ -6,7 +6,7 @@
 /*   By: mbirou <manutea.birou@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 10:21:02 by malbrech          #+#    #+#             */
-/*   Updated: 2024/10/27 22:14:50 by mbirou           ###   ########.fr       */
+/*   Updated: 2024/11/01 18:19:48 by mbirou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,21 +24,27 @@ Le jump et le sprint
 // Fonction qui gère les mouvements
 void	cd_keys(mlx_key_data_t keydata, t_game *game)
 {
-	if (keydata.key == MLX_KEY_K && keydata.action == MLX_PRESS && game->graphic.width_mod > 1)
-	{
-		game->graphic.width_mod /= 2;
-		game->graphic.width *= 2;
-	}
-	else if (keydata.key == MLX_KEY_L && keydata.action == MLX_PRESS && game->graphic.width_mod < 128)
-	{
-		game->graphic.width_mod *= 2;
-		game->graphic.width /= 2;
-	}
 	if (keydata.key == MLX_KEY_ESCAPE && keydata.action == MLX_PRESS)
 		mlx_close_window(game->mlx);
-	cd_keys_conditions(keydata, game);
+	if (keydata.key == MLX_KEY_K && keydata.action == MLX_PRESS
+		&& game->graphic.width_mod > 1)
+	{
+		game->graphic.width_mod *= 0.5;
+		game->graphic.width *= 2;
+	}
+	else if (keydata.key == MLX_KEY_L && keydata.action == MLX_PRESS
+		&& game->graphic.width_mod < 16)
+	{
+		game->graphic.width_mod *= 2;
+		game->graphic.width *= 0.5;
+	}
+	if (keydata.key == MLX_KEY_F && keydata.action == MLX_PRESS)
+		game->keys.fps = 1 - game->keys.fps;
+	cd_directions_conditions(keydata, game);
+	cd_actions_conditions(keydata, game);
 	cd_camera_conditions(keydata, game);
-	
+	player_speed_controller(game);
+	player_height_controller(game);
 }
 
 void	cd_moove(t_game *game)
@@ -47,10 +53,12 @@ void	cd_moove(t_game *game)
 	cd_moove_backward(game);
 	cd_moove_left(game);
 	cd_moove_right(game);
+	cd_jump(game);
 	cd_camera(game);
+	// mouse_controller(game);
 }
 
-void	cd_keys_conditions(mlx_key_data_t keydata, t_game *game)
+void	cd_directions_conditions(mlx_key_data_t keydata, t_game *game)
 {
 	if (keydata.key == MLX_KEY_W && keydata.action == MLX_PRESS)
 		game->keys.w = 1;
@@ -68,6 +76,22 @@ void	cd_keys_conditions(mlx_key_data_t keydata, t_game *game)
 		game->keys.d = 1;
 	if (keydata.key == MLX_KEY_D && keydata.action == MLX_RELEASE)
 		game->keys.d = 0;
+}
+
+void	cd_actions_conditions(mlx_key_data_t keydata, t_game *game)
+{
+	if (keydata.key == MLX_KEY_SPACE && keydata.action == MLX_PRESS)
+		game->keys.space = 1;
+	if (keydata.key == MLX_KEY_LEFT_ALT && keydata.action == MLX_PRESS
+		&& game->keys.shift == 0)
+		game->keys.ctrl = 1;
+	if (keydata.key == MLX_KEY_LEFT_ALT && keydata.action == MLX_RELEASE)
+		game->keys.ctrl = 0;
+	if (keydata.key == MLX_KEY_LEFT_SHIFT && keydata.action == MLX_PRESS
+		&& game->keys.ctrl == 0)
+		game->keys.shift = 1;
+	if (keydata.key == MLX_KEY_LEFT_SHIFT && keydata.action == MLX_RELEASE)
+		game->keys.shift = 0;
 }
 
 void	cd_camera_conditions(mlx_key_data_t keydata, t_game *game)

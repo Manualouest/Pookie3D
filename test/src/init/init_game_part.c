@@ -6,7 +6,7 @@
 /*   By: mbirou <manutea.birou@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 10:52:56 by mbirou            #+#    #+#             */
-/*   Updated: 2024/10/24 17:57:38 by mbirou           ###   ########.fr       */
+/*   Updated: 2024/10/31 17:17:34 by mbirou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,5 +24,9 @@ void	cd_init_keys(t_game *game)
 	keys.down = 0;
 	keys.left = 0;
 	keys.right = 0;
+	keys.space = 0;
+	keys.shift = 0;
+	keys.ctrl = 0;
+	keys.fps = 1;
 	game->keys = keys;
 }

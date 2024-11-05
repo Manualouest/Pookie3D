@@ -2,7 +2,7 @@
 
 NAME = cub3D
 
-CFLAGS = -Wall -Werror -Wextra -g -O3
+CFLAGS = -Wall -Werror -Wextra -g
 
 INCLUDES = -Iincludes/ -I$(LIBMLX)/include
 LIBFT = includes/libft/libft.a
@@ -16,7 +16,8 @@ SRC_DIR = src/
 SRC_NAME = main.c\
 			error.c\
 			img_to_int.c\
-			thread_utils.c
+			thread_utils.c\
+			controllers.c
 
 SRC_NAME += parsing/parser.c\
 			parsing/check.c\
@@ -45,7 +46,9 @@ SRC_NAME += keys/keys.c\
 
 SRC_NAME += raycasting/raycast.c\
 			raycasting/draw_walls.c\
-			raycasting/make_floor.c
+			raycasting/make_tiles.c
+
+SRC_NAME += animactions/mooves.c
 
 SRC = $(addprefix $(SRC_DIR), $(SRC_NAME))
 

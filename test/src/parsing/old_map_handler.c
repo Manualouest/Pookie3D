@@ -6,7 +6,7 @@
 /*   By: mbirou <manutea.birou@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 12:01:16 by mbirou            #+#    #+#             */
-/*   Updated: 2024/10/24 18:45:11 by mbirou           ###   ########.fr       */
+/*   Updated: 2024/10/31 17:31:38 by mbirou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	cd_setup_map(char	*line, t_game *game)
 	while (++i >= 0 && line[i] != '\n')
 	{
 		if (line[i] != ' ' && line[i] != '0' && line[i] != '1'
-			&& game->map.player.x == -1 && (line[i] == 'N' || line[i] == 'S'
+			&& game->player.x == -1 && (line[i] == 'N' || line[i] == 'S'
 				|| line[i] == 'E' || line[i] == 'W'))
 		{
 			cd_set_orientation(game, line[i], i);

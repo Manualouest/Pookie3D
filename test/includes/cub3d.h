@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malbrech <malbrech@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbirou <manutea.birou@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 11:27:38 by mbirou            #+#    #+#             */
-/*   Updated: 2024/10/28 16:12:58 by malbrech         ###   ########.fr       */
+/*   Updated: 2024/11/04 18:04:32 by mbirou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,15 @@
 
 /*------------------ STRUCTURES --------------------*/
 
+typedef struct s_position
+{
+	int	x;
+	int	y;
+}	t_position;
+
 typedef struct	s_textures
 {
 	int		**txts[95];
-	int		**wmap;
 	int		**tmap;
 	int		**fmap;
 	int		**rmap;
@@ -50,28 +55,29 @@ typedef struct	s_textures
 	float	incr;
 }			t_textures;
 
-typedef struct s_position
+typedef struct s_data_player
 {
 	float	x;
 	float	y;
 	float	view;
 	float	height;
 	float	pitch;
+	float	speed;
+	float	coeff;
 	float	planex;
 	float	planey;
 	float	dirx;
 	float	diry;
-}	t_position;
+}	t_data_player;
 
 typedef struct s_map
 {
-	char		**map;
+	int			**map;
 	char		*path;
 	int			height;
 	int			width;
 	int			fd;
 	float		fov;
-	t_position	player;
 }	t_map;
 
 typedef struct s_keys
@@ -84,6 +90,10 @@ typedef struct s_keys
 	int	down;
 	int	left;
 	int	right;
+	int	space;
+	int	shift;
+	int	ctrl;
+	int	fps;
 }	t_keys;
 
 typedef struct s_ray_info
@@ -112,10 +122,10 @@ typedef struct s_f_c_info
 	float				dy0;
 	float				dx1;
 	float				dy1;
+	float				mx;
+	float				my;
 	float				stepx;
 	float				stepy;
-	float				floorx;
-	float				floory;
 	float				row_dst;
 	float				mid;
 	float				height;
@@ -134,14 +144,15 @@ typedef struct s_f_c_info
 
 typedef struct s_game
 {
-	t_map		map;
-	mlx_t		*mlx;
-	mlx_image_t	*screen;
-	mlx_image_t	*fps;
-	t_ray_info	rays;
-	t_f_c_info	c_f_info;
-	t_textures	graphic;
-	t_keys		keys;
+	t_map			map;
+	mlx_t			*mlx;
+	mlx_image_t		*screen;
+	mlx_image_t		*fps;
+	t_ray_info		rays;
+	t_f_c_info		c_f_info;
+	t_textures		graphic;
+	t_keys			keys;
+	t_data_player	player;
 }	t_game;
 
 /*------------------- ENUM ----------------------*/
@@ -155,6 +166,18 @@ typedef enum e_ids
 	C,
 	F
 }				t_ids;
+
+/*---------------- DEFINE VALUES ----------------*/
+// --Speeds
+# define RUNNING_SPEED 6.
+# define CROUCH_SPEED 2.
+# define WALKING_SPEED 3.
+# define CAMERA_SPEED 0.03
+# define ROTATE_SPEED 0.0025
+
+//--Heights
+# define CROUCH_HEIGHT -0.1
+# define NORMAL_HEIGHT 0
 
 /*---------------- ERROR MSG --------------------*/
 
@@ -215,6 +238,11 @@ char	**add_new_line(char *line, char **tab);
 float	cd_clamp(float num, float min, float max);
 float	cd_clamp_two(float num, float min, float max);
 
+// --controllers.c
+void		player_speed_controller(t_game *game);
+void		player_height_controller(t_game *game);
+void    	mouse_controller(t_game *game);
+
 // --array_utils.c
 int		cd_intlen(int *line);
 int		*cd_strtoi_m(char *line, int line_len, int dif);
@@ -228,9 +256,11 @@ void	cd_moove_forward(t_game *game);
 void	cd_moove_backward(t_game *game);
 void	cd_moove_left(t_game *game);
 void	cd_moove_right(t_game *game);
+void	cd_jump(t_game *game);
 void	cd_camera(t_game *game);
 void	cd_moove(t_game *game);
-void	cd_keys_conditions(mlx_key_data_t keydata, t_game *game);
+void	cd_directions_conditions(mlx_key_data_t keydata, t_game *game);
+void	cd_actions_conditions(mlx_key_data_t keydata, t_game *game);
 void	cd_camera_conditions(mlx_key_data_t keydata, t_game *game);
 
 // --wall_edition.c
@@ -239,18 +269,15 @@ void	cd_camera_conditions(mlx_key_data_t keydata, t_game *game);
 
 // -----raycast----------------------------------------------------------------
 // --raycast.c
-void		cd_render(void *vgame);
+void		cd_render(t_game *game);
 
 // --draw_walls.c
-void		cd_draw_floor(t_game *game);
-int			cd_darken_color(uint32_t color, float amount);
+void		cd_reduce_color(t_game *game, int x, int y, float effect);
 void		cd_draw_walls(t_game *game, t_ray_info *ray, int x);
 void		cd_draw_c_f(t_game *game, int x);
 
-// --floor_maker.c
-void		cd_launch_threads(t_game *game);
-int			cd_is_floor_done(t_f_c_info *info);
-void		cd_floor_maker(t_f_c_info *info);
+// --draw_tiles.c
+void		cd_draw_tiles(t_game *game, int x);
 
 // -----main-------------------------------------------------------------------
 // --error.c
@@ -261,7 +288,6 @@ void		cd_free_all(t_game *game);
 // --img_to_int.c
 int			**cd_extract_pixel(mlx_texture_t *txt, int is_flipped);
 void		cd_img_to_int(t_textures *graphic);
-int			cd_create_rgba(char	*color);
 
 // --thread_utils.c
 

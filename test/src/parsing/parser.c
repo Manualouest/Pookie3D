@@ -6,7 +6,7 @@
 /*   By: mbirou <manutea.birou@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 17:07:47 by mbirou            #+#    #+#             */
-/*   Updated: 2024/10/25 00:13:40 by mbirou           ###   ########.fr       */
+/*   Updated: 2024/10/31 17:45:35 by mbirou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void	scanner(char *line, t_game *game, int *step)
 	else if (*step == 1 && cd_add_texture(game, &line[i]))
 		return ;
 	else if (*step == 2)
-		cd_setup_map(line, game, &game->graphic.wmap);
+		cd_setup_map(line, game, &game->map.map);
 	else if (*step == 3)
 		cd_setup_txt_maps(line, game, &game->graphic.tmap, *step);
 	else if (*step == 4)

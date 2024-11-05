@@ -6,7 +6,7 @@
 /*   By: mbirou <manutea.birou@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 18:00:54 by mbirou            #+#    #+#             */
-/*   Updated: 2024/10/25 00:13:32 by mbirou           ###   ########.fr       */
+/*   Updated: 2024/10/31 17:45:35 by mbirou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,28 +16,28 @@ void	cd_set_orientation(t_game *game, char o, int i)
 {
 	if (o == 'N')
 	{
-		game->map.player.dirx = 0;
-		game->map.player.diry = 1;
+		game->player.dirx = 0;
+		game->player.diry = 1;
 	}
 	else if (o == 'S')
 	{
-		game->map.player.dirx = 0;
-		game->map.player.diry = -1;
+		game->player.dirx = 0;
+		game->player.diry = -1;
 	}
 	else if (o == 'W')
 	{
-		game->map.player.dirx = -1;
-		game->map.player.diry = 0;
+		game->player.dirx = -1;
+		game->player.diry = 0;
 	}
 	else
 	{
-		game->map.player.dirx = 1;
-		game->map.player.diry = 0;
+		game->player.dirx = 1;
+		game->player.diry = 0;
 	}
-	game->map.player.planex = 0.9549296585499998935 * game->map.player.diry;
-	game->map.player.planey = 0.9549296585499998935 * game->map.player.dirx;
-	game->map.player.x = i + 0.5;
-	game->map.player.y = game->map.height + 0.5;
+	game->player.planex = 0.9549296585499998935 * game->player.diry;
+	game->player.planey = 0.9549296585499998935 * game->player.dirx;
+	game->player.x = i + 0.5;
+	game->player.y = game->map.height + 0.5;
 }
 
 char	cd_put_first_slot(t_game *game, int is_wmap)
@@ -59,8 +59,8 @@ int	cd_is_floor(t_game *game, char *line, int i, int map_kind)
 {
 	if (map_kind != 3)
 		return (0);
-	// printf("line[i]: %c, i: %d, wmap line: %d\n", line[i], i, game->graphic.wmap[game->graphic.tp_h][i]);
-	if (line[i] == '0' && !game->graphic.wmap[game->graphic.tp_h][i])
+	// printf("line[i]: %c, i: %d, wmap line: %d\n", line[i], i, game->map.map[game->graphic.tp_h][i]);
+	if (line[i] == '0' && !game->map.map[game->graphic.tp_h][i])
 		return (1);
 	return (0);
 }
@@ -80,7 +80,7 @@ int	cd_parse_line(char **line, t_game *game, int map_kind)
 				return (-1);
 			else if ((line[0][i] == 'N' || line[0][i] == 'S'
 				|| line[0][i] == 'E' || line[0][i] == 'W')
-				&& game->map.player.x == -1)
+				&& game->player.x == -1)
 			{
 				cd_set_orientation(game, line[0][i], i);
 				line[0][i] = '0';

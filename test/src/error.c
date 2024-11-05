@@ -6,7 +6,7 @@
 /*   By: mbirou <manutea.birou@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 10:05:39 by malbrech          #+#    #+#             */
-/*   Updated: 2024/10/24 21:46:45 by mbirou           ###   ########.fr       */
+/*   Updated: 2024/10/31 18:05:49 by mbirou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	cd_free_all(t_game *game)
 	int	i;
 
 	i = -1;
-	while (game->map.map && game->map.map[++i])
+	while (game->map.map && game->map.map[++i][0] != -1)
 		free(game->map.map[i]);
 	if (game->map.map)
 		free(game->map.map);

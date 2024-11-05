@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   wall_edition.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbirou <mbirou@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mbirou <manutea.birou@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 10:49:46 by mbirou            #+#    #+#             */
-/*   Updated: 2024/09/27 11:06:09 by mbirou           ###   ########.fr       */
+/*   Updated: 2024/10/31 18:19:44 by mbirou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	cd_edit_wall(t_game *game, char new_wall)
 	int			y;
 
 	rays = cd_create_rays();
-	rays.angle = game->map.player.view;
+	rays.angle = game->player.view;
 	// rays = cd_cast_ray(rays);
 	if (rays.distance > 5)
 		return ;

@@ -6,7 +6,7 @@
 /*   By: mbirou <manutea.birou@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 09:54:35 by mbirou            #+#    #+#             */
-/*   Updated: 2024/10/27 21:56:00 by mbirou           ###   ########.fr       */
+/*   Updated: 2024/10/31 17:02:32 by mbirou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ int	main(int argc, char **argv)
 	// game.screen->instances[0].z = 2;
 	mlx_key_hook(game.mlx, (void (*))cd_keys, (void *)&game);
 	
-	mlx_loop_hook(game.mlx, cd_render, (void *)&game);
+	mlx_loop_hook(game.mlx, (void (*))cd_render, (void *)&game);
 	mlx_loop(game.mlx);
 
 
