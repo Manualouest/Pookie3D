@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   string_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malbrech <malbrech@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbirou <mbirou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 16:16:56 by malbrech          #+#    #+#             */
-/*   Updated: 2024/10/02 21:44:34 by malbrech         ###   ########.fr       */
+/*   Updated: 2024/11/06 14:17:32 by mbirou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,8 @@ char	*format_d_line(char *line, int *ii)
 
 	len = 0;
 	i = *ii;
-	while (line[*ii] != ' ' && line[*ii] != '\t' && line[*ii] != '\n' && line[*ii])
+	while (line[*ii] != ' ' && line[*ii] != '\t'
+		&& line[*ii] != '\n' && line[*ii])
 	{
 		len += 1;
 		*ii += 1;

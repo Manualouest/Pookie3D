@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   controllers.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malbrech <malbrech@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbirou <mbirou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 23:50:08 by malbrech          #+#    #+#             */
-/*   Updated: 2024/10/31 15:45:47 by malbrech         ###   ########.fr       */
+/*   Updated: 2024/11/06 14:17:32 by mbirou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,11 @@ void    mouse_controller(t_game *game)
 {
 	int	x;
 	int	y;
-	int	screen_center_x = SCREEN_W / 2;
-	int	screen_center_y = SCREEN_H / 2;
+	int	screen_center_x;
+	int	screen_center_y;
 
+	screen_center_x = game->graphic.height / 2;
+	screen_center_y = game->graphic.width / 2;
 	mlx_get_mouse_pos(game->mlx, &x, &y);
 	int delta_x = x - screen_center_x;
 	int delta_y = y - screen_center_y;

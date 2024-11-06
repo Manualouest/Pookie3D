@@ -58,19 +58,20 @@ B_SRC_NAME += parsing/parser.c\
 
 B_SRC_NAME += animactions/mooves.c
 
-B_SRC_NAME += map_maker/map_maker_main.c\
-			map_maker/input_handler.c\
-			map_maker/map_editor.c\
-			map_maker/vars_setup.c\
-			map_maker/map_setup.c\
-			map_maker/utils.c\
-			map_maker/img_utils.c\
-			map_maker/setup_screens.c\
-			map_maker/rand_gen.c
+#B_SRC_NAME += map_maker/map_maker_main.c\
+#			map_maker/input_handler.c\
+#			map_maker/map_editor.c\
+#			map_maker/vars_setup.c\
+#			map_maker/map_setup.c\
+#			map_maker/utils.c\
+#			map_maker/img_utils.c\
+#			map_maker/setup_screens.c\
+#			map_maker/rand_gen.c
 
 B_SRC_NAME += utils/tab_utils.c\
 			utils/string_utils.c\
-			utils/math.c
+			utils/math.c\
+			utils/array_utils.c
 
 B_SRC_NAME += init/init_game.c\
 			init/init_game_part.c
@@ -79,9 +80,11 @@ B_SRC_NAME += keys/keys.c\
 			keys/keys_part.c
 
 B_SRC_NAME += raycasting/raycast.c\
-			raycasting/draw_walls.c
+			raycasting/draw_walls.c\
+			raycasting/make_tiles.c\
+			raycasting/utils.c
 
-B_SRC = $(addprefix $(SRC_DIR), $(SRC_NAME))
+B_SRC = $(addprefix $(B_SRC_DIR), $(B_SRC_NAME))
 
 
 B_OBJ_DIR = b_obj/
@@ -120,7 +123,7 @@ $(NAME): MLX $(LIBFT) $(OBJ)
 	@echo "\033[32;47;1m** FINISH **\033[1;m"
 
 bonus: MLX  $(LIBFT) $(B_OBJ)
-	@gcc -o $(B_NAME) $(CFLAGS) $(B_OBJ) $(INCLUDES) $(LIBFT) $(LIBS)
+	@gcc -o $(B_NAME) -msse -flto -Ofast $(CFLAGS) $(B_SRC) $(INCLUDES) $(LIBFT) $(LIBS)
 	@echo "\033[32;47;1m** FINISH BONUS **\033[1;m"
 
 clean:

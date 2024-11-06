@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_game.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malbrech <malbrech@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbirou <mbirou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 09:57:40 by malbrech          #+#    #+#             */
-/*   Updated: 2024/10/31 15:58:00 by malbrech         ###   ########.fr       */
+/*   Updated: 2024/11/06 14:17:32 by mbirou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,13 @@ void	cd_init_player(t_game *game)
 	player.x = -1;
 	player.y = -1;
 	player.view = -1;
-	player.height = 0.1;
+	player.height = 0;
 	player.pitch = 0;
 	player.speed = WALKING_SPEED;
 	player.jump_coeff = 41;
 	player.jog_coeff = 52;
+	player.planex = 0.;
+	player.planey = 0.66;
 	game->player = player;
 }
 
@@ -31,6 +33,9 @@ void	cd_init_map(t_game *game, char *map_file)
 {
 	t_map	map;
 
+	map.map = malloc(sizeof(int *));
+	map.map[0] = malloc(sizeof(int));
+	map.map[0][0] = -1;
 	map.map = NULL;
 	map.path = map_file;
 	map.fd = 0;
@@ -47,7 +52,6 @@ void	cd_init_rays(t_game *game)
 	rays.x = 0;
 	rays.y = 0;
 	rays.t_x = 0;
-	rays.angle = 0;
 	rays.distance = 0;
 	rays.wall_height = 0;
 	rays.dx = 0;
@@ -59,30 +63,34 @@ void	cd_init_rays(t_game *game)
 	rays.side = 0;
 	rays.step_x = 0;
 	rays.step_y = 0;
-	rays.effect = 0;
 	game->rays = rays;
 }
 
 void	cd_init_graphic(t_game *game)
 {
 	t_textures	graphic;
+	int			i;
 
-	graphic.no = 0;
-	graphic.so = 0;
-	graphic.we = 0;
-	graphic.ea = 0;
-	graphic.f = 0;
-	graphic.c = 0;
-	graphic.paths[0] = NULL;
-	graphic.paths[1] = NULL;
-	graphic.paths[2] = NULL;
-	graphic.paths[3] = NULL;
-	graphic.paths[4] = NULL;
-	graphic.paths[5] = NULL;
-	graphic.paths[6] = NULL;
+	graphic.tmap = malloc(sizeof(int *));
+	graphic.tmap[0] = malloc(sizeof(int));
+	graphic.tmap[0][0] = -1;
+	graphic.fmap = malloc(sizeof(int *));
+	graphic.fmap[0] = malloc(sizeof(int));
+	graphic.fmap[0][0] = -1;
+	graphic.rmap = malloc(sizeof(int *));
+	graphic.rmap[0] = malloc(sizeof(int));
+	graphic.rmap[0][0] = -1;
 	graphic.width = 1920;
+	graphic.width_mod = 1;
 	graphic.height = 1016;
-	graphic.dim_id = -1;
+	i = -1;
+	while (++i < 94)
+	{
+		graphic.paths[i] = NULL;
+		graphic.slots[i] = 0;
+	}
+	graphic.dim = 0;
+	graphic.incr = 0;
 	game->graphic = graphic;
 }
 

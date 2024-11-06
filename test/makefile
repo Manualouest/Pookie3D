@@ -16,7 +16,6 @@ SRC_DIR = src/
 SRC_NAME = main.c\
 			error.c\
 			img_to_int.c\
-			thread_utils.c\
 			controllers.c
 
 SRC_NAME += parsing/parser.c\
@@ -35,8 +34,7 @@ SRC_NAME += parsing/parser.c\
 
 SRC_NAME += utils/tab_utils.c\
 			utils/string_utils.c\
-			utils/math.c\
-			utils/array_utils.c
+			utils/math.c
 
 SRC_NAME += init/init_game.c\
 			init/init_game_part.c
@@ -45,8 +43,7 @@ SRC_NAME += keys/keys.c\
 			keys/keys_part.c
 
 SRC_NAME += raycasting/raycast.c\
-			raycasting/draw_walls.c\
-			raycasting/make_tiles.c
+			raycasting/draw_walls.c
 
 SRC_NAME += animactions/mooves.c
 

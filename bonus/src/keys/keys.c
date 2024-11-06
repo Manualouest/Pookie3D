@@ -3,20 +3,43 @@
 /*                                                        :::      ::::::::   */
 /*   keys.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malbrech <malbrech@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbirou <mbirou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 10:21:02 by malbrech          #+#    #+#             */
-/*   Updated: 2024/10/31 15:11:44 by malbrech         ###   ########.fr       */
+/*   Updated: 2024/11/06 14:17:32 by mbirou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <cub3d_bonus.h>
+
+/* Trucs a implementer pour le bonus :
+
+Define les vitesse du player:
+WALK | SPRINT
+
+Le jump et le sprint
+
+*/
 
 // Fonction qui gère les mouvements
 void	cd_keys(mlx_key_data_t keydata, t_game *game)
 {
 	if (keydata.key == MLX_KEY_ESCAPE && keydata.action == MLX_PRESS)
 		mlx_close_window(game->mlx);
+	if (keydata.key == MLX_KEY_K && keydata.action == MLX_PRESS
+		&& game->graphic.width_mod > 1)
+	{
+		game->graphic.width_mod *= 0.5;
+		game->graphic.width *= 2;
+	}
+	else if (keydata.key == MLX_KEY_L && keydata.action == MLX_PRESS
+		&& game->graphic.width_mod < 16)
+	{
+		game->graphic.width_mod *= 2;
+		game->graphic.width *= 0.5;
+	}
+	if (keydata.key == MLX_KEY_F && keydata.action == MLX_PRESS)
+		game->keys.fps = 1 - game->keys.fps;
 	cd_directions_conditions(keydata, game);
 	cd_actions_conditions(keydata, game);
 	cd_camera_conditions(keydata, game);
@@ -33,7 +56,7 @@ void	cd_moove(t_game *game)
 	cd_jump(game);
 	cd_walk(game);
 	cd_camera(game);
-	mouse_controller(game);
+	// mouse_controller(game);
 }
 
 void	cd_directions_conditions(mlx_key_data_t keydata, t_game *game)

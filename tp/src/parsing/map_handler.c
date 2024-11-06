@@ -1,16 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   old_map_handler.c                                  :+:      :+:    :+:   */
+/*   map_handler.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbirou <manutea.birou@gmail.com>           +#+  +:+       +#+        */
+/*   By: malbrech <malbrech@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 12:01:16 by mbirou            #+#    #+#             */
-/*   Updated: 2024/10/31 17:31:38 by mbirou           ###   ########.fr       */
+/*   Updated: 2024/10/03 16:11:31 by malbrech         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <cub3d.h>
+#include <cub3d_bonus.h>
+
+float	cd_set_orientation(char o)
+{
+	if (o == 'N')
+		return (1.5 * M_PI + 0.01);
+	if (o == 'S')
+		return (0.5 * M_PI + 0.01);
+	if (o == 'W')
+		return (M_PI + 0.01);
+	if (o == 'E')
+		return (0.01);
+	return (-1);
+}
 
 void	cd_setup_map(char	*line, t_game *game)
 {
@@ -23,7 +36,9 @@ void	cd_setup_map(char	*line, t_game *game)
 			&& game->player.x == -1 && (line[i] == 'N' || line[i] == 'S'
 				|| line[i] == 'E' || line[i] == 'W'))
 		{
-			cd_set_orientation(game, line[i], i);
+			game->player.x = i + 0.5;
+			game->player.y = game->map.height + 0.5;
+			game->player.view = cd_set_orientation(line[i]);
 			line[i] = '0';
 		}
 		else if (line[i] != ' ' && line[i] != '0' && line[i] != '1')

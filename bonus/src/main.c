@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malbrech <malbrech@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbirou <mbirou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 09:54:35 by mbirou            #+#    #+#             */
-/*   Updated: 2024/10/31 14:26:59 by malbrech         ###   ########.fr       */
+/*   Updated: 2024/11/06 14:17:32 by mbirou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,31 +30,22 @@ int	main(int argc, char **argv)
 	game.screen = NULL;
 	game.fps = NULL;
 	parser(&game);
+	
 	cd_img_to_int(&game.graphic);
 
-	// printf("paths:\n");
-	// int	i = -1;
-	// while (game.graphic.paths[++i])
-	// 	printf("%s\n", game.graphic.paths[i]);
+	game.mlx = mlx_init(game.graphic.width, game.graphic.height, "Pookie3d", true);
 	
-	// printf("map:\n");
-	// i = -1;
-	// while (game.map.map[++i])
-	// 	printf("%s\n", game.map.map[i]);
-
-
-	// game.mlx = mlx_init(1240, 720, "Pookie3d", false);
-	game.mlx = mlx_init(SCREEN_W, SCREEN_H, "Pookie3d", false);
-	mlx_set_cursor_mode(game.mlx, MLX_MOUSE_HIDDEN);
 	mlx_set_setting(MLX_STRETCH_IMAGE, 1);
-	game.screen = mlx_new_image(game.mlx,SCREEN_W, SCREEN_H);
-	mlx_image_to_window(game.mlx, game.screen, 0, 0);
-	//cd_minimap(&game);
 
+	game.screen = mlx_new_image(game.mlx, game.graphic.width, game.graphic.height);
+	mlx_image_to_window(game.mlx, game.screen, 0, 0);
+	// mlx_resize_image(game.screen, game.graphic.width, game.graphic.height);
+	// game.screen->instances[0].z = 2;
 	mlx_key_hook(game.mlx, (void (*))cd_keys, (void *)&game);
 	
-	mlx_loop_hook(game.mlx, cd_render, (void *)&game);
+	mlx_loop_hook(game.mlx, (void (*))cd_render, (void *)&game);
 	mlx_loop(game.mlx);
+
 
 	cd_free_all(&game);
 	//launch_game(game);
