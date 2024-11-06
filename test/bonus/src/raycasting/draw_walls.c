@@ -6,7 +6,7 @@
 /*   By: mbirou <mbirou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 14:00:37 by mbirou            #+#    #+#             */
-/*   Updated: 2024/11/06 14:17:32 by mbirou           ###   ########.fr       */
+/*   Updated: 2024/11/06 20:29:51 by mbirou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ void	cd_draw_walls(t_game *game, t_ray_info *ray, int x)
 		cd_dim_color(game, x, y, game->graphic.dim);
 	}
 	cd_draw_tiles(game, x);
+	cd_render_sprite(game, x);
 }
 
 void	cd_draw_c_f(t_game *game, int x)

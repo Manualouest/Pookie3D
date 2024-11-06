@@ -6,7 +6,7 @@
 /*   By: mbirou <mbirou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 09:57:40 by malbrech          #+#    #+#             */
-/*   Updated: 2024/11/06 18:06:01 by mbirou           ###   ########.fr       */
+/*   Updated: 2024/11/06 20:34:53 by mbirou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,7 @@ void	cd_init_graphic(t_game *game)
 	}
 	graphic.dim = 0;
 	graphic.incr = 0;
+	graphic.sprites = NULL;
 	game->graphic = graphic;
 }
 

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub3d.h                                            :+:      :+:    :+:   */
+/*   cub3d_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mbirou <mbirou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 11:27:38 by mbirou            #+#    #+#             */
-/*   Updated: 2024/11/06 13:22:46 by mbirou           ###   ########.fr       */
+/*   Updated: 2024/11/06 20:34:27 by mbirou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,28 +37,39 @@ typedef struct s_position
 	int	y;
 }	t_position;
 
+typedef struct	s_sprite
+{
+	float	x;
+	float	y;
+	float	distance;
+	float	height;
+	int		tile;
+	int		start_rot;
+}			t_sprite;
+
 typedef struct	s_textures
 {
-	int		**txts[94];
-	int		**tmap;
-	int		**fmap;
-	int		**rmap;
-	char	*paths[94];
-	char	slots[94];
-	float	width;
-	float	width_mod;
-	float	height;
-	float	up_op;
-	int		tp_h;
-	int		up;
-	int		down;
-	float	y_ratio;
-	float	incr;
-	float	dim;
-	float	overflow_safety;
-	float	overflow_safety1;
-	float	overflow_safety2;
-}			t_textures;
+	int			**txts[94];
+	int			**tmap;
+	int			**fmap;
+	int			**rmap;
+	char		*paths[94];
+	char		slots[94];
+	t_sprite	**sprites;
+	float		width;
+	float		width_mod;
+	float		height;
+	float		up_op;
+	int			tp_h;
+	int			up;
+	int			down;
+	float		y_ratio;
+	float		incr;
+	float		dim;
+	float		overflow_safety;
+	float		overflow_safety1;
+	float		overflow_safety2;
+}				t_textures;
 
 typedef struct s_data_player
 {
@@ -118,9 +129,9 @@ typedef struct s_ray_info
 	int		side;
 	int		step_x;
 	int		step_y;
-}            t_ray_info;
+}			t_ray_info;
 
-typedef struct s_f_c_info
+typedef struct s_t_info
 {
 	pthread_t			thread;
 	float				dx0;
@@ -145,7 +156,7 @@ typedef struct s_f_c_info
 	int					floor_status;
 	int					game_status;
 	pthread_mutex_t		status_check;
-}						t_f_c_info;
+}						t_t_info;
 
 typedef struct s_game
 {
@@ -154,7 +165,7 @@ typedef struct s_game
 	mlx_image_t		*screen;
 	mlx_image_t		*fps;
 	t_ray_info		rays;
-	t_f_c_info		t_info;
+	t_t_info		t_info;
 	t_keys			keys;
 	t_data_player	player;
 	t_textures		graphic;
@@ -291,6 +302,9 @@ mlx_image_t	*cd_slow_raycast(t_game *game, struct timeval start_time,
 				int target_fps, int get_img);
 void		cd_modif_res(t_game *game, int moment);
 
+// --sprites.c
+void		cd_render_sprites(t_game * game, float x);
+
 // -----minimap----------------------------------------------------------------
 void		cd_minimap(t_game *game);
 void		cd_put_texture(t_game *game, char *path, int x, int y);
@@ -312,8 +326,8 @@ int			cd_create_rgba(char	*color);
 
 void		cd_thread_init(t_game *game);
 void		cd_thread_destroy(t_game *game);
-// int			cd_is_floor_done(t_f_c_info *info);
-// int			cd_check_game_status(t_f_c_info *info);
-// void		cd_switch_floor_status(t_f_c_info *info);
+// int			cd_is_floor_done(t_t_info *info);
+// int			cd_check_game_status(t_t_info *info);
+// void		cd_switch_floor_status(t_t_info *info);
 
 #endif
