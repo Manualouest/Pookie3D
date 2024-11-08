@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   make_tiles.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbirou <mbirou@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mbirou <mbirou@student.42.F r>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 15:53:09 by mbirou            #+#    #+#             */
-/*   Updated: 2024/11/06 19:59:21 by mbirou           ###   ########.fr       */
+/*   Updated: 2024/11/07 09:48:07 by mbirou           ###   ########.F r       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	cd_draw_roof_floor(t_game *game, float y, float x, int type)
 // ((x1 - x2) * (x1 - x2)) + ((y1 - y2) * (y1 - y2))
 
 
-	// cd_dim_color(game, x, y, 1. / (sqrt(((game->player.x - game->t_info.mx) 
+	// cd_dim_color(game, x, y, 1.F / (sqrt(((game->player.x - game->t_info.mx) 
 	// 	* (game->player.x - game->t_info.mx)) + ((game->player.y 
 	// 	- game->t_info.my) * (game->player.y - game->t_info.my))) + 1));
 
@@ -72,16 +72,16 @@ void	cd_draw_tiles(t_game *game, int x)
 	float	o_incr;
 
 	o_effect = game->graphic.dim;
-	o_incr = (1. - o_effect) / game->graphic.up;
+	o_incr = (1.F - o_effect) / game->graphic.up;
 	y = game->graphic.up;
-	while (--y > 0)
+	while (--y >= 0)
 	{
 		cd_draw_roof_floor(game, y, x, -1);
 		o_effect += o_incr;
 	}
 	y = game->graphic.down - 1;
 	o_effect = game->graphic.dim;
-	o_incr = (1. - o_effect) / (960. - game->graphic.down);
+	o_incr = (1.F - o_effect) / (960.F - game->graphic.down);
 	while (++y < game->graphic.height)
 	{
 		cd_draw_roof_floor(game, y, x, 1);

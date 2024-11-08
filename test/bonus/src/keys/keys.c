@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   keys.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbirou <mbirou@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mbirou <mbirou@student.42.F r>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 10:21:02 by malbrech          #+#    #+#             */
-/*   Updated: 2024/11/06 18:06:48 by mbirou           ###   ########.fr       */
+/*   Updated: 2024/11/06 18:06:48 by mbirou           ###   ########.F r       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,11 +97,11 @@ void	cd_actions_conditions(mlx_key_data_t keydata, t_game *game)
 
 void	cd_camera_conditions(mlx_key_data_t keydata, t_game *game)
 {
-	if (keydata.key == MLX_KEY_UP && keydata.action == MLX_PRESS)
+	if (keydata.key == MLX_KEY_UP && keydata.action == MLX_PRESS && game->player.pitch < 0.75)
 		game->keys.up = 1;
 	if (keydata.key == MLX_KEY_UP && keydata.action == MLX_RELEASE)
 		game->keys.up = 0;
-	if (keydata.key == MLX_KEY_DOWN && keydata.action == MLX_PRESS)
+	if (keydata.key == MLX_KEY_DOWN && keydata.action == MLX_PRESS && game->player.pitch > -0.75)
 		game->keys.down = 1;
 	if (keydata.key == MLX_KEY_DOWN && keydata.action == MLX_RELEASE)
 		game->keys.down = 0;

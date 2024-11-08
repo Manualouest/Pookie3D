@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycast.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbirou <mbirou@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mbirou <mbirou@student.42.F r>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 13:23:18 by mbirou            #+#    #+#             */
-/*   Updated: 2024/11/06 20:30:30 by mbirou           ###   ########.fr       */
+/*   Updated: 2024/11/07 09:48:07 by mbirou           ###   ########.F r       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,17 +20,17 @@ void	cd_init_ray_vars(t_game *game, t_ray_info *ray, float cam_x)
 			* cam_x - game->player.planex) + 0.0000001;
 	ray->dy = game->player.diry + (game->player.planey
 			* cam_x - game->player.planey) + 0.0000001;
-	ray->delta_dx = fabs(1. / ray->dx);
-	ray->delta_dy = fabs(1. / ray->dy);
+	ray->delta_dx = fabs(1.F / ray->dx);
+	ray->delta_dy = fabs(1.F / ray->dy);
 	ray->step_x = 1;
-	ray->side_dx = (ray->x + 1. - game->player.x) * ray->delta_dx;
+	ray->side_dx = (ray->x + 1.F - game->player.x) * ray->delta_dx;
 	if (ray->dx < 0)
 	{
 		ray->step_x = -1;
 		ray->side_dx = (game->player.x - ray->x) * ray->delta_dx;
 	}
 	ray->step_y = 1;
-	ray->side_dy = (ray->y + 1. - game->player.y) * ray->delta_dy;
+	ray->side_dy = (ray->y + 1.F - game->player.y) * ray->delta_dy;
 	if (ray->dy < 0)
 	{
 		ray->step_y = -1;
@@ -68,15 +68,28 @@ void	cd_ray_loop(t_game *game, t_ray_info *ray)
 
 void	cd_cast_ray(t_game *game, t_ray_info *ray, float x)
 {
-	cd_init_ray_vars(game, ray, 2. * x / game->graphic.width);
+	cd_init_ray_vars(game, ray, 2.F * x / game->graphic.width);
 	cd_ray_loop(game, ray);
 	if (ray->distance > 960)
 		ray->distance = 960;
+	ray->distances[(int)x] = ray->distance;
 	ray->wall_height = game->graphic.height / ray->distance;
+	if (x == (int)game->graphic.width >> 1)
+	{
+		ray->x_save = ray->x;
+		if (game->keys.place && ray->side == 0)
+			ray->x_save -= ray->step_x;
+		ray->y_save = ray->y;
+		if (game->keys.place && ray->side == 1)
+			ray->y_save -= ray->step_y;
+		ray->distance_save = ray->distance;
+	}
 }
 
 void	cd_setup_vars(t_game *game)
 {
+	int	i;
+
 	game->t_info.dx0 = game->player.dirx - game->player.planex;
 	game->t_info.dy0 = game->player.diry - game->player.planey;
 	game->t_info.dx1 = game->player.dirx + game->player.planex;
@@ -87,6 +100,16 @@ void	cd_setup_vars(t_game *game)
 		/ game->graphic.width;
 	game->graphic.up_op = (int)(game->graphic.height
 			+ game->graphic.height * game->player.pitch) >> 1;
+	free(game->rays.distances);
+	game->rays.distances = malloc(sizeof(int) * game->graphic.width);
+	i = -1;
+	while (game->graphic.sprites && game->graphic.sprites[++i])
+	{
+		game->graphic.sprites[i]->distance = cd_get_p_rsqrt(game,
+			game->graphic.sprites[i]->x, game->graphic.sprites[i]->y);
+		if (game->graphic.sprites[i]->distance >= 0.9)
+			cd_remove_sprite(game, i);
+	}
 }
 
 void	cd_render(t_game *game)
@@ -106,9 +129,12 @@ void	cd_render(t_game *game)
 		cd_cast_ray(game, &game->rays, x);
 		cd_draw_walls(game, &game->rays, x);
 	}
-	mlx_resize_image(game->screen,
-		game->graphic.width * game->graphic.width_mod, game->graphic.height);
-	cd_moove(game);
+	cd_render_sprites(game);
 	cd_modif_res(game, 1);
-	game->fps = cd_slow_raycast(game, time, 10000, game->keys.fps);
+	mlx_resize_image(game->screen, game->graphic.width, game->graphic.height);
+	cd_edit_wall(game, game->rays.x_save, game->rays.y_save);
+	cd_moove(game);
+	cd_show_block_inventory(game);
+	if (game->keys.fps)
+		game->fps = cd_slow_raycast(game, time, 10000);
 }

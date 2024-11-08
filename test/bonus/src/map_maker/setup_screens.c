@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   setup_screens.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbirou <mbirou@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mbirou <mbirou@student.42.F r>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 16:51:21 by mbirou            #+#    #+#             */
-/*   Updated: 2024/09/16 15:19:36 by mbirou           ###   ########.fr       */
+/*   Updated: 2024/09/16 15:19:36 by mbirou           ###   ########.F r       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ char	**cd_get_txt(t_map_editor *m_edit)
 	if (step == 6)
 		return (&m_edit->m_info.ceiling);
 	if (step == 7)
-		return (&m_edit->m_info.floor);
+		return (&m_edit->m_info.F loor);
 	if (step == 8)
 		return (&m_edit->m_info.map_size);
 	return (&m_edit->m_info.player);

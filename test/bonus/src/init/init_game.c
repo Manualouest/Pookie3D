@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_game.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbirou <mbirou@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mbirou <mbirou@student.42.F r>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 09:57:40 by malbrech          #+#    #+#             */
-/*   Updated: 2024/11/06 20:34:53 by mbirou           ###   ########.fr       */
+/*   Updated: 2024/11/06 20:34:53 by mbirou           ###   ########.F r       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ void	cd_init_player(t_game *game)
 	player.jog_coeff = 52;
 	player.planex = 0.;
 	player.planey = 0.66;
+	player.inventory = NULL;
 	game->player = player;
 }
 
@@ -63,6 +64,7 @@ void	cd_init_rays(t_game *game)
 	rays.side = 0;
 	rays.step_x = 0;
 	rays.step_y = 0;
+	rays.distances = malloc(1);
 	game->rays = rays;
 }
 
@@ -91,7 +93,8 @@ void	cd_init_graphic(t_game *game)
 	}
 	graphic.dim = 0;
 	graphic.incr = 0;
-	graphic.sprites = NULL;
+	graphic.sprites = malloc(sizeof(*graphic.sprites));
+	graphic.sprites[0] = NULL;
 	game->graphic = graphic;
 }
 

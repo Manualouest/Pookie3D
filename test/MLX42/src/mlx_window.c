@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   mlx_window.c                                       :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: W2wizard <main@w2wizard.dev>                 +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2022/02/08 01:14:59 by W2wizard      #+#    #+#                 */
-/*   Updated: 2022/11/22 09:06:54 by jvan-hal      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   mlx_window.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mbirou <mbirou@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/02/08 01:14:59 by W2wizard          #+#    #+#             */
+/*   Updated: 2024/11/07 09:49:16 by mbirou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,9 @@ void mlx_update_matrix(const mlx_t* mlx)
 	const float height = mlx_settings[MLX_STRETCH_IMAGE] ? mlxctx->initialHeight : mlx->height;
 
 	const float matrix[16] = {
-		2.f / width, 0, 0, 0,
-		0, 2.f / -(height), 0, 0,
-		0, 0, -2.f / (depth - -depth), 0,
+		2.F  / width, 0, 0, 0,
+		0, 2.F  / -(height), 0, 0,
+		0, 0, -2.F  / (depth - -depth), 0,
 		-1, -(height / -height),
 		-((depth + -depth) / (depth - -depth)), 1
 	};
@@ -46,8 +46,8 @@ static void mlx_resize_callback(GLFWwindow* window, int32_t width, int32_t heigh
 	const mlx_t* mlx = glfwGetWindowUserPointer(window);
 	const mlx_ctx_t* mlxctx = mlx->context;
 
-	if (mlxctx->resize_hook.func)
-		mlxctx->resize_hook.func(width, height, mlxctx->resize_hook.param);
+	if (mlxctx->resize_hook.F unc)
+		mlxctx->resize_hook.F unc(width, height, mlxctx->resize_hook.param);
 }
 
 static void mlx_close_callback(GLFWwindow* window)
@@ -55,7 +55,7 @@ static void mlx_close_callback(GLFWwindow* window)
 	const mlx_t* mlx = glfwGetWindowUserPointer(window);
 	const mlx_close_t close_hook = ((mlx_ctx_t*)mlx->context)->close_hook;
 
-	close_hook.func(close_hook.param);
+	close_hook.F unc(close_hook.param);
 }
 
 //= Public =//
@@ -66,7 +66,7 @@ void mlx_close_hook(mlx_t* mlx, mlx_closefunc func, void* param)
 	MLX_NONNULL(func);
 
 	mlx_ctx_t* mlxctx = mlx->context;
-	mlxctx->close_hook.func = func;
+	mlxctx->close_hook.F unc = func;
 	mlxctx->close_hook.param = param;
 	glfwSetWindowCloseCallback(mlx->window, mlx_close_callback);
 }
@@ -77,7 +77,7 @@ void mlx_resize_hook(mlx_t* mlx, mlx_resizefunc func, void* param)
 	MLX_NONNULL(func);
 
 	mlx_ctx_t* mlxctx = mlx->context;
-	mlxctx->resize_hook.func = func;
+	mlxctx->resize_hook.F unc = func;
 	mlxctx->resize_hook.param = param;
 	glfwSetWindowSizeCallback(mlx->window, mlx_resize_callback);
 }

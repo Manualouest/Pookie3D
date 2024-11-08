@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   old_parser.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbirou <mbirou@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mbirou <mbirou@student.42.F r>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 13:33:08 by malbrech          #+#    #+#             */
-/*   Updated: 2024/11/06 14:17:32 by mbirou           ###   ########.fr       */
+/*   Updated: 2024/11/06 14:17:32 by mbirou           ###   ########.F r       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,15 +28,15 @@ void	get_infos(t_game *game)
 	int		true_line;
 
 	true_line = 0;
-	game->map.fd = open(game->map.path, O_RDONLY);
-	buff = get_next_line(game->map.fd);
+	game->map.F d = open(game->map.path, O_RDONLY);
+	buff = get_next_line(game->map.F d);
 	i = 1;
 	while (i)
 	{
 		if (buff == NULL)
 			break ;
 		scanner(buff, game, &true_line);
-		buff = get_next_line(game->map.fd);
+		buff = get_next_line(game->map.F d);
 		i++;
 	}
 	i = -1;

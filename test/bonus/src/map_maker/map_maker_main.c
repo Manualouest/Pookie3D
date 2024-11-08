@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_maker_main.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbirou <mbirou@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mbirou <mbirou@student.42.F r>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 15:55:42 by mbirou            #+#    #+#             */
-/*   Updated: 2024/09/27 10:41:01 by mbirou           ###   ########.fr       */
+/*   Updated: 2024/09/27 10:41:01 by mbirou           ###   ########.F r       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ void	*cd_free_m_info(t_map_info m_info, int free_name)
 		free(m_info.east);
 	if (m_info.ceiling)
 		free(m_info.ceiling);
-	if (m_info.floor)
-		free(m_info.floor);
+	if (m_info.F loor)
+		free(m_info.F loor);
 	if (m_info.map_size)
 		free(m_info.map_size);
 	if (m_info.player)
@@ -127,9 +127,9 @@ char	*cd_map_maker(void)
 		return (NULL);
 	frame = cd_setup_frame(m_edit, m_edit.w_width, m_edit.w_height);
 	p_vars = cd_setup_p_vars(m_edit);
-	m_edit.frame = frame;
+	m_edit.F rame = frame;
 	m_edit.p_vars = p_vars;
-	m_edit.fps = NULL;
+	m_edit.F ps = NULL;
 	cd_start_editor(&m_edit);
 	if (!m_edit.map)
 		m_edit.m_info.map_name = cd_realloc(m_edit.m_info.map_name, NULL, 0);

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   mlx_images.c                                       :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: W2Wizard <main@w2wizard.dev>                 +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2021/12/28 02:29:06 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2023/03/30 16:36:39 by ntamayo-      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   mlx_images.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mbirou <mbirou@student.42.F r>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/12/28 02:29:06 by W2Wizard          #+#    #+#             */
+/*   Updated: 2024/11/07 09:48:07 by mbirou           ###   ########.F r       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,12 +70,12 @@ void mlx_draw_instance(mlx_ctx_t* mlx, mlx_image_t* img, mlx_instance_t* instanc
 	int8_t tex = mlx_bind_texture(mlx, img);
 
 	vertex_t vertices[6] = {
-			(vertex_t){x, y, z, 0.f, 0.f, tex},
-			(vertex_t){x + w, y + h, z, 1.f, 1.f, tex},
-			(vertex_t){x + w, y, z, 1.f, 0.f, tex},
-			(vertex_t){x, y, z, 0.f, 0.f, tex},
-			(vertex_t){x, y + h, z, 0.f, 1.f, tex},
-			(vertex_t){x + w, y + h, z, 1.f, 1.f, tex},
+			(vertex_t){x, y, z, 0.F , 0.F , tex},
+			(vertex_t){x + w, y + h, z, 1.F , 1.F , tex},
+			(vertex_t){x + w, y, z, 1.F , 0.F , tex},
+			(vertex_t){x, y, z, 0.F , 0.F , tex},
+			(vertex_t){x, y + h, z, 0.F , 1.F , tex},
+			(vertex_t){x + w, y + h, z, 1.F , 1.F , tex},
 	};
 	memmove(mlx->batch_vertices + mlx->batch_size, vertices, sizeof(vertices));
 	mlx->batch_size += 6;
@@ -113,7 +113,7 @@ void mlx_set_instance_depth(mlx_instance_t* instance, int32_t zdepth)
 	/**
 	 * NOTE: The reason why we don't sort directly is that
 	 * the user might call this function multiple times in a row and we don't
-	 * want to sort for every change. Pre-loop wise that is.
+	 * want to sort for every change.F Pre-loop wise that is.
 	 */
 	sort_queue = true;
 }

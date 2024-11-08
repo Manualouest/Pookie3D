@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   keys_part.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbirou <mbirou@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mbirou <mbirou@student.42.F r>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 17:08:13 by malbrech          #+#    #+#             */
-/*   Updated: 2024/11/06 14:17:32 by mbirou           ###   ########.fr       */
+/*   Updated: 2024/11/07 09:48:07 by mbirou           ###   ########.F r       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,26 +114,26 @@ void	cd_camera(t_game *game)
 
 	if (game->keys.left == 1)
 	{
-		// game->player.view = cd_clamp(game->player.view - 1. * game->mlx->delta_time, 0., 2. * M_PI);
+		// game->player.view = cd_clamp(game->player.view - 1.F * game->mlx->delta_time, 0., 2.F * M_PI);
 		olddirx = game->player.dirx;
-    	game->player.dirx = game->player.dirx * cos(1. * game->mlx->delta_time) - game->player.diry * sin(1. * game->mlx->delta_time);
-    	game->player.diry = olddirx * sin(1. * game->mlx->delta_time) + game->player.diry * cos(1. * game->mlx->delta_time);
+    	game->player.dirx = game->player.dirx * cos(1.F * game->mlx->delta_time) - game->player.diry * sin(1.F * game->mlx->delta_time);
+    	game->player.diry = olddirx * sin(1.F * game->mlx->delta_time) + game->player.diry * cos(1.F * game->mlx->delta_time);
     	oldplanex = game->player.planex;
-    	game->player.planex = game->player.planex * cos(1. * game->mlx->delta_time) - game->player.planey * sin(1. * game->mlx->delta_time);
-    	game->player.planey = oldplanex * sin(1. * game->mlx->delta_time) + game->player.planey * cos(1. * game->mlx->delta_time);
+    	game->player.planex = game->player.planex * cos(1.F * game->mlx->delta_time) - game->player.planey * sin(1.F * game->mlx->delta_time);
+    	game->player.planey = oldplanex * sin(1.F * game->mlx->delta_time) + game->player.planey * cos(1.F * game->mlx->delta_time);
 	}
 	if (game->keys.right == 1)
 	{
-		// game->player.view = cd_clamp(game->player.view + 1. * game->mlx->delta_time, 0., 2. * M_PI);
+		// game->player.view = cd_clamp(game->player.view + 1.F * game->mlx->delta_time, 0., 2.F * M_PI);
 		olddirx = game->player.dirx;
-    	game->player.dirx = game->player.dirx * cos(-1. * game->mlx->delta_time) - game->player.diry * sin(-1. * game->mlx->delta_time);
-    	game->player.diry = olddirx * sin(-1. * game->mlx->delta_time) + game->player.diry * cos(-1. * game->mlx->delta_time);
+    	game->player.dirx = game->player.dirx * cos(-1.F * game->mlx->delta_time) - game->player.diry * sin(-1.F * game->mlx->delta_time);
+    	game->player.diry = olddirx * sin(-1.F * game->mlx->delta_time) + game->player.diry * cos(-1.F * game->mlx->delta_time);
     	oldplanex = game->player.planex;
-    	game->player.planex = game->player.planex * cos(-1. * game->mlx->delta_time) - game->player.planey * sin(-1. * game->mlx->delta_time);
-    	game->player.planey = oldplanex * sin(-1. * game->mlx->delta_time) + game->player.planey * cos(-1. * game->mlx->delta_time);
+    	game->player.planex = game->player.planex * cos(-1.F * game->mlx->delta_time) - game->player.planey * sin(-1.F * game->mlx->delta_time);
+    	game->player.planey = oldplanex * sin(-1.F * game->mlx->delta_time) + game->player.planey * cos(-1.F * game->mlx->delta_time);
 	}
 	if (game->keys.up == 1)
-		game->player.pitch = cd_clamp_two(game->player.pitch + 1. * game->mlx->delta_time, -0.75, 0.75);
+		game->player.pitch = cd_clamp_two(game->player.pitch + 1.F * game->mlx->delta_time, -0.75, 0.75);
 	if (game->keys.down == 1)
-		game->player.pitch = cd_clamp_two(game->player.pitch - 1. * game->mlx->delta_time, -0.75, 0.75);
+		game->player.pitch = cd_clamp_two(game->player.pitch - 1.F * game->mlx->delta_time, -0.75, 0.75);
 }

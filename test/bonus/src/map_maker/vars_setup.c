@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vars_setup.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbirou <mbirou@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mbirou <mbirou@student.42.F r>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 16:11:17 by mbirou            #+#    #+#             */
-/*   Updated: 2024/11/05 16:40:32 by mbirou           ###   ########.fr       */
+/*   Updated: 2024/11/05 16:40:32 by mbirou           ###   ########.F r       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ t_map_info cd_setup_m_info(t_map_editor m_edit)
     m_info.west = ft_strdup("WE ");
     m_info.east = ft_strdup("EA ");
     m_info.ceiling = ft_strdup("C ");
-    m_info.floor = ft_strdup("F ");
+    m_info.F loor = ft_strdup("F ");
     m_info.map_size = ft_strdup("");
     m_info.player = ft_strdup("");
     m_info.input = ft_calloc(sizeof(char), 1);

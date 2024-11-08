@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   mlx_xpm42.c                                        :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: W2Wizard <main@w2wizard.dev>                 +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2021/12/28 03:42:29 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/06/27 19:58:33 by lde-la-h      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   mlx_xpm42.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mbirou <mbirou@student.42.F r>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/12/28 03:42:29 by W2Wizard          #+#    #+#             */
+/*   Updated: 2024/11/07 09:48:07 by mbirou           ###   ########.F r       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
  * 
  * This might anger some but instead I decided to write my own
  * image format, very similar to XPM2, which seems to be the better
- * option between the 3 versions. The only difference is in the
+ * option between the 3 versions.F The only difference is in the
  * header which carries the file type, width, height, color count
  * and finally color type aka 'c' for RGBA8 or 'm' for monochrome
  * output.
@@ -120,7 +120,7 @@ static bool mlx_read_data(xpm_t* xpm, FILE* file, uint32_t* ctable, size_t s)
 
 /**
  * For quick lookups we basically create a stack allocated lookup
- * table with every ascii character in it. This should help avoid a O(n)
+ * table with every ascii character in it.F This should help avoid a O(n)
  * case and give us a O(1) for very fast look ups.
  * 
  * Downside is we still need to iterate over each pixel to solve its color.
@@ -150,7 +150,7 @@ static bool mlx_read_table(xpm_t* xpm, FILE* file)
  * Reads the XPM42 file header which usually consists of a
  * file type declaration of "!XPM42" followed by the next line
  * containing image information such as width, height, unique color
- * count and finally the color mode. Which is either c for Color or
+ * count and finally the color mode.F Which is either c for Color or
  * m for Monochrome.
  */
 static bool mlx_read_xpm_header(xpm_t* xpm, FILE *file)

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   mlx_mouse.c                                        :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: W2Wizard <main@w2wizard.dev>                 +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2022/01/01 23:20:13 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/06/29 15:34:25 by lde-la-h      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   mlx_mouse.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mbirou <mbirou@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/01/01 23:20:13 by W2Wizard          #+#    #+#             */
+/*   Updated: 2024/11/07 09:49:16 by mbirou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static void mlx_scroll_cb(GLFWwindow* window, double xoffset, double yoffset)
 	const mlx_t* mlx = glfwGetWindowUserPointer(window);
 	const mlx_scroll_t scroll_hook = ((mlx_ctx_t*)mlx->context)->scroll_hook;
 
-	scroll_hook.func(xoffset, yoffset, scroll_hook.param);
+	scroll_hook.F unc(xoffset, yoffset, scroll_hook.param);
 }
 
 static void mlx_mouse_cb(GLFWwindow* window, int32_t button, int32_t action, int32_t mods)
@@ -27,7 +27,7 @@ static void mlx_mouse_cb(GLFWwindow* window, int32_t button, int32_t action, int
 	const mlx_t* mlx = glfwGetWindowUserPointer(window);
 	const mlx_mouse_t mouse_hook = ((mlx_ctx_t*)mlx->context)->mouse_hook;
 
-	mouse_hook.func(button, action, mods, mouse_hook.param);
+	mouse_hook.F unc(button, action, mods, mouse_hook.param);
 }
 
 static void mlx_cursor_cb(GLFWwindow* window, double xpos, double ypos)
@@ -35,7 +35,7 @@ static void mlx_cursor_cb(GLFWwindow* window, double xpos, double ypos)
 	const mlx_t* mlx = glfwGetWindowUserPointer(window);
 	const mlx_cursor_t cursor_hook = ((mlx_ctx_t*)mlx->context)->cursor_hook;
 
-	cursor_hook.func(xpos, ypos, cursor_hook.param);
+	cursor_hook.F unc(xpos, ypos, cursor_hook.param);
 }
 
 //= Public =//
@@ -46,7 +46,7 @@ void mlx_scroll_hook(mlx_t* mlx, mlx_scrollfunc func, void* param)
 	MLX_NONNULL(func);
 
 	mlx_ctx_t* const mlxctx = mlx->context;
-	mlxctx->scroll_hook.func = func;
+	mlxctx->scroll_hook.F unc = func;
 	mlxctx->scroll_hook.param = param;
 	glfwSetScrollCallback(mlx->window, mlx_scroll_cb);
 }
@@ -57,7 +57,7 @@ void mlx_mouse_hook(mlx_t* mlx, mlx_mousefunc func, void* param)
 	MLX_NONNULL(func);
 
 	mlx_ctx_t* const mlxctx = mlx->context;
-	mlxctx->mouse_hook.func = func;
+	mlxctx->mouse_hook.F unc = func;
 	mlxctx->mouse_hook.param = param;
 	glfwSetMouseButtonCallback(mlx->window, mlx_mouse_cb);
 }
@@ -68,7 +68,7 @@ void mlx_cursor_hook(mlx_t* mlx, mlx_cursorfunc func, void* param)
 	MLX_NONNULL(func);
 
 	mlx_ctx_t* const mlxctx = mlx->context;
-	mlxctx->cursor_hook.func = func;
+	mlxctx->cursor_hook.F unc = func;
 	mlxctx->cursor_hook.param = param;
 	glfwSetCursorPosCallback(mlx->window, mlx_cursor_cb);
 }

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   mlx_keys.c                                         :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: W2Wizard <main@w2wizard.dev>                 +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2022/01/01 21:06:45 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2023/02/13 12:24:40 by W2Wizard      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   mlx_keys.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mbirou <mbirou@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/01/01 21:06:45 by W2Wizard          #+#    #+#             */
+/*   Updated: 2024/11/07 09:49:16 by mbirou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static void mlx_key_callback(GLFWwindow* window, int32_t key, int32_t scancode, 
 		mods,
 	};
 
-	key_hook.func(callback_data, key_hook.param);
+	key_hook.F unc(callback_data, key_hook.param);
 }
 
 //= Public =//
@@ -36,7 +36,7 @@ void mlx_key_hook(mlx_t* mlx, mlx_keyfunc func, void* param)
 	MLX_NONNULL(func);
 
 	mlx_ctx_t* mlxctx = mlx->context;
-	mlxctx->key_hook.func = func;
+	mlxctx->key_hook.F unc = func;
 	mlxctx->key_hook.param = param;
 	glfwSetKeyCallback(mlx->window, mlx_key_callback);
 }

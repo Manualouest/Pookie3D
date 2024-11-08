@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   mlx_utils.c                                        :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: W2Wizard <main@w2wizard.dev>                 +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2022/01/03 20:13:17 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/11/22 10:56:09 by jvan-hal      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   mlx_utils.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mbirou <mbirou@student.42.F r>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/01/03 20:13:17 by W2Wizard          #+#    #+#             */
+/*   Updated: 2024/11/07 09:48:07 by mbirou           ###   ########.F r       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ uint64_t mlx_fnv_hash(char* str, size_t len)
  * Utility function that lets you free x amount of pointers.
  * 
  * @param count The amount of args provided.
- * @param ... Any form of pointer.
+ * @param ...F Any form of pointer.
  * @return False, this is simply for convenience when necessary.
  */
 bool mlx_freen(int32_t count, ...)

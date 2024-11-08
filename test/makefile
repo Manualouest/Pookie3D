@@ -2,7 +2,7 @@
 
 NAME = cub3D
 
-B_NAME = pookie3d
+B_NAME = cub3d
 
 CFLAGS = -Wall -Werror -Wextra -g
 
@@ -77,12 +77,17 @@ B_SRC_NAME += init/init_game.c\
 			init/init_game_part.c
 
 B_SRC_NAME += keys/keys.c\
-			keys/keys_part.c
+			keys/keys_part.c\
+			keys/wall_edition.c
 
 B_SRC_NAME += raycasting/raycast.c\
 			raycasting/draw_walls.c\
 			raycasting/make_tiles.c\
-			raycasting/utils.c
+			raycasting/utils.c\
+			raycasting/sprites.c\
+			raycasting/sprite_list_utils.c
+
+B_SRC_NAME += gui/gui_setup.c
 
 B_SRC = $(addprefix $(B_SRC_DIR), $(B_SRC_NAME))
 
@@ -124,7 +129,7 @@ $(NAME): bonus
 #	@echo "\033[32;47;1m** FINISH **\033[1;m"
 
 bonus: MLX  $(LIBFT) $(B_OBJ)
-	@gcc -o $(B_NAME) -msse -flto -Ofast $(CFLAGS) $(B_SRC) $(INCLUDES) $(LIBFT) $(LIBS)
+	@gcc -o $(B_NAME) -msse -flto $(CFLAGS) $(B_SRC) $(INCLUDES) $(LIBFT) $(LIBS)
 	@echo "\033[32;47;1m** FINISH BONUS **\033[1;m"
 
 clean:

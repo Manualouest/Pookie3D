@@ -6,7 +6,7 @@
 /*   By: mbirou <mbirou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 11:27:38 by mbirou            #+#    #+#             */
-/*   Updated: 2024/11/06 20:34:27 by mbirou           ###   ########.fr       */
+/*   Updated: 2024/11/08 14:57:40 by mbirou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,15 +37,41 @@ typedef struct s_position
 	int	y;
 }	t_position;
 
+typedef struct s_sprite_vars
+{
+	float	trsx;
+	float	trsy;
+	int		screenx;
+	int		sp_height;
+	int		sp_width;
+	int		txty;
+	int		txtx;
+	int		y_op;
+	float	x;
+	float	y;
+	float	stry;
+	float	endy;
+	float	strx;
+	float	endx;
+}			t_sprite_vars;
+
+
 typedef struct	s_sprite
 {
 	float	x;
 	float	y;
 	float	distance;
 	float	height;
+	int		direction;
 	int		tile;
-	int		start_rot;
+	int		**txt;
 }			t_sprite;
+
+typedef struct t_inventory
+{
+	int					tile;
+	struct t_inventory *next;
+}						t_inventory;
 
 typedef struct	s_textures
 {
@@ -66,25 +92,23 @@ typedef struct	s_textures
 	float		y_ratio;
 	float		incr;
 	float		dim;
-	float		overflow_safety;
-	float		overflow_safety1;
-	float		overflow_safety2;
 }				t_textures;
 
 typedef struct s_data_player
 {
-	float	x;
-	float	y;
-	float	view;
-	float	height;
-	float	pitch;
-	float	speed;
-	float	jump_coeff;
-	float	jog_coeff;
-	float	planex;
-	float	planey;
-	float	dirx;
-	float	diry;
+	float		x;
+	float		y;
+	float		view;
+	float		height;
+	float		pitch;
+	float		speed;
+	float		jump_coeff;
+	float		jog_coeff;
+	float		planex;
+	float		planey;
+	float		dirx;
+	float		diry;
+	t_inventory	*inventory;
 }	t_data_player;
 
 typedef struct s_map
@@ -111,12 +135,17 @@ typedef struct s_keys
 	int	shift;
 	int	ctrl;
 	int	fps;
+	int	destroy;
+	int	place;
 }	t_keys;
 
 typedef struct s_ray_info
 {
 	float	x;
 	float	y;
+	float	x_save;
+	float	y_save;
+	float	distance_save;
 	float	t_x;
 	float	distance;
 	float	wall_height;
@@ -129,6 +158,7 @@ typedef struct s_ray_info
 	int		side;
 	int		step_x;
 	int		step_y;
+	int		*distances;
 }			t_ray_info;
 
 typedef struct s_t_info
@@ -164,6 +194,8 @@ typedef struct s_game
 	mlx_t			*mlx;
 	mlx_image_t		*screen;
 	mlx_image_t		*fps;
+	mlx_image_t		*gui;
+	mlx_image_t		*nb_block;
 	t_ray_info		rays;
 	t_t_info		t_info;
 	t_keys			keys;
@@ -282,8 +314,9 @@ void		cd_camera_conditions(mlx_key_data_t keydata, t_game *game);
 void		cd_walk(t_game *game);
 
 // --wall_edition.c
-// void		cd_edit_wall(t_game *game, char new_wall);
-
+void		cd_edit_wall(t_game *game, float x, float y);
+void		cd_mouse_input(mouse_key_t button, action_t action,
+	modifier_key_t mods, t_game *game);
 
 // -----raycast----------------------------------------------------------------
 // --raycast.c
@@ -295,21 +328,30 @@ void		cd_draw_walls(t_game *game, t_ray_info *ray, int x);
 void		cd_draw_c_f(t_game *game, int x);
 
 // --draw_tiles.c
+float		cd_get_p_rsqrt(t_game *game, float x2, float y2);
 void		cd_draw_tiles(t_game *game, int x);
 
 // --utils.c
 mlx_image_t	*cd_slow_raycast(t_game *game, struct timeval start_time,
-				int target_fps, int get_img);
+				int target_fps);
 void		cd_modif_res(t_game *game, int moment);
 
 // --sprites.c
-void		cd_render_sprites(t_game * game, float x);
+void		cd_sort_sprites(t_game *game);
+void		cd_render_sprites(t_game * game);
+
+// --sprite_list_utils.c
+void		cd_add_sprite(t_game *game, float x, float y);
+void		cd_remove_sprite(t_game *game, int target_i);
 
 // -----minimap----------------------------------------------------------------
 void		cd_minimap(t_game *game);
 void		cd_put_texture(t_game *game, char *path, int x, int y);
 void		cd_minimap_conditions(t_game *game, t_position *pos, int *i, int *ii);
 
+// -----gui--------------------------------------------------------------------
+// --gui_setup.c
+void		cd_show_block_inventory(t_game *game);
 
 // -----main-------------------------------------------------------------------
 // --error.c

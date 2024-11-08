@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbirou <mbirou@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mbirou <mbirou@student.42.F r>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 09:54:35 by mbirou            #+#    #+#             */
-/*   Updated: 2024/11/06 14:17:32 by mbirou           ###   ########.fr       */
+/*   Updated: 2024/11/06 14:17:32 by mbirou           ###   ########.F r       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ int	main(int argc, char **argv)
 	game = cd_init_structs(map_file);
 	game.screen = NULL;
 	game.fps = NULL;
+	game.nb_block = NULL;
 	parser(&game);
 	
 	cd_img_to_int(&game.graphic);
@@ -39,10 +40,12 @@ int	main(int argc, char **argv)
 
 	game.screen = mlx_new_image(game.mlx, game.graphic.width, game.graphic.height);
 	mlx_image_to_window(game.mlx, game.screen, 0, 0);
+	game.gui = mlx_new_image(game.mlx, game.graphic.width, game.graphic.height);
+	mlx_image_to_window(game.mlx, game.gui, 0, 0);
 	// mlx_resize_image(game.screen, game.graphic.width, game.graphic.height);
 	// game.screen->instances[0].z = 2;
 	mlx_key_hook(game.mlx, (void (*))cd_keys, (void *)&game);
-	
+	mlx_mouse_hook(game.mlx, (void (*))cd_mouse_input, (void *)&game);
 	mlx_loop_hook(game.mlx, (void (*))cd_render, (void *)&game);
 	mlx_loop(game.mlx);
 

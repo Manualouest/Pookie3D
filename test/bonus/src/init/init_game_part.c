@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_game_part.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbirou <mbirou@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mbirou <mbirou@student.42.F r>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 10:52:56 by mbirou            #+#    #+#             */
-/*   Updated: 2024/11/06 14:17:32 by mbirou           ###   ########.fr       */
+/*   Updated: 2024/11/06 14:17:32 by mbirou           ###   ########.F r       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,5 +28,7 @@ void	cd_init_keys(t_game *game)
 	keys.shift = 0;
 	keys.ctrl = 0;
 	keys.fps = 1;
+	keys.destroy = 0;
+	keys.place = 0;
 	game->keys = keys;
 }
