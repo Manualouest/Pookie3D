@@ -40,6 +40,10 @@ void	cd_keys(mlx_key_data_t keydata, t_game *game)
 	}
 	if (keydata.key == MLX_KEY_F && keydata.action == MLX_PRESS)
 		game->keys.fps = 1 - game->keys.fps;
+	if (keydata.key == MLX_KEY_X && keydata.action == MLX_PRESS)
+		game->keys.mouse = 1 - game->keys.mouse;
+	if (!game->keys.mouse)
+		mlx_set_cursor_mode(game->mlx, MLX_MOUSE_NORMAL);
 	cd_directions_conditions(keydata, game);
 	cd_actions_conditions(keydata, game);
 	cd_camera_conditions(keydata, game);
@@ -56,7 +60,7 @@ void	cd_moove(t_game *game)
 	cd_jump(game);
 	// cd_walk(game);
 	cd_camera(game);
-	// mouse_controller(game);
+	mouse_controller(game);
 }
 
 void	cd_directions_conditions(mlx_key_data_t keydata, t_game *game)
@@ -97,6 +101,8 @@ void	cd_actions_conditions(mlx_key_data_t keydata, t_game *game)
 
 void	cd_camera_conditions(mlx_key_data_t keydata, t_game *game)
 {
+	if (game->keys.mouse)
+		return ;
 	if (keydata.key == MLX_KEY_UP && keydata.action == MLX_PRESS && game->player.pitch < 0.75)
 		game->keys.up = 1;
 	if (keydata.key == MLX_KEY_UP && keydata.action == MLX_RELEASE)

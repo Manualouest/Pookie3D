@@ -78,7 +78,8 @@ B_SRC_NAME += init/init_game.c\
 
 B_SRC_NAME += keys/keys.c\
 			keys/keys_part.c\
-			keys/wall_edition.c
+			keys/wall_edition.c\
+			keys/camera.c
 
 B_SRC_NAME += raycasting/raycast.c\
 			raycasting/draw_walls.c\

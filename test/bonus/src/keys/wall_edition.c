@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   wall_edition.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbirou <mbirou@student.42.F r>              +#+  +:+       +#+        */
+/*   By: mbirou <mbirou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/27 10:49:46 by mbirou            #+#    #+#             */
-/*   Updated: 2024/11/06 14:17:32 by mbirou           ###   ########.F r       */
+/*   Created: 2024/11/09 16:33:48 by mbirou            #+#    #+#             */
+/*   Updated: 2024/11/09 19:39:40 by mbirou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,27 +24,64 @@ void	cd_mouse_input(mouse_key_t button, action_t action,
 		game->keys.place = 1;
 }
 
+void	cd_inventory_switch(double xdelta, double ydelta, t_game *game)
+{
+	t_inventory	*last_inv;
+
+	(void)xdelta;
+	if (!game->player.inventory || !game->player.inventory->next)
+		return ;
+	last_inv = game->player.inventory;
+	if (ydelta > 0)
+	{
+		while (last_inv->next)
+			last_inv = last_inv->next;
+		last_inv->next = game->player.inventory;
+		game->player.inventory = game->player.inventory->next;
+		last_inv->next->next = NULL;
+	}
+	else if (ydelta < 0)
+	{
+		while (last_inv->next->next)
+			last_inv = last_inv->next;
+		last_inv->next->next = game->player.inventory;
+		game->player.inventory = last_inv->next;
+		last_inv->next = NULL;
+	}
+}
+
+void	cd_place_wall(t_game *game, float x, float y, float distance)
+{
+	t_inventory	*tp_inv;
+
+	if (distance > 5 * (1 - fabs(game->player.pitch)))
+	{
+		x = game->player.x + game->player.dirx
+			* (5 * (1 - fabs(game->player.pitch)));
+		y = game->player.y + game->player.diry
+			* (5 * (1 - fabs(game->player.pitch)));
+	}
+	game->graphic.tmap[(int)y][(int)x] = game->player.inventory->tile;
+	tp_inv = game->player.inventory;
+	game->player.inventory = tp_inv->next;
+	free(tp_inv);
+	game->map.map[(int)y][(int)x] = 1;
+}
+
 void	cd_edit_wall(t_game *game, float x, float y)
 {
 	float	distance;
-	t_inventory	*tp_inv;
 
 	distance = game->rays.distance_save;
 	if (game->keys.destroy && (int)x != 0 && (int)x != game->map.width - 1
-		&& (int)y != 0 && (int)y != game->map.height - 1 && distance < 5)
+		&& (int)y != 0 && (int)y != game->map.height - 1 && distance < 5 * (1 - fabs(game->player.pitch)))
 	{
 		cd_add_sprite(game, x, y);
 		game->map.map[(int)y][(int)x] = 0;
 	}
-	if (game->keys.place && distance < 5 && game->player.inventory
+	if (game->keys.place && game->player.inventory
 		&& !((int)x == (int)game->player.x && (int)y == (int)game->player.y))
-	{
-		game->graphic.tmap[(int)y][(int)x] = game->player.inventory->tile;
-		tp_inv = game->player.inventory;
-		game->player.inventory = tp_inv->next;
-		free(tp_inv);
-		game->map.map[(int)y][(int)x] = 1;
-	}
+		cd_place_wall(game, x, y, distance);
 	game->keys.place = 0;
 	game->keys.destroy = 0;
 }

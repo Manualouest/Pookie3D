@@ -29,7 +29,6 @@ int	main(int argc, char **argv)
 	game = cd_init_structs(map_file);
 	game.screen = NULL;
 	game.fps = NULL;
-	game.nb_block = NULL;
 	parser(&game);
 	
 	cd_img_to_int(&game.graphic);
@@ -43,9 +42,11 @@ int	main(int argc, char **argv)
 	game.gui = mlx_new_image(game.mlx, game.graphic.width, game.graphic.height);
 	mlx_image_to_window(game.mlx, game.gui, 0, 0);
 	// mlx_resize_image(game.screen, game.graphic.width, game.graphic.height);
-	// game.screen->instances[0].z = 2;
+	// game.screen->instances[0].z = 3;
+	// game.gui->instances[0].z = 4;
 	mlx_key_hook(game.mlx, (void (*))cd_keys, (void *)&game);
 	mlx_mouse_hook(game.mlx, (void (*))cd_mouse_input, (void *)&game);
+	mlx_scroll_hook(game.mlx, (void (*))cd_inventory_switch, (void *)&game);
 	mlx_loop_hook(game.mlx, (void (*))cd_render, (void *)&game);
 	mlx_loop(game.mlx);
 

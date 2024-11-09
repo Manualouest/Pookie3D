@@ -37,12 +37,12 @@ mlx_image_t	*cd_slow_raycast(t_game *game, struct timeval start_time,
 	return (img);
 }
 
-void	cd_modif_res(t_game *game, int moment)
+void	cd_modif_res(t_game *game, int moment, int force)
 {
 	if (game->keys.a || game->keys.d || game->keys.w || game->keys.s
 		|| game->keys.up || game->keys.down || game->keys.left
 		|| game->keys.right || game->keys.space || game->keys.destroy
-		|| game->keys.place)
+		|| game->keys.place || force)
 	{
 		game->graphic.width_mod = 3;
 		game->graphic.width = 640;

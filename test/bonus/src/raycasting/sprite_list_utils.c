@@ -6,7 +6,7 @@
 /*   By: mbirou <mbirou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 11:35:11 by mbirou            #+#    #+#             */
-/*   Updated: 2024/11/08 14:37:56 by mbirou           ###   ########.fr       */
+/*   Updated: 2024/11/09 15:53:41 by mbirou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,10 @@ void	cd_remove_sprite(t_game *game, int target_i)
 		;
 	n_inv = malloc(sizeof(*n_inv));
 	n_inv->tile = game->graphic.sprites[i]->tile;
-	n_inv->next = game->player.inventory;
+	if (!game->player.inventory)
+		n_inv->next = NULL;
+	else
+		n_inv->next = game->player.inventory;
 	game->player.inventory = n_inv;
 	i --;
 	while (game->graphic.sprites[++i])

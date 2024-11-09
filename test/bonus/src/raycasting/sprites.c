@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   sprites.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbirou <mbirou@student.42.F r>              +#+  +:+       +#+        */
+/*   By: mbirou <mbirou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/06 20:22:16 by mbirou            #+#    #+#             */
-/*   Updated: 2024/11/07 09:48:07 by mbirou           ###   ########.F r       */
+/*   Created: 2024/11/09 13:43:15 by mbirou            #+#    #+#             */
+/*   Updated: 2024/11/09 16:20:17 by mbirou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include <cub3d_bonus.h>
 
@@ -70,14 +71,14 @@ t_sprite_vars	cd_setup_sprite_vars(t_game *game, t_sprite *sprite)
 		+ game->player.planex * (sprite->y - game->player.y));
 	sp_var.screenx = ((int)game->graphic.width >> 1)
 		* (1 + trsx / sp_var.trsy);
-	sp_var.sp_height = (int)fabs(game->graphic.height / sp_var.trsy) >> 4;
-	sp_var.sp_width = ((int)fabs(game->graphic.height / sp_var.trsy) >> 4)
+	sp_var.sp_height = (int)fabs(game->graphic.height / sp_var.trsy) >> 3;
+	sp_var.sp_width = ((int)fabs(game->graphic.height / sp_var.trsy) >> 3)
 		/ game->graphic.width_mod;
 	sp_var.stry = ((-sp_var.sp_height) >> 1)
-		+ (sp_var.sp_height << 3) + sprite->height;
+		+ (sp_var.sp_height << 2) + sprite->height;
 	// sp_var.stry = game->graphic.up_op + ((-sp_var.sp_height) >> 1)
 	// 	+ (sp_var.sp_height << 3) + sprite->height;
-	sp_var.stry += (sp_var.stry) * game->player.height + game->graphic.up_op;
+	sp_var.stry += ((sp_var.sp_height << 3)) * game->player.height + game->graphic.up_op;
 	sp_var.endy = sp_var.stry + sp_var.sp_height;
 	sp_var.strx = (-sp_var.sp_width >> 1) + sp_var.screenx;
 	sp_var.endx = sp_var.strx + sp_var.sp_width;
@@ -122,13 +123,13 @@ void	cd_render_sprites(t_game *game)
 		sp_var = cd_setup_sprite_vars(game, sprite);
 		if (sp_var.trsy > 0)
 			cd_put_sprite(game, sp_var, sprite);
-		// if (sprite->direction)
-		// 	sprite->height += 10 * sprite->distance * game->mlx->delta_time;
-		// else
-		// 	sprite->height -= 10 * sprite->distance * game->mlx->delta_time;
-		// if (sprite->height >= 10)
-		// 	sprite->direction = 0;
-		// if (sprite->height <= 0)
-		// 	sprite->direction = 1;
+		if (sprite->direction)
+			sprite->height += 10 * sprite->distance * game->mlx->delta_time;
+		else
+			sprite->height -= 10 * sprite->distance * game->mlx->delta_time;
+		if (sprite->height >= 10)
+			sprite->direction = 0;
+		if (sprite->height <= 0)
+			sprite->direction = 1;
 	}
 }

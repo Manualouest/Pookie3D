@@ -6,7 +6,7 @@
 /*   By: mbirou <mbirou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 11:27:38 by mbirou            #+#    #+#             */
-/*   Updated: 2024/11/08 14:57:40 by mbirou           ###   ########.fr       */
+/*   Updated: 2024/11/09 18:55:16 by mbirou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,6 +137,7 @@ typedef struct s_keys
 	int	fps;
 	int	destroy;
 	int	place;
+	int	mouse;
 }	t_keys;
 
 typedef struct s_ray_info
@@ -195,7 +196,6 @@ typedef struct s_game
 	mlx_image_t		*screen;
 	mlx_image_t		*fps;
 	mlx_image_t		*gui;
-	mlx_image_t		*nb_block;
 	t_ray_info		rays;
 	t_t_info		t_info;
 	t_keys			keys;
@@ -306,15 +306,22 @@ void		cd_moove_backward(t_game *game);
 void		cd_moove_left(t_game *game);
 void		cd_moove_right(t_game *game);
 void		cd_jump(t_game *game);
-void		cd_camera(t_game *game);
 void		cd_moove(t_game *game);
 void		cd_directions_conditions(mlx_key_data_t keydata, t_game *game);
 void		cd_actions_conditions(mlx_key_data_t keydata, t_game *game);
 void		cd_camera_conditions(mlx_key_data_t keydata, t_game *game);
 void		cd_walk(t_game *game);
 
+// --camera.h
+void		cd_right(t_game *game, float amount);
+void		cd_left(t_game *game, float amount);
+void		cd_up(t_game *game, float amount);
+void		cd_down(t_game *game, float amount);
+void		cd_camera(t_game *game);
+
 // --wall_edition.c
 void		cd_edit_wall(t_game *game, float x, float y);
+void		cd_inventory_switch(double xdelta, double ydelta, t_game *game);
 void		cd_mouse_input(mouse_key_t button, action_t action,
 	modifier_key_t mods, t_game *game);
 
@@ -334,7 +341,7 @@ void		cd_draw_tiles(t_game *game, int x);
 // --utils.c
 mlx_image_t	*cd_slow_raycast(t_game *game, struct timeval start_time,
 				int target_fps);
-void		cd_modif_res(t_game *game, int moment);
+void		cd_modif_res(t_game *game, int moment, int force);
 
 // --sprites.c
 void		cd_sort_sprites(t_game *game);

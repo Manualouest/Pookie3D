@@ -120,7 +120,7 @@ void	cd_render(t_game *game)
 	gettimeofday(&time, NULL);
 	if (game->fps)
 		mlx_delete_image(game->mlx, game->fps);
-	cd_modif_res(game, 0);
+	cd_modif_res(game, 0, 0);
 	cd_setup_vars(game);
 	x = -1;
 	mlx_resize_image(game->screen, game->graphic.width, game->graphic.height);
@@ -130,7 +130,7 @@ void	cd_render(t_game *game)
 		cd_draw_walls(game, &game->rays, x);
 	}
 	cd_render_sprites(game);
-	cd_modif_res(game, 1);
+	cd_modif_res(game, 1, 0);
 	mlx_resize_image(game->screen, game->graphic.width, game->graphic.height);
 	cd_edit_wall(game, game->rays.x_save, game->rays.y_save);
 	cd_moove(game);

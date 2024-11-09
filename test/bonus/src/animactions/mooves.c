@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mooves.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbirou <mbirou@student.42.F r>              +#+  +:+       +#+        */
+/*   By: mbirou <mbirou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/02 21:20:43 by malbrech          #+#    #+#             */
-/*   Updated: 2024/11/06 14:17:32 by mbirou           ###   ########.F r       */
+/*   Created: 2024/11/09 16:34:26 by mbirou            #+#    #+#             */
+/*   Updated: 2024/11/09 18:53:38 by mbirou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void cd_jump(t_game *game)
         {
             game->player.height = NORMAL_HEIGHT;
             game->player.jump_coeff = 41;
-            cd_modif_res(game, 1);
+            cd_modif_res(game, 1, 0);
             game->keys.space = 0;
         }
     }
