@@ -6,7 +6,7 @@
 /*   By: mbirou <mbirou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/09 13:43:15 by mbirou            #+#    #+#             */
-/*   Updated: 2024/11/09 16:20:17 by mbirou           ###   ########.fr       */
+/*   Updated: 2024/11/11 16:03:11 by mbirou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,8 @@ t_sprite_vars	cd_setup_sprite_vars(t_game *game, t_sprite *sprite)
 		+ (sp_var.sp_height << 2) + sprite->height;
 	// sp_var.stry = game->graphic.up_op + ((-sp_var.sp_height) >> 1)
 	// 	+ (sp_var.sp_height << 3) + sprite->height;
-	sp_var.stry += ((sp_var.sp_height << 3)) * game->player.height + game->graphic.up_op;
+	sp_var.stry += ((sp_var.sp_height << 3)) * game->player.height
+		+ game->graphic.up_op;
 	sp_var.endy = sp_var.stry + sp_var.sp_height;
 	sp_var.strx = (-sp_var.sp_width >> 1) + sp_var.screenx;
 	sp_var.endx = sp_var.strx + sp_var.sp_width;
@@ -92,7 +93,8 @@ void	cd_put_sprite(t_game *game, t_sprite_vars sp_var,
 	while (++sp_var.x < sp_var.endx && sp_var.x < game->graphic.width)
 	{
 		if (sp_var.x < 0
-			|| (int)(sp_var.trsy + 0.5) > game->rays.distances[(int)sp_var.x])
+			|| (int)(sp_var.trsy + 0.5)
+				> game->rays.sprite_distances[(int)sp_var.x])
 			continue ;
 		sp_var.txtx = (sp_var.x - sp_var.strx)
 			* (sp->txt[0][0] / (sp_var.endx - sp_var.strx));
@@ -108,7 +110,7 @@ void	cd_put_sprite(t_game *game, t_sprite_vars sp_var,
 	}
 }
 
-void	cd_render_sprites(t_game *game)
+void	cd_render_sprites(t_game *game, int move_height)
 {
 	t_sprite_vars	sp_var;
 	t_sprite		*sprite;
@@ -123,6 +125,8 @@ void	cd_render_sprites(t_game *game)
 		sp_var = cd_setup_sprite_vars(game, sprite);
 		if (sp_var.trsy > 0)
 			cd_put_sprite(game, sp_var, sprite);
+		if (!move_height)
+			continue ;
 		if (sprite->direction)
 			sprite->height += 10 * sprite->distance * game->mlx->delta_time;
 		else

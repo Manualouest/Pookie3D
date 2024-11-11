@@ -68,3 +68,15 @@ int	**cd_add_new_array_line(int *line, int **array)
 	}
 	return (new_array);
 }
+
+int	*cd_dup_int_list(int *list, int len)
+{
+	int	i;
+	int	*n_list;
+
+	i = -1;
+	n_list = malloc(sizeof(*n_list) * (len + 1));
+	while (++i < len)
+		n_list[i] = list[i];
+	return (n_list);
+}

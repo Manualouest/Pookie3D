@@ -6,7 +6,7 @@
 /*   By: mbirou <mbirou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/09 16:33:48 by mbirou            #+#    #+#             */
-/*   Updated: 2024/11/09 19:39:40 by mbirou           ###   ########.fr       */
+/*   Updated: 2024/11/11 11:25:31 by mbirou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,8 @@ void	cd_edit_wall(t_game *game, float x, float y)
 
 	distance = game->rays.distance_save;
 	if (game->keys.destroy && (int)x != 0 && (int)x != game->map.width - 1
-		&& (int)y != 0 && (int)y != game->map.height - 1 && distance < 5 * (1 - fabs(game->player.pitch)))
+		&& (int)y != 0 && (int)y != game->map.height - 1 && distance < 5
+		* (1 - fabs(game->player.pitch)))
 	{
 		cd_add_sprite(game, x, y);
 		game->map.map[(int)y][(int)x] = 0;

@@ -54,6 +54,8 @@ void	cd_free_all(t_game *game)
 	cd_free_int_tab(game->graphic.rmap);
 	if (game->screen)
 		mlx_delete_image(game->mlx, game->screen);
+	if (game->gui)
+		mlx_delete_image(game->mlx, game->gui);
 	if (game->fps)
 		mlx_delete_image(game->mlx, game->fps);
 	if (game->mlx)

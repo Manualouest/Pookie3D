@@ -6,7 +6,7 @@
 /*   By: mbirou <mbirou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/09 16:34:08 by mbirou            #+#    #+#             */
-/*   Updated: 2024/11/09 16:34:10 by mbirou           ###   ########.fr       */
+/*   Updated: 2024/11/11 17:57:05 by mbirou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,8 @@ void	cd_init_rays(t_game *game)
 	rays.side = 0;
 	rays.step_x = 0;
 	rays.step_y = 0;
-	rays.distances = malloc(1);
+	rays.sprite_distances = malloc(1);
+	rays.d_dst = malloc(sizeof(float));
 	game->rays = rays;
 }
 

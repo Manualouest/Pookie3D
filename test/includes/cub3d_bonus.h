@@ -6,7 +6,7 @@
 /*   By: mbirou <mbirou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 11:27:38 by mbirou            #+#    #+#             */
-/*   Updated: 2024/11/09 18:55:16 by mbirou           ###   ########.fr       */
+/*   Updated: 2024/11/11 17:57:52 by mbirou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ typedef struct s_position
 {
 	int	x;
 	int	y;
-}	t_position;
+}		t_position;
 
 typedef struct s_sprite_vars
 {
@@ -109,7 +109,7 @@ typedef struct s_data_player
 	float		dirx;
 	float		diry;
 	t_inventory	*inventory;
-}	t_data_player;
+}				t_data_player;
 
 typedef struct s_map
 {
@@ -159,7 +159,8 @@ typedef struct s_ray_info
 	int		side;
 	int		step_x;
 	int		step_y;
-	int		*distances;
+	int		*sprite_distances;
+	float	*d_dst;
 }			t_ray_info;
 
 typedef struct s_t_info
@@ -282,6 +283,7 @@ char		*format_d_line(char *line, int *ii);
 
 // --tab_utils.c
 char		**add_new_line(char *line, char **tab);
+float		*cd_add_flst(float *list, float new);
 
 // --math.c
 float		cd_clamp(float num, float min, float max);
@@ -297,6 +299,7 @@ int			cd_intlen(int *line);
 int			*cd_strtoi_m(char *line, int line_len, int dif);
 int			cd_array_len(int	**array);
 int			**cd_add_new_array_line(int *line, int **array);
+int			*cd_dup_int_list(int *list, int len);
 
 // -----keys-------------------------------------------------------------------
 // --keys.c
@@ -338,6 +341,9 @@ void		cd_draw_c_f(t_game *game, int x);
 float		cd_get_p_rsqrt(t_game *game, float x2, float y2);
 void		cd_draw_tiles(t_game *game, int x);
 
+// --door_raycast.c
+void		cd_raycast_doors(t_game *game);
+
 // --utils.c
 mlx_image_t	*cd_slow_raycast(t_game *game, struct timeval start_time,
 				int target_fps);
@@ -345,7 +351,7 @@ void		cd_modif_res(t_game *game, int moment, int force);
 
 // --sprites.c
 void		cd_sort_sprites(t_game *game);
-void		cd_render_sprites(t_game * game);
+void		cd_render_sprites(t_game * game, int move_height);
 
 // --sprite_list_utils.c
 void		cd_add_sprite(t_game *game, float x, float y);

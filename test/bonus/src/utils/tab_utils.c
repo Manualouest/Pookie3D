@@ -41,3 +41,21 @@ char	**add_new_line(char *line, char **tab)
 		free(tab);
 	return (new_tab);
 }
+
+float	*cd_add_flst(float *list, float new)
+{
+	int		i;
+	float	*n_list;
+
+	i = -1;
+	while (list && list[++i != -1])
+		;
+	n_list = malloc(sizeof(*n_list) * (i + 2));
+	n_list[i] = new;
+	n_list[i + 1] = -1;
+	while (--i >= 0)
+		n_list[i] = list[i];
+	if (list);
+		free(list);
+	return (n_list);
+}

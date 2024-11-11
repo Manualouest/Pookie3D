@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   raycast.c                                          :+:      :+:    :+:   */
+/*   door_raycast.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbirou <mbirou@student.42.F r>              +#+  +:+       +#+        */
+/*   By: mbirou <mbirou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/30 13:23:18 by mbirou            #+#    #+#             */
-/*   Updated: 2024/11/07 09:48:07 by mbirou           ###   ########.F r       */
+/*   Created: 2024/11/11 11:26:01 by mbirou            #+#    #+#             */
+/*   Updated: 2024/11/11 18:35:37 by mbirou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,10 @@ void	cd_ray_loop(t_game *game, t_ray_info *ray)
 		&& ((ray->side == 0 && ray->side_dx - ray->delta_dx < 920)
 		|| (ray->side == 1 && ray->side_dy - ray->delta_dy < 920)))
 	{
+		if (game->map.map[(int)ray->y][(int)ray->x] == 2 && ray->side == 0)
+			ray->d_dst = cd_add_flst(ray->d_dst, ray->side_dx - ray->delta_dx);
+		if (game->map.map[(int)ray->y][(int)ray->x] == 2 && ray->side == 1)
+			ray->d_dst = cd_add_flst(ray->d_dst, ray->side_dy - ray->delta_dy);
 		if (ray->side_dx < ray->side_dy)
 		{
 			ray->side_dx += ray->delta_dx;
@@ -60,19 +64,20 @@ void	cd_ray_loop(t_game *game, t_ray_info *ray)
 			ray->side = 1;
 		}
 	}
-	if (ray->side == 0)
-		ray->distance = ray->side_dx - ray->delta_dx;
-	else
-		ray->distance = ray->side_dy - ray->delta_dy;
 }
 
 void	cd_cast_ray(t_game *game, t_ray_info *ray, float x)
 {
 	cd_init_ray_vars(game, ray, 2.F * x / game->graphic.width);
 	cd_ray_loop(game, ray);
+	if (ray->side == 0)
+		ray->distance = ray->side_dx - ray->delta_dx;
+	else
+		ray->distance = ray->side_dy - ray->delta_dy;
 	if (ray->distance > 960)
 		ray->distance = 960;
 	ray->sprite_distances[(int)x] = ray->distance;
+	ray->d_dst[(int)x] = ray->distance;
 	ray->wall_height = game->graphic.height / ray->distance;
 	if (x == (int)game->graphic.width >> 1)
 	{
@@ -86,41 +91,26 @@ void	cd_cast_ray(t_game *game, t_ray_info *ray, float x)
 	}
 }
 
-void	cd_setup_vars(t_game *game)
+void	cd_render_door_slice(t_game *game, t_ray_info *ray, int x)
 {
-	int	i;
+	
+}
 
-	game->t_info.dx0 = game->player.dirx - game->player.planex;
-	game->t_info.dy0 = game->player.diry - game->player.planey;
-	game->t_info.dx1 = game->player.dirx + game->player.planex;
-	game->t_info.dy1 = game->player.diry + game->player.planey;
-	game->t_info.stepx = (game->t_info.dx1 - game->t_info.dx0)
-		/ game->graphic.width;
-	game->t_info.stepy = (game->t_info.dy1 - game->t_info.dy0)
-		/ game->graphic.width;
-	game->graphic.up_op = (int)(game->graphic.height
-			+ game->graphic.height * game->player.pitch) >> 1;
-	free(game->rays.sprite_distances);
-	game->rays.sprite_distances = malloc(sizeof(int) * game->graphic.width);
-	i = -1;
-	while (game->graphic.sprites && game->graphic.sprites[++i])
+void	cd_raycast_doors(t_game *game)
+{
+	int	x;
+
+	x = -1;
+	while (++x < game->graphic.width)
 	{
-		game->graphic.sprites[i]->distance = cd_get_p_rsqrt(game,
-			game->graphic.sprites[i]->x, game->graphic.sprites[i]->y);
-		if (game->graphic.sprites[i]->distance >= 0.9)
-			cd_remove_sprite(game, i);
+		game->rays.d_dst[0] = -1;
+		cd_cast_ray(game, &game->rays, x);
+		cd_render_door_slice(game, &game->rays, x);
 	}
 }
 
-void	cd_render(t_game *game)
-{
-	struct timeval	time;
-	int				x;
 
-	gettimeofday(&time, NULL);
-	if (game->fps)
-		mlx_delete_image(game->mlx, game->fps);
-	cd_modif_res(game, 0, 0);
+/*cd_modif_res(game, 0, 0);
 	cd_setup_vars(game);
 	x = -1;
 	mlx_resize_image(game->screen, game->graphic.width, game->graphic.height);
@@ -129,12 +119,9 @@ void	cd_render(t_game *game)
 		cd_cast_ray(game, &game->rays, x);
 		cd_draw_walls(game, &game->rays, x);
 	}
-	cd_render_sprites(game, 1);
+	cd_render_sprites(game);
 	cd_modif_res(game, 1, 0);
 	mlx_resize_image(game->screen, game->graphic.width, game->graphic.height);
 	cd_edit_wall(game, game->rays.x_save, game->rays.y_save);
 	cd_moove(game);
-	cd_show_block_inventory(game);
-	if (game->keys.fps)
-		game->fps = cd_slow_raycast(game, time, 10000);
-}
+	cd_show_block_inventory(game);*/

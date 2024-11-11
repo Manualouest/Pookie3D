@@ -22,6 +22,7 @@ void	player_speed_controller(t_game *game)
 		&& game->keys.ctrl == 0)
 		game->player.speed = WALKING_SPEED;
 }
+
 void	player_height_controller(t_game *game)
 {
 	if (game->keys.shift == 1 && !game->keys.space)
