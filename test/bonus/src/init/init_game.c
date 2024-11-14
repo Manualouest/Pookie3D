@@ -6,7 +6,7 @@
 /*   By: mbirou <mbirou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/09 16:34:08 by mbirou            #+#    #+#             */
-/*   Updated: 2024/11/11 17:57:05 by mbirou           ###   ########.fr       */
+/*   Updated: 2024/11/14 19:01:29 by mbirou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,9 @@ void	cd_init_map(t_game *game, char *map_file)
 {
 	t_map	map;
 
-	map.map = malloc(sizeof(int *));
-	map.map[0] = malloc(sizeof(int));
+	map.map = malloc(sizeof(*map.map));
+	map.map[0] = malloc(sizeof(*map.map[0]) * 2);
 	map.map[0][0] = -1;
-	map.map = NULL;
 	map.path = map_file;
 	map.fd = 0;
 	map.height = 0;
@@ -65,7 +64,6 @@ void	cd_init_rays(t_game *game)
 	rays.step_x = 0;
 	rays.step_y = 0;
 	rays.sprite_distances = malloc(1);
-	rays.d_dst = malloc(sizeof(float));
 	game->rays = rays;
 }
 
@@ -89,13 +87,22 @@ void	cd_init_graphic(t_game *game)
 	i = -1;
 	while (++i < 94)
 	{
-		graphic.paths[i] = NULL;
+		graphic.p[i] = NULL;
 		graphic.slots[i] = 0;
+		graphic.txts[i] = malloc(sizeof(*graphic.txts[i]));
+		graphic.txts[i][0] = malloc(sizeof(*graphic.txts[i][0]));
+		graphic.txts[i][0][0] = -1;
+
 	}
 	graphic.dim = 0;
 	graphic.incr = 0;
 	graphic.sprites = malloc(sizeof(*graphic.sprites));
 	graphic.sprites[0] = NULL;
+	graphic.pickaxe = malloc(sizeof(int **) * 9);
+	graphic.pickaxe[0] = malloc(sizeof(int *));
+	graphic.pickaxe[0][0] = malloc(sizeof(int));
+	graphic.pickaxe[0][0][0] = -1;
+	graphic.pic_frame = -1;
 	game->graphic = graphic;
 }
 
@@ -108,5 +115,9 @@ t_game	cd_init_structs(char *map_file)
 	cd_init_rays(&game);
 	cd_init_graphic(&game);
 	cd_init_keys(&game);
+	game.gui = NULL;
+	game.screen = NULL;
+	game.fps = NULL;
+	game.mlx = NULL;
 	return (game);
 }

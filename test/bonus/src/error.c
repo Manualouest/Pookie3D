@@ -18,7 +18,7 @@ void	cd_free_int_img(int **tab)
 	int	len;
 
 	i = -1;
-	len = tab[0][1] + 2;
+	len = tab[0][0] + 1;
 	while (++i <= len)
 		free(tab[i]);
 	free(tab);
@@ -35,19 +35,45 @@ void	cd_free_int_tab(int **tab)
 	free(tab);
 }
 
-void	cd_free_all(t_game *game)
+void	cd_free_int_imgs(t_game *game)
 {
 	int	i;
 
-	i = -1;
 	if (game->map.path)
 		free(game->map.path);
+	i = -1;
 	while (++i < 94)
 	{
-		if (game->graphic.slots[i] == 0)
-			continue ;
-		cd_free_int_img(game->graphic.txts[i]);
+		cd_free_int_tab(game->graphic.txts[i]);
+		if (game->graphic.p[i])
+			free(game->graphic.p[i]);
 	}
+	i = -1;
+	i = -1;
+	if (game->graphic.pickaxe[0][0][0] != -1)
+		while (++i < 9)
+			cd_free_int_tab(game->graphic.pickaxe[i]);
+	else
+		cd_free_int_tab(game->graphic.pickaxe[0]);
+	i = -1;
+	while (game->graphic.sprites[++i])
+		free(game->graphic.sprites[i]);
+	free(game->graphic.sprites);
+}
+
+void	cd_free_all(t_game *game)
+{
+	t_inventory	*tp_inv;
+
+	cd_free_int_imgs(game);
+	free(game->rays.sprite_distances);
+	while (game->player.inventory)
+	{
+		tp_inv = game->player.inventory->next;
+		free(game->player.inventory);
+		game->player.inventory = tp_inv;
+	}
+	free(game->graphic.pickaxe);
 	cd_free_int_tab(game->map.map);
 	cd_free_int_tab(game->graphic.tmap);
 	cd_free_int_tab(game->graphic.fmap);
@@ -62,10 +88,15 @@ void	cd_free_all(t_game *game)
 		mlx_terminate(game->mlx);
 }
 
-void	error_handler(char *ERR_MSG, t_game *game)
+void	error_handler(char *ERR_MSG, t_game *game, char *line)
 {
 	ft_putstr_fd(ERR_MSG, 1);
 	cd_free_all(game);
+	while (line)
+	{
+		free(line);
+		line = get_next_line(game->map.fd);
+	}
 	(void)game;
 	exit(0);
 }

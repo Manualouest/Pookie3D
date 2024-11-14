@@ -6,7 +6,7 @@
 /*   By: mbirou <mbirou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 11:35:11 by mbirou            #+#    #+#             */
-/*   Updated: 2024/11/09 15:53:41 by mbirou           ###   ########.fr       */
+/*   Updated: 2024/11/14 18:42:33 by mbirou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ void	cd_add_sprite(t_game *game, float x, float y)
 	n_list[i]->y = (int)y + 0.5;
 	n_list[i]->tile = game->graphic.tmap[(int)y][(int)x];
 	n_list[i]->txt = game->graphic.txts[n_list[i]->tile];
+	n_list[i]->wall_type = game->map.map[(int)y][(int)x];
 	n_list[i]->height = 0;
 	n_list[i]->direction = 1;
 	free(game->graphic.sprites);
@@ -40,12 +41,15 @@ void	cd_remove_sprite(t_game *game, int target_i)
 {
 	int					i;
 	struct t_inventory	*n_inv;
+	t_sprite			*tp_sprite;
 
 	i = -1;
 	while (game->graphic.sprites[++i] && i != target_i)
 		;
 	n_inv = malloc(sizeof(*n_inv));
 	n_inv->tile = game->graphic.sprites[i]->tile;
+	n_inv->wall_type = game->graphic.sprites[i]->wall_type;
+	tp_sprite = game->graphic.sprites[i];
 	if (!game->player.inventory)
 		n_inv->next = NULL;
 	else
@@ -54,4 +58,5 @@ void	cd_remove_sprite(t_game *game, int target_i)
 	i --;
 	while (game->graphic.sprites[++i])
 		game->graphic.sprites[i] = game->graphic.sprites[i + 1];
+	free(tp_sprite);
 }

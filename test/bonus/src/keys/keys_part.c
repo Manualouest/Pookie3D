@@ -6,7 +6,7 @@
 /*   By: mbirou <mbirou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/09 16:34:01 by mbirou            #+#    #+#             */
-/*   Updated: 2024/11/09 18:40:05 by mbirou           ###   ########.fr       */
+/*   Updated: 2024/11/14 11:56:55 by mbirou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,15 +22,15 @@ void	cd_moove_forward(t_game *game)
 			* game->player.speed * game->mlx->delta_time;
 		testy = game->player.y + game->player.diry
 			* game->player.speed * game->mlx->delta_time;
-		if (game->map.map[(int)testy][(int)game->player.x])
+		if (game->map.map[(int)testy][(int)game->player.x] == 1)
 		{
-			if (game->map.map[(int)game->player.y][(int)testx])
+			if (game->map.map[(int)game->player.y][(int)testx] == 1)
 				return ;
 			game->player.x = testx;
 			return ;
 		}
 		game->player.y = testy;
-		if (game->map.map[(int)game->player.y][(int)testx])
+		if (game->map.map[(int)game->player.y][(int)testx] == 1)
 			return ;
 		game->player.x = testx;
 	}
@@ -45,15 +45,15 @@ void	cd_moove_backward(t_game *game)
 			* game->player.speed * game->mlx->delta_time;
 		testy = game->player.y - game->player.diry
 			* game->player.speed * game->mlx->delta_time;
-		if (game->map.map[(int)testy][(int)game->player.x])
+		if (game->map.map[(int)testy][(int)game->player.x] == 1)
 		{
-			if (game->map.map[(int)game->player.y][(int)testx])
+			if (game->map.map[(int)game->player.y][(int)testx] == 1)
 				return ;
 			game->player.x = testx;
 			return ;
 		}
 		game->player.y = testy;
-		if (game->map.map[(int)game->player.y][(int)testx])
+		if (game->map.map[(int)game->player.y][(int)testx] == 1)
 			return ;
 		game->player.x = testx;
 	}
@@ -69,15 +69,15 @@ void	cd_moove_left(t_game *game)
 			* game->player.speed * game->mlx->delta_time;
 		testy = game->player.y - game->player.planey
 			* game->player.speed * game->mlx->delta_time;
-		if (game->map.map[(int)testy][(int)game->player.x])
+		if (game->map.map[(int)testy][(int)game->player.x] == 1)
 		{
-			if (game->map.map[(int)game->player.y][(int)testx])
+			if (game->map.map[(int)game->player.y][(int)testx] == 1)
 				return ;
 			game->player.x = testx;
 			return ;
 		}
 		game->player.y = testy;
-		if (game->map.map[(int)game->player.y][(int)testx])
+		if (game->map.map[(int)game->player.y][(int)testx] == 1)
 			return ;
 		game->player.x = testx;
 	}
@@ -93,15 +93,15 @@ void	cd_moove_right(t_game *game)
 			* game->player.speed * game->mlx->delta_time;
 		testy = game->player.y + game->player.planey
 			* game->player.speed * game->mlx->delta_time;
-		if (game->map.map[(int)testy][(int)game->player.x])
+		if (game->map.map[(int)testy][(int)game->player.x] == 1)
 		{
-			if (game->map.map[(int)game->player.y][(int)testx])
+			if (game->map.map[(int)game->player.y][(int)testx] == 1)
 				return ;
 			game->player.x = testx;
 			return ;
 		}
 		game->player.y = testy;
-		if (game->map.map[(int)game->player.y][(int)testx])
+		if (game->map.map[(int)game->player.y][(int)testx] == 1)
 			return ;
 		game->player.x = testx;
 	}

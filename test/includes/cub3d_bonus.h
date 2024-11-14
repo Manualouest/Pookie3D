@@ -6,7 +6,7 @@
 /*   By: mbirou <mbirou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 11:27:38 by mbirou            #+#    #+#             */
-/*   Updated: 2024/11/11 17:57:52 by mbirou           ###   ########.fr       */
+/*   Updated: 2024/11/14 19:29:38 by mbirou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,8 @@
 
 typedef struct s_position
 {
-	int	x;
-	int	y;
+	float	x;
+	float	y;
 }		t_position;
 
 typedef struct s_sprite_vars
@@ -64,12 +64,14 @@ typedef struct	s_sprite
 	float	height;
 	int		direction;
 	int		tile;
+	int		wall_type;
 	int		**txt;
 }			t_sprite;
 
 typedef struct t_inventory
 {
 	int					tile;
+	int					wall_type;
 	struct t_inventory *next;
 }						t_inventory;
 
@@ -79,7 +81,9 @@ typedef struct	s_textures
 	int			**tmap;
 	int			**fmap;
 	int			**rmap;
-	char		*paths[94];
+	int			***pickaxe;
+	float		pic_frame;
+	char		*p[94];
 	char		slots[94];
 	t_sprite	**sprites;
 	float		width;
@@ -160,7 +164,6 @@ typedef struct s_ray_info
 	int		step_x;
 	int		step_y;
 	int		*sprite_distances;
-	float	*d_dst;
 }			t_ray_info;
 
 typedef struct s_t_info
@@ -218,27 +221,29 @@ typedef enum e_ids
 
 /*---------------- DEFINE VALUES ----------------*/
 // --Speeds
-# define RUNNING_SPEED 6.
-# define CROUCH_SPEED 2.
-# define WALKING_SPEED 3.
-# define CAMERA_SPEED 0.03
-# define ROTATE_SPEED 0.0025
+# define RUNNING_SPEED 5.F
+# define CROUCH_SPEED 0.75F
+# define WALKING_SPEED 2.F
+# define CAMERA_SPEED 0.03F
+# define ROTATE_SPEED 0.0025F
 
 //--Heights
-# define CROUCH_HEIGHT -0.1
-# define NORMAL_HEIGHT 0.05
-# define JOG_HEIGHT 0.045
+# define CROUCH_HEIGHT -0.1F
+# define NORMAL_HEIGHT 0.05F
+# define JOG_HEIGHT 0.045F
 
 /*---------------- ERROR MSG --------------------*/
 
-# define CUB_ERR ".cub file required"
-# define PNG_ERR ".png file required"
-# define FORMAT_ERR "The map doesn't follow the game's format: "
-# define BAD_CHAR "Invalid character in map"
-# define BAD_MAP "Map borders are invalid"
-# define BAD_STEP "Step error"
-# define BAD_TXT_NAME "Texture has an invalid definition"
-# define BAD_MAPS "One of the texture maps is bigger than the wall map"
+# define CUB_ERR ".cub file required\n"
+# define PNG_ERR ".png file required\n"
+# define FORMAT_ERR "The map doesn't follow the game's format: \n"
+# define BAD_CHAR "Invalid character in map\n"
+# define BAD_MAP "Map borders are invalid\n"
+# define BAD_STEP "Step error\n"
+# define BAD_TXT_NAME "Texture has an invalid definition\n"
+# define BAD_MAPS "One of the texture maps is bigger than the wall map\n"
+# define NO_TEXTURE "Mlx could not load texture\n"
+# define PICK_MISSING "Pickaxe textures are missing\n"
 
 /*----------------- FONCTIONS -------------------*/
 
@@ -271,7 +276,7 @@ void		cd_setup_txt_maps(char *line, t_game *game, int ***map, int step);
 
 // --check.c
 void		check_name_cub(char *path, t_game *game);
-void		check_name_png(char *path, t_game *game);
+void		check_name_png(char *path, t_game *game, char *o_line);
 
 
 // -----utils------------------------------------------------------------------
@@ -333,6 +338,8 @@ void		cd_mouse_input(mouse_key_t button, action_t action,
 void		cd_render(t_game *game);
 
 // --draw_walls.c
+int			**cd_get_texture(t_game *game, t_ray_info *ray);
+float		cd_start_dim(t_game *game);
 void		cd_dim_color(t_game *game, int x, int y, float effect);
 void		cd_draw_walls(t_game *game, t_ray_info *ray, int x);
 void		cd_draw_c_f(t_game *game, int x);
@@ -342,7 +349,7 @@ float		cd_get_p_rsqrt(t_game *game, float x2, float y2);
 void		cd_draw_tiles(t_game *game, int x);
 
 // --door_raycast.c
-void		cd_raycast_doors(t_game *game);
+void		cd_render_door_slice(t_game *game);
 
 // --utils.c
 mlx_image_t	*cd_slow_raycast(t_game *game, struct timeval start_time,
@@ -359,8 +366,6 @@ void		cd_remove_sprite(t_game *game, int target_i);
 
 // -----minimap----------------------------------------------------------------
 void		cd_minimap(t_game *game);
-void		cd_put_texture(t_game *game, char *path, int x, int y);
-void		cd_minimap_conditions(t_game *game, t_position *pos, int *i, int *ii);
 
 // -----gui--------------------------------------------------------------------
 // --gui_setup.c
@@ -369,20 +374,12 @@ void		cd_show_block_inventory(t_game *game);
 // -----main-------------------------------------------------------------------
 // --error.c
 void		cd_free_int_tab(int **tab);
-void		error_handler(char *ERR_MSG, t_game *game);
 void		cd_free_all(t_game *game);
+void		error_handler(char *ERR_MSG, t_game *game, char *line);
 
 // --img_to_int.c
-int			**cd_extract_pixel(mlx_texture_t *txt, int is_flipped);
-void		cd_img_to_int(t_textures *graphic);
+void		cd_img_to_int(t_game *game, t_textures *graphic);
 int			cd_create_rgba(char	*color);
 
-// --thread_utils.c
-
-void		cd_thread_init(t_game *game);
-void		cd_thread_destroy(t_game *game);
-// int			cd_is_floor_done(t_t_info *info);
-// int			cd_check_game_status(t_t_info *info);
-// void		cd_switch_floor_status(t_t_info *info);
 
 #endif

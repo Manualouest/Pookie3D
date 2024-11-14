@@ -30,9 +30,8 @@ int	main(int argc, char **argv)
 	game.screen = NULL;
 	game.fps = NULL;
 	parser(&game);
-	
-	cd_img_to_int(&game.graphic);
-
+	game.graphic.pic_frame = 0;
+	cd_img_to_int(&game, &game.graphic);
 	game.mlx = mlx_init(game.graphic.width, game.graphic.height, "Pookie3d", true);
 	
 	mlx_set_setting(MLX_STRETCH_IMAGE, 1);

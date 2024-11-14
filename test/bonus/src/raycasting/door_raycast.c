@@ -6,13 +6,13 @@
 /*   By: mbirou <mbirou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 11:26:01 by mbirou            #+#    #+#             */
-/*   Updated: 2024/11/11 18:35:37 by mbirou           ###   ########.fr       */
+/*   Updated: 2024/11/14 12:08:04 by mbirou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <cub3d_bonus.h>
 
-void	cd_init_ray_vars(t_game *game, t_ray_info *ray, float cam_x)
+void	cd_init_door_ray_vars(t_game *game, t_ray_info *ray, float cam_x)
 {
 	ray->x = (int)game->player.x;
 	ray->y = (int)game->player.y;
@@ -39,18 +39,11 @@ void	cd_init_ray_vars(t_game *game, t_ray_info *ray, float cam_x)
 	ray->side = 0;
 }
 
-void	cd_ray_loop(t_game *game, t_ray_info *ray)
+int	cd_door_ray_loop(t_game *game, t_ray_info *ray)
 {
-	while (ray->x >= 0 && ray->x < game->map.width
-		&& ray->y >= 0 && ray->y < game->map.height
-		&& game->map.map[(int)ray->y][(int)ray->x] != 1
-		&& ((ray->side == 0 && ray->side_dx - ray->delta_dx < 920)
+	while (((ray->side == 0 && ray->side_dx - ray->delta_dx < 920)
 		|| (ray->side == 1 && ray->side_dy - ray->delta_dy < 920)))
 	{
-		if (game->map.map[(int)ray->y][(int)ray->x] == 2 && ray->side == 0)
-			ray->d_dst = cd_add_flst(ray->d_dst, ray->side_dx - ray->delta_dx);
-		if (game->map.map[(int)ray->y][(int)ray->x] == 2 && ray->side == 1)
-			ray->d_dst = cd_add_flst(ray->d_dst, ray->side_dy - ray->delta_dy);
 		if (ray->side_dx < ray->side_dy)
 		{
 			ray->side_dx += ray->delta_dx;
@@ -63,65 +56,65 @@ void	cd_ray_loop(t_game *game, t_ray_info *ray)
 			ray->y += ray->step_y;
 			ray->side = 1;
 		}
+		if (game->map.map[(int)ray->y][(int)ray->x] == 2
+			&& (fabs((float)((int)ray->y - (int)game->player.y)) == 1
+				|| fabs((float)((int)ray->x - (int)game->player.x)) == 1)
+			&& ((int)ray->y == (int)game->player.y
+				|| (int)ray->x == (int)game->player.x))
+			return (1);
+		if (game->map.map[(int)ray->y][(int)ray->x] != 0)
+			return (0);
 	}
+	return (0);
 }
 
-void	cd_cast_ray(t_game *game, t_ray_info *ray, float x)
+int	cd_cast_door_ray(t_game *game, t_ray_info *ray, float x)
 {
-	cd_init_ray_vars(game, ray, 2.F * x / game->graphic.width);
-	cd_ray_loop(game, ray);
+	cd_init_door_ray_vars(game, ray, 2.F * x / game->graphic.width);
+	if (!cd_door_ray_loop(game, ray))
+		return (0);
 	if (ray->side == 0)
 		ray->distance = ray->side_dx - ray->delta_dx;
 	else
 		ray->distance = ray->side_dy - ray->delta_dy;
 	if (ray->distance > 960)
 		ray->distance = 960;
-	ray->sprite_distances[(int)x] = ray->distance;
-	ray->d_dst[(int)x] = ray->distance;
 	ray->wall_height = game->graphic.height / ray->distance;
-	if (x == (int)game->graphic.width >> 1)
+	return (1);
+}
+
+void	cd_draw_door(t_game *game, t_ray_info *ray, float x)
+{
+	int	**texture;
+	int	y;
+
+	texture = cd_get_texture(game, ray);
+	game->graphic.up += ray->wall_height
+		* (cd_get_p_rsqrt(game, (int)ray->x + 0.5, (int)ray->y + 0.5) - 0.6F);
+	if (game->graphic.up > game->graphic.down)
+		return ;
+	y = game->graphic.up - 1;
+	if (y < -1)
+		y = -1;
+	game->graphic.dim = cd_start_dim(game);
+	while (++y < game->graphic.down && y < game->graphic.height)
 	{
-		ray->x_save = ray->x;
-		if (game->keys.place && ray->side == 0)
-			ray->x_save -= ray->step_x;
-		ray->y_save = ray->y;
-		if (game->keys.place && ray->side == 1)
-			ray->y_save -= ray->step_y;
-		ray->distance_save = ray->distance;
+		mlx_put_pixel(game->screen, x, y,
+			texture[(int)ray->t_x + 1][(int)(
+				(float)(y - game->graphic.up) * game->graphic.y_ratio)]);
+		cd_dim_color(game, x, y, game->graphic.dim);
 	}
 }
 
-void	cd_render_door_slice(t_game *game, t_ray_info *ray, int x)
-{
-	
-}
-
-void	cd_raycast_doors(t_game *game)
+void	cd_render_door_slice(t_game *game)
 {
 	int	x;
 
 	x = -1;
-	while (++x < game->graphic.width)
-	{
-		game->rays.d_dst[0] = -1;
-		cd_cast_ray(game, &game->rays, x);
-		cd_render_door_slice(game, &game->rays, x);
-	}
-}
-
-
-/*cd_modif_res(game, 0, 0);
-	cd_setup_vars(game);
-	x = -1;
-	mlx_resize_image(game->screen, game->graphic.width, game->graphic.height);
 	while (++x < ((int)game->graphic.width))
 	{
-		cd_cast_ray(game, &game->rays, x);
-		cd_draw_walls(game, &game->rays, x);
+		if (!cd_cast_door_ray(game, &game->rays, x))
+			continue ;
+		cd_draw_door(game, &game->rays, x);
 	}
-	cd_render_sprites(game);
-	cd_modif_res(game, 1, 0);
-	mlx_resize_image(game->screen, game->graphic.width, game->graphic.height);
-	cd_edit_wall(game, game->rays.x_save, game->rays.y_save);
-	cd_moove(game);
-	cd_show_block_inventory(game);*/
+}

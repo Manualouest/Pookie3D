@@ -6,7 +6,7 @@
 /*   By: mbirou <mbirou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/09 18:39:56 by mbirou            #+#    #+#             */
-/*   Updated: 2024/11/09 18:55:05 by mbirou           ###   ########.fr       */
+/*   Updated: 2024/11/14 15:57:15 by mbirou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,9 +63,9 @@ void	cd_down(t_game *game, float amount)
 void	cd_camera(t_game *game)
 {
 	if (game->keys.left == 1)
-		cd_left(game, 1.F);
+		cd_left(game, -1.F);
 	if (game->keys.right == 1)
-		cd_right(game, -1.F);
+		cd_right(game, 1.F);
 	if (game->keys.up == 1)
 		cd_up(game, 1.F);
 	if (game->keys.down == 1)

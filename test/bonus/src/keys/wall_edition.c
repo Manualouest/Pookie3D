@@ -6,7 +6,7 @@
 /*   By: mbirou <mbirou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/09 16:33:48 by mbirou            #+#    #+#             */
-/*   Updated: 2024/11/11 11:25:31 by mbirou           ###   ########.fr       */
+/*   Updated: 2024/11/14 12:24:57 by mbirou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,10 +62,10 @@ void	cd_place_wall(t_game *game, float x, float y, float distance)
 			* (5 * (1 - fabs(game->player.pitch)));
 	}
 	game->graphic.tmap[(int)y][(int)x] = game->player.inventory->tile;
+	game->map.map[(int)y][(int)x] = game->player.inventory->wall_type;
 	tp_inv = game->player.inventory;
 	game->player.inventory = tp_inv->next;
 	free(tp_inv);
-	game->map.map[(int)y][(int)x] = 1;
 }
 
 void	cd_edit_wall(t_game *game, float x, float y)

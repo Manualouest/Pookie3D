@@ -6,7 +6,7 @@
 #    By: mbirou <mbirou@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/11 12:29:39 by mbirou            #+#    #+#              #
-#    Updated: 2024/11/11 12:31:02 by mbirou           ###   ########.fr        #
+#    Updated: 2024/11/14 20:13:51 by mbirou           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -71,16 +71,6 @@ B_SRC_NAME += parsing/parser.c\
 
 B_SRC_NAME += animactions/mooves.c
 
-#B_SRC_NAME += map_maker/map_maker_main.c\
-#			map_maker/input_handler.c\
-#			map_maker/map_editor.c\
-#			map_maker/vars_setup.c\
-#			map_maker/map_setup.c\
-#			map_maker/utils.c\
-#			map_maker/img_utils.c\
-#			map_maker/setup_screens.c\
-#			map_maker/rand_gen.c
-
 B_SRC_NAME += utils/tab_utils.c\
 			utils/string_utils.c\
 			utils/math.c\
@@ -99,7 +89,8 @@ B_SRC_NAME += raycasting/raycast.c\
 			raycasting/make_tiles.c\
 			raycasting/utils.c\
 			raycasting/sprites.c\
-			raycasting/sprite_list_utils.c
+			raycasting/sprite_list_utils.c\
+			raycasting/door_raycast.c
 
 B_SRC_NAME += gui/gui_setup.c
 
@@ -143,7 +134,7 @@ $(NAME): bonus
 #	@echo "\033[32;47;1m** FINISH **\033[1;m"
 
 bonus: MLX  $(LIBFT) $(B_OBJ)
-	@gcc -o $(B_NAME) -msse -flto $(CFLAGS) $(B_SRC) $(INCLUDES) $(LIBFT) $(LIBS)
+	@gcc -o $(B_NAME) -msse -flto -Ofast $(CFLAGS) $(B_SRC) $(INCLUDES) $(LIBFT) $(LIBS)
 	@echo "\033[32;47;1m** FINISH BONUS **\033[1;m"
 
 clean:

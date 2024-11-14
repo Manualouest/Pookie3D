@@ -17,7 +17,7 @@ void	parser(t_game *game)
 {
 	check_name_cub(game->map.path, game);
 	get_infos(game);
-	format_d_tab(game->graphic.paths);
+	format_d_tab(game->graphic.p);
 }
 
 // Recupere les infos depuis la map
@@ -75,25 +75,25 @@ int	is_direction(char *line, int i, int *true_line, t_game *game)
 {
 	if (line[i] == 'N' && line[i + 1] == 'O')
 	{
-		game->graphic.paths[NO] = line;
+		game->graphic.p[NO] = line;
 		*true_line += 1;
 		return (1);
 	}
 	if (line[i] == 'S' && line[i + 1] == 'O')
 	{
-		game->graphic.paths[SO] = line;
+		game->graphic.p[SO] = line;
 		*true_line += 1;
 		return (1);
 	}
 	if (line[i] == 'W' && line[i + 1] == 'E')
 	{
-		game->graphic.paths[WE] = line;
+		game->graphic.p[WE] = line;
 		*true_line += 1;
 		return (1);
 	}
 	if (line[i] == 'E' && line[i + 1] == 'A')
 	{
-		game->graphic.paths[EA] = line;
+		game->graphic.p[EA] = line;
 		*true_line += 1;
 		return (1);
 	}
@@ -105,13 +105,13 @@ int	is_rgb(char *line, int i, int *true_line, t_game *game)
 {
 	if (line[i] == 'C')
 	{
-		game->graphic.paths[C] = line;
+		game->graphic.p[C] = line;
 		*true_line += 1;
 		return (1);
 	}
 	if (line[i] == 'F')
 	{
-		game->graphic.paths[F] = line;
+		game->graphic.p[F] = line;
 		*true_line += 1;
 		return (1);
 	}

@@ -26,18 +26,6 @@ void	cd_keys(mlx_key_data_t keydata, t_game *game)
 {
 	if (keydata.key == MLX_KEY_ESCAPE && keydata.action == MLX_PRESS)
 		mlx_close_window(game->mlx);
-	if (keydata.key == MLX_KEY_K && keydata.action == MLX_PRESS
-		&& game->graphic.width_mod > 1)
-	{
-		game->graphic.width_mod *= 0.5;
-		game->graphic.width *= 2;
-	}
-	else if (keydata.key == MLX_KEY_L && keydata.action == MLX_PRESS
-		&& game->graphic.width_mod < 16)
-	{
-		game->graphic.width_mod *= 2;
-		game->graphic.width *= 0.5;
-	}
 	if (keydata.key == MLX_KEY_F && keydata.action == MLX_PRESS)
 		game->keys.fps = 1 - game->keys.fps;
 	if (keydata.key == MLX_KEY_X && keydata.action == MLX_PRESS)

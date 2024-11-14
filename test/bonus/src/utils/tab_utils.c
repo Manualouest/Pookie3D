@@ -55,7 +55,7 @@ float	*cd_add_flst(float *list, float new)
 	n_list[i + 1] = -1;
 	while (--i >= 0)
 		n_list[i] = list[i];
-	if (list);
+	if (list)
 		free(list);
 	return (n_list);
 }

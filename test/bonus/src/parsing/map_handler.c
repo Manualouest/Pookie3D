@@ -17,12 +17,12 @@ void	cd_set_orientation(t_game *game, char o, int i)
 	if (o == 'N')
 	{
 		game->player.dirx = 0;
-		game->player.diry = 1;
+		game->player.diry = -1;
 	}
 	else if (o == 'S')
 	{
 		game->player.dirx = 0;
-		game->player.diry = -1;
+		game->player.diry = 1;
 	}
 	else if (o == 'W')
 	{
@@ -34,7 +34,7 @@ void	cd_set_orientation(t_game *game, char o, int i)
 		game->player.dirx = 1;
 		game->player.diry = 0;
 	}
-	game->player.planex = 0.9449296585499998935 * game->player.diry;
+	game->player.planex = 0.9449296585499998935 * -game->player.diry;
 	game->player.planey = 0.9449296585499998935 * game->player.dirx;
 	game->player.x = i + 0.5;
 	game->player.y = game->map.height + 0.5;
@@ -97,7 +97,7 @@ void	cd_setup_map(char *line, t_game *game, int ***map)
 
 	line_len = cd_parse_line(&line, game, 1);
 	if (line_len == -1)
-		error_handler(BAD_CHAR, game);
+		error_handler(BAD_CHAR, game, line);
 	map[0] = cd_add_new_array_line(cd_strtoi_m(line, line_len, '0'), map[0]);
 	game->map.height ++;
 	if (line_len > game->map.width)
@@ -110,9 +110,9 @@ void	cd_setup_txt_maps(char *line, t_game *game, int ***map, int step)
 
 	line_len = cd_parse_line(&line, game, step);
 	if (line_len == -1)
-		error_handler(BAD_CHAR, game);
+		error_handler(BAD_CHAR, game, line);
 	game->graphic.tp_h ++;
 	if (line_len > game->map.width || game->graphic.tp_h > game->map.height)
-		error_handler(BAD_MAPS, game);
+		error_handler(BAD_MAPS, game, line);
 	map[0] = cd_add_new_array_line(cd_strtoi_m(line, line_len, '!'), map[0]);
 }

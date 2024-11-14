@@ -14,8 +14,8 @@
 
 void	get_infos(t_game *game);
 void	scanner(char *line, t_game *game, int *step);
-int		cd_is_step(char *line, t_game *game, int *step);
-int		cd_add_texture(t_game *game, char *line);
+int		cd_is_step(char *line, t_game *game, int *step, char *o_line);
+int		cd_add_texture(t_game *game, char *line, char *o_line);
 
 void	parser(t_game *game)
 {
@@ -56,9 +56,9 @@ void	scanner(char *line, t_game *game, int *step)
 		i++;
 	if (i > 0 && line[i - 1] == '\n')
 		return ;
-	if (cd_is_step(&line[i], game, step))
+	if (cd_is_step(&line[i], game, step, line))
 		return ;
-	else if (*step == 1 && cd_add_texture(game, &line[i]))
+	else if (*step == 1 && cd_add_texture(game, &line[i], line))
 		return ;
 	else if (*step == 2)
 		cd_setup_map(line, game, &game->map.map);
@@ -69,10 +69,10 @@ void	scanner(char *line, t_game *game, int *step)
 	else if (*step == 5)
 		cd_setup_txt_maps(line, game, &game->graphic.rmap, *step);
 	else
-		error_handler(FORMAT_ERR, game);
+		error_handler(FORMAT_ERR, game, line);
 }
 
-int	cd_is_step(char *line, t_game *game, int *step)
+int	cd_is_step(char *line, t_game *game, int *step, char *o_line)
 {
 	if ((*step == 0 && !ft_strcmp(line, "textures:\n"))
 		|| (*step == 1 && !ft_strcmp(line, "wmap:\n"))
@@ -87,25 +87,25 @@ int	cd_is_step(char *line, t_game *game, int *step)
 	else if (!ft_strcmp(line, "textures:\n") || !ft_strcmp(line, "wmap:\n")
 		|| !ft_strcmp(line, "tmap:\n") || !ft_strcmp(line, "fmap:\n")
 		|| !ft_strcmp(line, "rmap:\n"))
-		error_handler(BAD_STEP, game);
+		error_handler(BAD_STEP, game, o_line);
 	return (0);
 }
 
-int	cd_add_texture(t_game *game, char *line)
+int	cd_add_texture(t_game *game, char *line, char *o_line)
 {
 	int		i;
 	char	*n_line;
 
 	if (line[0] < 33 || line[0] > 126 || !line[1] || line[1] != ' ')
-		error_handler(BAD_TXT_NAME, game);
+		error_handler(BAD_TXT_NAME, game, o_line);
 	i = ft_strlen(line) - 1;
 	while (line[i] == ' ' || line[i] == '\t')
 		i --;
 	n_line = ft_substr(line, 2, i - 2);
-	check_name_png(n_line, game);
-	if (game->graphic.paths[line[0] - 33] != NULL)
-		free(game->graphic.paths[line[0] - 33]);
-	game->graphic.paths[line[0] - 33] = n_line;
+	if (game->graphic.p[line[0] - 33] != NULL)
+		free(game->graphic.p[line[0] - 33]);
+	game->graphic.p[line[0] - 33] = n_line;
+	check_name_png(n_line, game, line);
 	game->graphic.slots[line[0] - 33] = 1;
 	return (1);
 }

@@ -41,10 +41,7 @@ void	cd_init_ray_vars(t_game *game, t_ray_info *ray, float cam_x)
 
 void	cd_ray_loop(t_game *game, t_ray_info *ray)
 {
-	while (ray->x >= 0 && ray->x < game->map.width
-		&& ray->y >= 0 && ray->y < game->map.height
-		&& game->map.map[(int)ray->y][(int)ray->x] != 1
-		&& ((ray->side == 0 && ray->side_dx - ray->delta_dx < 920)
+	while (((ray->side == 0 && ray->side_dx - ray->delta_dx < 920)
 		|| (ray->side == 1 && ray->side_dy - ray->delta_dy < 920)))
 	{
 		if (ray->side_dx < ray->side_dy)
@@ -59,17 +56,36 @@ void	cd_ray_loop(t_game *game, t_ray_info *ray)
 			ray->y += ray->step_y;
 			ray->side = 1;
 		}
+		if (game->map.map[(int)ray->y][(int)ray->x] == 2
+			&& (fabs((float)((int)ray->y - (int)game->player.y)) == 1
+				|| fabs((float)((int)ray->x - (int)game->player.x)) == 1)
+			&& ((int)ray->y == (int)game->player.y
+				|| (int)ray->x == (int)game->player.x))
+			continue ;
+		if (game->map.map[(int)ray->y][(int)ray->x] != 0)
+			break ;
 	}
-	if (ray->side == 0)
-		ray->distance = ray->side_dx - ray->delta_dx;
-	else
-		ray->distance = ray->side_dy - ray->delta_dy;
 }
+			// && cd_get_p_rsqrt(game, (int)ray->x + 0.5, (int)ray->y + 0.5) > 0.7
+
+/* ray->x >= 0 && ray->x < game->map.width
+		&& ray->y >= 0 && ray->y < game->map.height //&& game->map.map[(int)ray->y][(int)ray->x] != 0
+
+
+			&& ((game->map.map[(int)ray->y][(int)ray->x] == 2
+				&& (fabs(ray->y - game->player.y) > 1
+				|| fabs(ray->x - game->player.x) > 1))
+				|| game->map.map[(int)ray->y][(int)ray->x] != 2)
+*/
 
 void	cd_cast_ray(t_game *game, t_ray_info *ray, float x)
 {
 	cd_init_ray_vars(game, ray, 2.F * x / game->graphic.width);
 	cd_ray_loop(game, ray);
+	if (ray->side == 0)
+		ray->distance = ray->side_dx - ray->delta_dx;
+	else
+		ray->distance = ray->side_dy - ray->delta_dy;
 	if (ray->distance > 960)
 		ray->distance = 960;
 	ray->sprite_distances[(int)x] = ray->distance;
@@ -101,7 +117,7 @@ void	cd_setup_vars(t_game *game)
 	game->graphic.up_op = (int)(game->graphic.height
 			+ game->graphic.height * game->player.pitch) >> 1;
 	free(game->rays.sprite_distances);
-	game->rays.sprite_distances = malloc(sizeof(int) * game->graphic.width);
+	game->rays.sprite_distances = ft_calloc(sizeof(int), game->graphic.width);
 	i = -1;
 	while (game->graphic.sprites && game->graphic.sprites[++i])
 	{
@@ -130,11 +146,13 @@ void	cd_render(t_game *game)
 		cd_draw_walls(game, &game->rays, x);
 	}
 	cd_render_sprites(game, 1);
+	cd_render_door_slice(game);
 	cd_modif_res(game, 1, 0);
 	mlx_resize_image(game->screen, game->graphic.width, game->graphic.height);
 	cd_edit_wall(game, game->rays.x_save, game->rays.y_save);
 	cd_moove(game);
 	cd_show_block_inventory(game);
+	cd_minimap(game);
 	if (game->keys.fps)
 		game->fps = cd_slow_raycast(game, time, 10000);
 }
