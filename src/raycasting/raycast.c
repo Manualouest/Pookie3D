@@ -6,7 +6,7 @@
 /*   By: mbirou <manutea.birou@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 13:23:18 by mbirou            #+#    #+#             */
-/*   Updated: 2024/10/16 09:30:50 by mbirou           ###   ########.fr       */
+/*   Updated: 2024/11/17 00:10:40 by mbirou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	cd_init_ray_vars(t_game *game, t_ray_info *ray)
 	}
 	ray->side = 0;
 	ray->effect = cos(cd_clamp(game->map.player.view - ray->angle, 0.,
-					2. * M_PI));
+				2. * M_PI));
 }
 
 void	cd_ray_loop(t_game *game, t_ray_info *ray)
@@ -71,7 +71,7 @@ void	cd_cast_ray(t_game *game, t_ray_info *ray)
 	cd_init_ray_vars(game, ray);
 	cd_ray_loop(game, ray);
 	ray->wall_height = 1000. / (floor(ray->distance * ray->effect * 1000.)
-						/ 1000.);
+			/ 1000.);
 	if (ray->wall_height < 2)
 		ray->wall_height = 0;
 }
@@ -102,67 +102,11 @@ mlx_image_t	*cd_slow_raycast(t_game *game, struct timeval start_time,
 	mlx_delete_image(game->mlx, img);
 }
 
-// void	cd_draw_roof(t_game *game, int y)
-// {
-// 	float	rayDirX0;
-// 	float	rayDirY0;
-// 	float	rayDirX1;
-// 	float	rayDirY1;
-// 	int		p;
-// 	float	posZ;
-// 	float	rowDistance;
-// 	float	floorStepX;
-// 	float	floorStepY;
-// 	float	floorX;
-// 	float	floorY;
-// 	int	x = -1;
-
-// 	int cellX;
-// 	int cellY;
-// 	int tx;
-// 	int ty;
-// 	int color;
-
-// 	rayDirX0 = cos(game->map.player.view - game->map.fov / 2.) + game->map.player.x;
-// 	rayDirY0 = sin(game->map.player.view - game->map.fov / 2.) + game->map.player.y;
-// 	rayDirX1 = cos(game->map.player.view + game->map.fov / 2.) + game->map.player.x;
-// 	rayDirY1 = sin(game->map.player.view + game->map.fov / 2.) + game->map.player.y;
-
-// 	p = y - (game->graphic.height - 1.) / 2.
-// 		- ((game->graphic.height - 1.) / 2.) * game->map.player.pitch;;
-
-// 	posZ = 0.5 * game->screen->width;
-// 	rowDistance = posZ / p;
-// 	floorStepX = rowDistance * (rayDirX1 - rayDirX0) / game->graphic.width;
-// 	floorStepY = rowDistance * (rayDirY1 - rayDirY0) / game->graphic.width;
-// 	floorX = game->map.player.x + rowDistance * rayDirX0;
-// 	floorY = game->map.player.y + rowDistance * rayDirY0;
-
-// 	while (++x < game->graphic.width)
-// 	{
-// 		cellX = (int)(floorX);
-// 		cellY = (int)(floorY);
-// 		tx = (int)(game->graphic.ea[0][0] * (floorX - cellX)) & (game->graphic.ea[0][0] - 1);
-// 		ty = (int)(game->graphic.ea[0][1] * (floorY - cellY)) & (game->graphic.ea[0][1] - 1);
-// 		floorX += floorStepX;
-// 		floorY += floorStepY;
-// 		color = game->graphic.ea[ty + 1][tx];
-// 		// color = (color >> 1) & 8355711; // make a bit darker
-// 		// buffer[y][x] = color;
-// 		mlx_put_pixel(game->screen, x, y, color);
-// 		// color = game->graphic.ea[ty + 1][tx];
-// 		// color = (color >> 1) & 8355711; // make a bit darker
-// 		// buffer[game->screen->width - y - 1][x] = color;
-// 		// mlx_put_pixel(game->screen, x, game->screen->width - y, color);
-// 	}
-// }
-
-
 void	cd_render(void *vgame)
 {
 	struct timeval	time;
-	t_game	*game;
-	int		i;
+	t_game			*game;
+	int				i;
 
 	gettimeofday(&time, NULL);
 	game = (t_game *)vgame;
@@ -172,7 +116,7 @@ void	cd_render(void *vgame)
 	while (++i < ((int)game->screen->width - 1))
 	{
 		game->rays.angle = (game->map.player.view - (game->map.fov / 2.)
-			+ i * (game->map.fov / ((float)game->screen->width - 1.)));
+				+ i * (game->map.fov / ((float)game->screen->width - 1.)));
 		game->rays.angle = cd_clamp(game->rays.angle, 0., 2. * M_PI);
 		cd_cast_ray(game, &game->rays);
 		if (game->rays.wall_height != 0)

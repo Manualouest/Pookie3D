@@ -3,38 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   string_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malbrech <malbrech@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbirou <manutea.birou@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 16:16:56 by malbrech          #+#    #+#             */
-/*   Updated: 2024/10/01 16:00:02 by malbrech         ###   ########.fr       */
+/*   Updated: 2024/11/17 00:18:42 by mbirou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <cub3d.h>
-
-void	format_d_tab(char *paths[7])
-{
-	int	i;
-	int	ii;
-
-	i = 0;
-	while (paths[i])
-	{
-		ii = 0;
-		while (paths[i][ii])
-		{
-			skip_direction(paths[i], &ii);
-			if (paths[i][ii] == ' ' || paths[i][ii] == '\t')
-				ii++;
-			else
-			{
-				paths[i] = format_d_line(paths[i], &ii);
-				break ;
-			}
-		}
-		i++;
-	}
-}
 
 void	skip_direction(char *line, int *ii)
 {
@@ -61,7 +37,8 @@ char	*format_d_line(char *line, int *ii)
 
 	len = 0;
 	i = *ii;
-	while (line[*ii] != ' ' && line[*ii] != '\t' && line[*ii] != '\n' && line[*ii])
+	while (line[*ii] != ' ' && line[*ii] != '\t' && line[*ii] != '\n'
+		&& line[*ii])
 	{
 		len += 1;
 		*ii += 1;
@@ -77,4 +54,32 @@ char	*format_d_line(char *line, int *ii)
 	new[iii] = '\0';
 	free(line);
 	return (new);
+}
+
+void	format_d_tab(char *paths[7], t_game *game)
+{
+	int	i;
+	int	ii;
+
+	i = 0;
+	while (paths[i])
+	{
+		ii = 0;
+		while (paths[i][ii])
+		{
+			skip_direction(paths[i], &ii);
+			if (paths[i][ii] == ' ' || paths[i][ii] == '\t')
+				ii++;
+			else
+			{
+				paths[i] = format_d_line(paths[i], &ii);
+				if (i < 4)
+					check_name_png(paths[i], game);
+				break ;
+			}
+		}
+		i++;
+	}
+	if (i != 6)
+		error_handler(FORMAT_ERR, game, NULL);
 }

@@ -6,7 +6,7 @@
 /*   By: mbirou <manutea.birou@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 10:52:56 by mbirou            #+#    #+#             */
-/*   Updated: 2024/11/16 13:18:48 by mbirou           ###   ########.fr       */
+/*   Updated: 2024/11/17 00:07:24 by mbirou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,5 +41,9 @@ void	cd_init_graphic(t_game *game)
 	graphic.paths[6] = NULL;
 	graphic.width = 1920;
 	graphic.height = 1016;
+	graphic.ea = cd_get_empty_tab();
+	graphic.we = cd_get_empty_tab();
+	graphic.so = cd_get_empty_tab();
+	graphic.no = cd_get_empty_tab();
 	game->graphic = graphic;
 }

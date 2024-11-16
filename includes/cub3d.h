@@ -6,7 +6,7 @@
 /*   By: mbirou <manutea.birou@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 11:27:38 by mbirou            #+#    #+#             */
-/*   Updated: 2024/11/16 13:21:05 by mbirou           ###   ########.fr       */
+/*   Updated: 2024/11/16 23:27:29 by mbirou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,11 +117,14 @@ typedef enum e_ids
 
 /*---------------- ERROR MSG --------------------*/
 
-# define CUB_ERR ".cub file required"
-# define PNG_ERR ".png file required"
-# define FORMAT_ERR "The map doesn't follow the game's format: "
-# define BAD_CHAR "Invalid character in map"
-# define BAD_MAP "Map borders are invalid"
+# define CUB_ERR ".cub file required\n"
+# define PNG_ERR ".png file required\n"
+# define FORMAT_ERR "The map doesn't follow the game's format\n"
+# define BAD_CHAR "Invalid character in map\n"
+# define BAD_MAP "Map borders are invalid\n"
+# define MLX_ERROR "Mlx didn't work properly\n"
+# define BAD_COLOR "Color is not well formated\n"
+# define PNG_NOT_FOUND "Could not find the png given.\n"
 
 /*----------------- FONCTIONS -------------------*/
 
@@ -143,9 +146,9 @@ void	cd_init_graphic(t_game *game);
 // --parser.c
 void		parser(t_game *game);
 void		get_infos(t_game *game);
-void		scanner(char *line, t_game *game, int *true_line);
-int			is_direction(char *line, int i, int *true_line, t_game *game);
-int			is_rgb(char *line, int i, int *true_line, t_game *game);
+void		scanner(char *line, t_game *game);
+int			is_direction(char *line, int i, t_game *game);
+int			is_rgb(char *line, int i, t_game *game);
 
 // --map_handler.c
 void		cd_setup_map(char	*line, t_game *game);
@@ -153,17 +156,16 @@ void		cd_parse_map(t_game *game, t_map *map);
 
 // --check.c
 void		check_name_cub(char *path, t_game *game);
-void		check_name_png(char *path, t_game *game);
+void		check_name_png(char *txt, t_game *game);
 
 
 // -----utils------------------------------------------------------------------
 
 // --string_utils.c
-void	format_d_tab(char *paths[7]);
-void	skip_direction(char *line, int *ii);
-char	*format_d_line(char *line, int *ii);
+void	format_d_tab(char *paths[7], t_game *game);
 
 // --tab_utils.c
+int			tab_len(char **tab);
 char		**add_new_line(char *line, char **tab);
 
 // --math.c
@@ -192,11 +194,12 @@ void		cd_draw_c_f(t_game *game, int x);
 
 // -----main-------------------------------------------------------------------
 // --error.c
-void		error_handler(char *ERR_MSG, t_game *game);
+void		cd_free_int_tab(int **tab);
 void		cd_free_all(t_game *game);
+void		error_handler(char *ERR_MSG, t_game *game, char *line);
 
 // --img_to_int.c
-void		cd_img_to_int(t_textures *graphic);
+void		cd_img_to_int(t_textures *graphic, t_game *game);
 void		cd_set_txt_dimmension(t_textures *graphic, int id);
 
 

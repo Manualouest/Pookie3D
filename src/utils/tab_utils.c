@@ -3,17 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   tab_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbirou <mbirou@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mbirou <manutea.birou@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 10:13:17 by malbrech          #+#    #+#             */
-/*   Updated: 2024/09/27 10:42:46 by mbirou           ###   ########.fr       */
+/*   Updated: 2024/11/16 23:11:52 by mbirou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <cub3d.h>
 
-// len d'un tab
-int	tab_len(char	**tab)
+int	tab_len(char **tab)
 {
 	int	i;
 
@@ -23,7 +22,6 @@ int	tab_len(char	**tab)
 	return (i);
 }
 
-// Recupere une string et l'ajoute dans un tableau de string existant
 char	**add_new_line(char *line, char **tab)
 {
 	char		**new_tab;

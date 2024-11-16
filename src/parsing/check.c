@@ -3,16 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   check.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbirou <mbirou@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mbirou <manutea.birou@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 16:18:09 by malbrech          #+#    #+#             */
-/*   Updated: 2024/09/27 10:44:00 by mbirou           ###   ########.fr       */
+/*   Updated: 2024/11/16 22:35:38 by mbirou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <cub3d.h>
 
-//fonction pout checker le type du fichier (.cub)
 void	check_name_cub(char *path, t_game *game)
 {
 	int	i;
@@ -23,21 +22,20 @@ void	check_name_cub(char *path, t_game *game)
 	if (!(path[i - 1] == 'b' && path[i - 2] == 'u'
 			&& path[i - 3] == 'c' && path[i - 4] == '.'))
 	{
-		error_handler(CUB_ERR, game);
+		error_handler(CUB_ERR, game, NULL);
 	}
 }
 
-//fonction pout checker le type du fichier (.png)
-void	check_name_png(char *path, t_game *game)
+void	check_name_png(char *txt, t_game *game)
 {
 	int	i;
 
 	i = 0;
-	while (path[i] != '\0')
+	while (txt[i] != '\0')
 		i++;
-	if (!(path[i - 1] == 'g' && path[i - 2] == 'n'
-			&& path[i - 3] == 'p' && path[i - 4] == '.'))
+	if (!(txt[i - 1] == 'g' && txt[i - 2] == 'n'
+			&& txt[i - 3] == 'p' && txt[i - 4] == '.'))
 	{
-		error_handler(PNG_ERR, game);
+		error_handler(PNG_ERR, game, NULL);
 	}
 }

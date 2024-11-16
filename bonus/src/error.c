@@ -6,7 +6,7 @@
 /*   By: mbirou <manutea.birou@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/16 12:32:16 by mbirou            #+#    #+#             */
-/*   Updated: 2024/11/16 12:33:56 by mbirou           ###   ########.fr       */
+/*   Updated: 2024/11/16 21:53:43 by mbirou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,5 @@ void	error_handler(char *ERR_MSG, t_game *game, char *line)
 		free(line);
 		line = get_next_line(game->map.fd);
 	}
-	(void)game;
 	exit(0);
 }

@@ -1,9 +1,11 @@
+
 NO ./pngs/sillycat1.png
 SO ./pngs/sillycat2.png
 WE ./pngs/sillycat3.png
 EA ./pngs/sillycat4.png
+
 C 190,190,190
-F 100,100,100
+F 100,100,100,
 
 11111111111111
 11111111000001
@@ -18,3 +20,4 @@ F 100,100,100
 11111110100011
 1000W000000001
 11111111111111
+1

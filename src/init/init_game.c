@@ -6,7 +6,7 @@
 /*   By: mbirou <manutea.birou@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 09:57:40 by malbrech          #+#    #+#             */
-/*   Updated: 2024/11/16 13:15:00 by mbirou           ###   ########.fr       */
+/*   Updated: 2024/11/17 00:07:17 by mbirou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	cd_init_player(t_map *map)
 
 void	cd_init_keys(t_game *game)
 {
-	t_keys keys;
+	t_keys	keys;
 
 	keys.w = 0;
 	keys.s = 0;
@@ -84,5 +84,8 @@ t_game	cd_init_structs(char *map_file)
 	cd_init_rays(&game);
 	cd_init_graphic(&game);
 	cd_init_keys(&game);
+	game.mlx = NULL;
+	game.screen = NULL;
+	game.fps = NULL;
 	return (game);
 }
