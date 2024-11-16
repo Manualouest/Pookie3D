@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   controllers.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbirou <mbirou@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mbirou <manutea.birou@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/02 23:50:08 by malbrech          #+#    #+#             */
-/*   Updated: 2024/11/06 14:17:32 by mbirou           ###   ########.fr       */
+/*   Created: 2024/11/16 12:29:00 by mbirou            #+#    #+#             */
+/*   Updated: 2024/11/16 12:31:41 by mbirou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ void	player_speed_controller(t_game *game)
 		&& game->keys.ctrl == 0)
 		game->player.speed = WALKING_SPEED;
 }
+
 void	player_height_controller(t_game *game)
 {
 	if (game->keys.shift == 1 && !game->keys.space)
@@ -31,19 +32,29 @@ void	player_height_controller(t_game *game)
 		game->player.height = NORMAL_HEIGHT;
 }
 
-void    mouse_controller(t_game *game)
+void	mouse_controller(t_game *game)
 {
 	int	x;
 	int	y;
-	int	screen_center_x;
-	int	screen_center_y;
+	int	delta_x;
+	int	delta_y;
 
-	screen_center_x = game->graphic.height / 2;
-	screen_center_y = game->graphic.width / 2;
+	if (!game->keys.mouse)
+		return ;
+	mlx_set_cursor_mode(game->mlx, MLX_MOUSE_HIDDEN);
 	mlx_get_mouse_pos(game->mlx, &x, &y);
-	int delta_x = x - screen_center_x;
-	int delta_y = y - screen_center_y;
-	game->player.view += delta_x * ROTATE_SPEED;
-	game->player.pitch = cd_clamp_two(game->player.pitch - delta_y * ROTATE_SPEED, -0.75, 0.85);
-	mlx_set_mouse_pos(game->mlx, screen_center_x, screen_center_y);
+	delta_x = x - 960;
+	delta_y = y - 508;
+	cd_modif_res(game, 0, 1);
+	if (delta_x > 1)
+		cd_right(game, ((delta_x) >> 5) + 1);
+	else if (delta_x < -1)
+		cd_left(game, ((delta_x) >> 5));
+	if (delta_y > 1)
+		cd_down(game, (-delta_y >> 3));
+	else if (delta_y < -1)
+		cd_up(game, -delta_y >> 3);
+	if (delta_y == 0 && delta_x == 0)
+		cd_modif_res(game, 1, 0);
+	mlx_set_mouse_pos(game->mlx, 960, 508);
 }

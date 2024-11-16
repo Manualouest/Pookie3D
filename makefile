@@ -1,6 +1,4 @@
-# valgrind --suppressions=ms.supp --leak-check=full --show-leak-kinds=all ./minishell
-
-NAME = cub3D
+NAME = cub3d
 
 B_NAME = pookie3d
 
@@ -43,60 +41,53 @@ OBJ_NAME = $(SRC_NAME:.c=.o)
 OBJ = $(patsubst %, $(OBJ_DIR)%, $(OBJ_NAME))
 
 # Bonus
-
 B_SRC_DIR = bonus/src/
 
 B_SRC_NAME = main.c\
 			error.c\
-			controllers.c\
-			img_to_int.c\
-			minimap.c
+			img_to_int.c
+
+B_SRC_NAME += gui/gui_setup.c\
+				gui/minimap.c
+
+B_SRC_NAME += init/init_structs.c\
+			init/init_tabs.c
+
+B_SRC_NAME += keys/keys.c\
+			keys/keys_part.c\
+			keys/wall_edition.c\
+			keys/camera.c\
+			keys/controllers.c\
+			keys/jump.c
 
 B_SRC_NAME += parsing/parser.c\
 			parsing/check.c\
 			parsing/map_handler.c
 
-B_SRC_NAME += animactions/mooves.c
-
-#B_SRC_NAME += map_maker/map_maker_main.c\
-#			map_maker/input_handler.c\
-#			map_maker/map_editor.c\
-#			map_maker/vars_setup.c\
-#			map_maker/map_setup.c\
-#			map_maker/utils.c\
-#			map_maker/img_utils.c\
-#			map_maker/setup_screens.c\
-#			map_maker/rand_gen.c
+B_SRC_NAME += raycasting/raycast.c\
+			raycasting/draw_walls.c\
+			raycasting/make_tiles.c\
+			raycasting/utils.c\
+			raycasting/sprites.c\
+			raycasting/sprite_list_utils.c\
+			raycasting/door_raycast.c
 
 B_SRC_NAME += utils/tab_utils.c\
 			utils/string_utils.c\
 			utils/math.c\
 			utils/array_utils.c
 
-B_SRC_NAME += init/init_game.c\
-			init/init_game_part.c
-
-B_SRC_NAME += keys/keys.c\
-			keys/keys_part.c
-
-B_SRC_NAME += raycasting/raycast.c\
-			raycasting/draw_walls.c\
-			raycasting/make_tiles.c\
-			raycasting/utils.c
-
 B_SRC = $(addprefix $(B_SRC_DIR), $(B_SRC_NAME))
-
 
 B_OBJ_DIR = b_obj/
 B_OBJ_NAME = $(B_SRC_NAME:.c=.o)
 B_OBJ = $(patsubst %, $(B_OBJ_DIR)%, $(B_OBJ_NAME))
 
-
 # Compilation
 
-all: MLX $(NAME)
+all: mlx $(NAME)
 
-MLX :
+mlx :
 	@if ls | grep -q "MLX42"; then \
 		clear; \
 		echo "\033[32;47;1m** MLX42 already exist **\033[1;m"; \
@@ -116,22 +107,26 @@ $(B_OBJ_DIR)%.o:$(B_SRC_DIR)%.c
 	@gcc $(CFLAGS) $< $(INCLUDES) -c -o $@
 
 $(LIBFT) :
-	@ $(MAKE) -C includes/libft all --no-print-directory
+	@ make -C includes/libft all --no-print-directory
 
-$(NAME): MLX $(LIBFT) $(OBJ)
+$(NAME): mlx $(LIBFT) $(OBJ)
 	@gcc -o $(NAME) $(CFLAGS) $(OBJ) $(INCLUDES) $(LIBFT) $(LIBS)
 	@echo "\033[32;47;1m** FINISH **\033[1;m"
 
-bonus: MLX  $(LIBFT) $(B_OBJ)
-	@gcc -o $(B_NAME) -msse -flto -Ofast $(CFLAGS) $(B_SRC) $(INCLUDES) $(LIBFT) $(LIBS)
+bonus: mlx  $(LIBFT) $(B_OBJ)
+	@gcc -o $(B_NAME) $(CFLAGS) $(B_OBJ) $(INCLUDES) $(LIBFT) $(LIBS)
+	@echo "\033[32;47;1m** FINISH BONUS **\033[1;m"
+
+bfast: mlx  $(LIBFT) $(B_OBJ)
+	@gcc -o $(B_NAME) -Ofast $(CFLAGS) $(B_OBJ) $(INCLUDES) $(LIBFT) $(LIBS)
 	@echo "\033[32;47;1m** FINISH BONUS **\033[1;m"
 
 clean:
-	@ $(MAKE) -C includes/libft clean --no-print-directory
+	@ make -C includes/libft clean --no-print-directory
 	rm -rf $(OBJ_DIR) $(B_OBJ_DIR)
 
 fclean: clean
-	@ $(MAKE) -C includes/libft fclean --no-print-directory
+	@ make -C includes/libft fclean --no-print-directory
 	rm -f $(NAME) $(B_NAME)
 
 re: fclean all

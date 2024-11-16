@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   img_to_int.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbirou <mbirou@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mbirou <manutea.birou@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/17 11:45:54 by mbirou            #+#    #+#             */
-/*   Updated: 2024/11/06 14:17:32 by mbirou           ###   ########.fr       */
+/*   Created: 2024/11/16 12:32:22 by mbirou            #+#    #+#             */
+/*   Updated: 2024/11/16 12:32:32 by mbirou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,36 +48,61 @@ int	cd_get_pixel_color(mlx_texture_t *txt, int x, int y)
 	return (r << 24 | g << 16 | b << 8 | a);
 }
 
-int	**cd_extract_pixel(mlx_texture_t *txt, int is_flipped)
+int	**cd_extract_pixel(mlx_texture_t *txt)
 {
 	int	**pixels;
 	int	i;
 	int	ii;
 
-	pixels = ft_calloc(sizeof(*pixels), txt->height + 2);
+	pixels = ft_calloc(sizeof(*pixels), txt->width + 2);
 	pixels[0] = ft_calloc(sizeof(int *), 2);
 	pixels[0][0] = (int)txt->width - 1;
 	pixels[0][1] = (int)txt->height - 1;
 	pixels[txt->width + 1] = ft_calloc(sizeof(int *), 1);
 	pixels[txt->width + 1][0] = -1;
 	i = 0;
-	while (++i < (int)txt->width)
+	while (++i <= (int)txt->width)
 	{
 		pixels[i] = ft_calloc(sizeof(*(pixels[i])), txt->height + 1);
 		pixels[i][txt->height] = -1;
 		ii = -1;
 		while (++ii < (int)txt->height)
-		{
-			if (!is_flipped)
-				pixels[i][ii] = cd_get_pixel_color(txt, i, ii);
-			else
-				pixels[i][ii] = cd_get_pixel_color(txt, pixels[0][0] - i, ii);
-		}
+			pixels[i][ii] = cd_get_pixel_color(txt, i - 1, ii);
 	}
+	mlx_delete_texture(txt);
 	return (pixels);
 }
 
-void	cd_img_to_int(t_textures *graphic)
+void	cd_setup_pickaxe(t_game *game, t_textures *graphic)
+{
+	mlx_texture_t	*txt;
+	char			*path;
+	int				i;
+
+	path = ft_strdup("./pngs/pickaxe/0.png");
+	i = -1;
+	free(graphic->pickaxe[0][0]);
+	free(graphic->pickaxe[0]);
+	while (++i < 9)
+	{
+		path[15] = '0' + i;
+		txt = mlx_load_png(path);
+		if (!txt)
+		{
+			while (--i >= 0)
+				cd_free_int_tab(graphic->pickaxe[i]);
+			graphic->pickaxe[0] = malloc(sizeof(graphic->pickaxe[0]));
+			graphic->pickaxe[0][0] = malloc(sizeof(int));
+			graphic->pickaxe[0][0][0] = -1;
+			free(path);
+			error_handler(PICK_MISSING, game, NULL);
+		}
+		graphic->pickaxe[i] = cd_extract_pixel(txt);
+	}
+	free(path);
+}
+
+void	cd_img_to_int(t_game *game, t_textures *graphic)
 {
 	mlx_texture_t	*txt;
 	int				i;
@@ -87,9 +112,17 @@ void	cd_img_to_int(t_textures *graphic)
 	{
 		if (graphic->slots[i] == 0)
 			continue ;
-		txt = mlx_load_png(graphic->paths[i]);
-		graphic->txts[i] = cd_extract_pixel(txt, 0);
-		mlx_delete_texture(txt);
-		free(graphic->paths[i]);
+		free(graphic->txts[i][0]);
+		free(graphic->txts[i]);
+		txt = mlx_load_png(graphic->p[i]);
+		if (!txt)
+		{
+			graphic->txts[i] = malloc(sizeof(*graphic->txts[i]));
+			graphic->txts[i][0] = malloc(sizeof(*graphic->txts[i][0]));
+			graphic->txts[i][0][0] = -1;
+			error_handler(NO_TEXTURE, game, NULL);
+		}
+		graphic->txts[i] = cd_extract_pixel(txt);
 	}
+	cd_setup_pickaxe(game, graphic);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbirou <mbirou@student.42.F r>              +#+  +:+       +#+        */
+/*   By: mbirou <manutea.birou@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/11 10:05:39 by malbrech          #+#    #+#             */
-/*   Updated: 2024/11/06 14:17:32 by mbirou           ###   ########.F r       */
+/*   Created: 2024/11/16 12:32:16 by mbirou            #+#    #+#             */
+/*   Updated: 2024/11/16 12:33:56 by mbirou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,6 @@ void	cd_free_int_imgs(t_game *game)
 {
 	int	i;
 
-	if (game->map.path)
-		free(game->map.path);
 	i = -1;
 	while (++i < 94)
 	{
@@ -65,6 +63,8 @@ void	cd_free_all(t_game *game)
 {
 	t_inventory	*tp_inv;
 
+	if (game->map.path)
+		free(game->map.path);
 	cd_free_int_imgs(game);
 	free(game->rays.sprite_distances);
 	while (game->player.inventory)

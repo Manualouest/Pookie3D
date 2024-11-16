@@ -3,54 +3,48 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbirou <mbirou@student.42.F r>              +#+  +:+       +#+        */
+/*   By: mbirou <manutea.birou@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/02 09:54:35 by mbirou            #+#    #+#             */
-/*   Updated: 2024/11/06 14:17:32 by mbirou           ###   ########.F r       */
+/*   Created: 2024/11/16 12:34:12 by mbirou            #+#    #+#             */
+/*   Updated: 2024/11/16 12:57:47 by mbirou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <cub3d_bonus.h>
 
+void	cd_init_mlx(t_game *game)
+{
+	game->mlx = mlx_init(game->graphic.width,
+			game->graphic.height, "Pookie3d", true);
+	mlx_set_setting(MLX_STRETCH_IMAGE, 1);
+	game->screen = mlx_new_image(game->mlx, game->graphic.width,
+			game->graphic.height);
+	mlx_image_to_window(game->mlx, game->screen, 0, 0);
+	game->gui = mlx_new_image(game->mlx, game->graphic.width,
+			game->graphic.height);
+	mlx_image_to_window(game->mlx, game->gui, 0, 0);
+	mlx_key_hook(game->mlx, (void (*))cd_keys, (void *)game);
+	mlx_mouse_hook(game->mlx, (void (*))cd_mouse_input, (void *)game);
+	mlx_scroll_hook(game->mlx, (void (*))cd_inventory_switch, (void *)game);
+	mlx_loop_hook(game->mlx, (void (*))cd_render, (void *)game);
+}
+
 int	main(int argc, char **argv)
 {
-	t_game		game;
-	char		*map_file;
+	t_game	game;
+	char	*map_file;
 
-	// if (argc == 1)
-	// 	map_file = cd_map_maker();
-	// else
-		map_file = ft_strdup(argv[1]);
+	map_file = ft_strdup(argv[1]);
 	if (!map_file)
 		return (0);
-	// printf("%s", map_file);
 	if (argc > 2)
 		return (0);
 	game = cd_init_structs(map_file);
-	game.screen = NULL;
-	game.fps = NULL;
 	parser(&game);
-	game.graphic.pic_frame = 0;
 	cd_img_to_int(&game, &game.graphic);
-	game.mlx = mlx_init(game.graphic.width, game.graphic.height, "Pookie3d", true);
-	
-	mlx_set_setting(MLX_STRETCH_IMAGE, 1);
-
-	game.screen = mlx_new_image(game.mlx, game.graphic.width, game.graphic.height);
-	mlx_image_to_window(game.mlx, game.screen, 0, 0);
-	game.gui = mlx_new_image(game.mlx, game.graphic.width, game.graphic.height);
-	mlx_image_to_window(game.mlx, game.gui, 0, 0);
-	// mlx_resize_image(game.screen, game.graphic.width, game.graphic.height);
-	// game.screen->instances[0].z = 3;
-	// game.gui->instances[0].z = 4;
-	mlx_key_hook(game.mlx, (void (*))cd_keys, (void *)&game);
-	mlx_mouse_hook(game.mlx, (void (*))cd_mouse_input, (void *)&game);
-	mlx_scroll_hook(game.mlx, (void (*))cd_inventory_switch, (void *)&game);
-	mlx_loop_hook(game.mlx, (void (*))cd_render, (void *)&game);
+	game.graphic.pic_frame = 0;
+	cd_init_mlx(&game);
 	mlx_loop(game.mlx);
-
-
 	cd_free_all(&game);
-	//launch_game(game);
 	return (1);
 }

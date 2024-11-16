@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   controllers.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbirou <mbirou@student.42.F r>              +#+  +:+       +#+        */
+/*   By: mbirou <manutea.birou@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/02 23:50:08 by malbrech          #+#    #+#             */
-/*   Updated: 2024/11/06 14:17:32 by mbirou           ###   ########.F r       */
+/*   Created: 2024/11/16 12:29:00 by mbirou            #+#    #+#             */
+/*   Updated: 2024/11/16 12:31:41 by mbirou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,21 +32,19 @@ void	player_height_controller(t_game *game)
 		game->player.height = NORMAL_HEIGHT;
 }
 
-void    mouse_controller(t_game *game)
+void	mouse_controller(t_game *game)
 {
 	int	x;
 	int	y;
-	int	screen_center_x;
-	int	screen_center_y;
+	int	delta_x;
+	int	delta_y;
 
 	if (!game->keys.mouse)
 		return ;
 	mlx_set_cursor_mode(game->mlx, MLX_MOUSE_HIDDEN);
-	screen_center_x = (game->graphic.width * game->graphic.width_mod) / 2;
-	screen_center_y = (int)game->graphic.height >> 1;
 	mlx_get_mouse_pos(game->mlx, &x, &y);
-	int delta_x = x - screen_center_x;
-	int delta_y = y - screen_center_y;
+	delta_x = x - 960;
+	delta_y = y - 508;
 	cd_modif_res(game, 0, 1);
 	if (delta_x > 1)
 		cd_right(game, ((delta_x) >> 5) + 1);
@@ -58,5 +56,5 @@ void    mouse_controller(t_game *game)
 		cd_up(game, -delta_y >> 3);
 	if (delta_y == 0 && delta_x == 0)
 		cd_modif_res(game, 1, 0);
-	mlx_set_mouse_pos(game->mlx, screen_center_x, screen_center_y);
+	mlx_set_mouse_pos(game->mlx, 960, 508);
 }

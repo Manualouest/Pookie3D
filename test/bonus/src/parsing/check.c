@@ -3,16 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   check.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbirou <mbirou@student.42.F r>              +#+  +:+       +#+        */
+/*   By: mbirou <manutea.birou@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/17 16:18:09 by malbrech          #+#    #+#             */
-/*   Updated: 2024/11/06 14:17:32 by mbirou           ###   ########.F r       */
+/*   Created: 2024/11/16 12:16:58 by mbirou            #+#    #+#             */
+/*   Updated: 2024/11/16 12:16:59 by mbirou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <cub3d_bonus.h>
 
-//fonction pout checker le type du fichier (.cub)
 void	check_name_cub(char *path, t_game *game)
 {
 	int	i;
@@ -27,7 +26,6 @@ void	check_name_cub(char *path, t_game *game)
 	}
 }
 
-//fonction pout checker le type du fichier (.png)
 void	check_name_png(char *path, t_game *game, char *o_line)
 {
 	int	i;

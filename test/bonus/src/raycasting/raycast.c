@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycast.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbirou <mbirou@student.42.F r>              +#+  +:+       +#+        */
+/*   By: mbirou <manutea.birou@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/30 13:23:18 by mbirou            #+#    #+#             */
-/*   Updated: 2024/11/07 09:48:07 by mbirou           ###   ########.F r       */
+/*   Created: 2024/11/16 12:23:56 by mbirou            #+#    #+#             */
+/*   Updated: 2024/11/16 12:25:19 by mbirou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	cd_init_ray_vars(t_game *game, t_ray_info *ray, float cam_x)
 void	cd_ray_loop(t_game *game, t_ray_info *ray)
 {
 	while (((ray->side == 0 && ray->side_dx - ray->delta_dx < 920)
-		|| (ray->side == 1 && ray->side_dy - ray->delta_dy < 920)))
+			|| (ray->side == 1 && ray->side_dy - ray->delta_dy < 920)))
 	{
 		if (ray->side_dx < ray->side_dy)
 		{
@@ -66,17 +66,6 @@ void	cd_ray_loop(t_game *game, t_ray_info *ray)
 			break ;
 	}
 }
-			// && cd_get_p_rsqrt(game, (int)ray->x + 0.5, (int)ray->y + 0.5) > 0.7
-
-/* ray->x >= 0 && ray->x < game->map.width
-		&& ray->y >= 0 && ray->y < game->map.height //&& game->map.map[(int)ray->y][(int)ray->x] != 0
-
-
-			&& ((game->map.map[(int)ray->y][(int)ray->x] == 2
-				&& (fabs(ray->y - game->player.y) > 1
-				|| fabs(ray->x - game->player.x) > 1))
-				|| game->map.map[(int)ray->y][(int)ray->x] != 2)
-*/
 
 void	cd_cast_ray(t_game *game, t_ray_info *ray, float x)
 {
@@ -122,7 +111,7 @@ void	cd_setup_vars(t_game *game)
 	while (game->graphic.sprites && game->graphic.sprites[++i])
 	{
 		game->graphic.sprites[i]->distance = cd_get_p_rsqrt(game,
-			game->graphic.sprites[i]->x, game->graphic.sprites[i]->y);
+				game->graphic.sprites[i]->x, game->graphic.sprites[i]->y);
 		if (game->graphic.sprites[i]->distance >= 0.9)
 			cd_remove_sprite(game, i);
 	}

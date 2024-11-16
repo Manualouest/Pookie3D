@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_handler.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbirou <mbirou@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mbirou <manutea.birou@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/24 18:00:54 by mbirou            #+#    #+#             */
-/*   Updated: 2024/11/06 14:17:32 by mbirou           ###   ########.fr       */
+/*   Created: 2024/11/16 12:17:07 by mbirou            #+#    #+#             */
+/*   Updated: 2024/11/16 12:21:58 by mbirou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,12 @@ void	cd_set_orientation(t_game *game, char o, int i)
 	if (o == 'N')
 	{
 		game->player.dirx = 0;
-		game->player.diry = 1;
+		game->player.diry = -1;
 	}
 	else if (o == 'S')
 	{
 		game->player.dirx = 0;
-		game->player.diry = -1;
+		game->player.diry = 1;
 	}
 	else if (o == 'W')
 	{
@@ -34,7 +34,7 @@ void	cd_set_orientation(t_game *game, char o, int i)
 		game->player.dirx = 1;
 		game->player.diry = 0;
 	}
-	game->player.planex = 0.9449296585499998935 * game->player.diry;
+	game->player.planex = 0.9449296585499998935 * -game->player.diry;
 	game->player.planey = 0.9449296585499998935 * game->player.dirx;
 	game->player.x = i + 0.5;
 	game->player.y = game->map.height + 0.5;
@@ -55,15 +55,6 @@ char	cd_put_first_slot(t_game *game, int is_wmap)
 	return (' ');
 }
 
-int	cd_is_floor(t_game *game, char *line, int i, int map_kind)
-{
-	if (map_kind != 3)
-		return (0);
-	if (line[i] == '0' && !game->map.map[game->graphic.tp_h][i])
-		return (1);
-	return (0);
-}
-
 int	cd_parse_line(char **line, t_game *game, int map_kind)
 {
 	int	i;
@@ -75,7 +66,8 @@ int	cd_parse_line(char **line, t_game *game, int map_kind)
 			line[0][i] = cd_put_first_slot(game, map_kind);
 		if (!game->graphic.slots[(int)line[0][i] - 33])
 		{
-			if (map_kind != 1 && !cd_is_floor(game, line[0], i, map_kind))
+			if (map_kind != 1 && map_kind != 3 && !(line[0][i] == '0'
+				&& !game->map.map[game->graphic.tp_h][i]))
 				return (-1);
 			else if ((line[0][i] == 'N' || line[0][i] == 'S'
 				|| line[0][i] == 'E' || line[0][i] == 'W')
@@ -97,7 +89,7 @@ void	cd_setup_map(char *line, t_game *game, int ***map)
 
 	line_len = cd_parse_line(&line, game, 1);
 	if (line_len == -1)
-		error_handler(BAD_CHAR, game);
+		error_handler(BAD_CHAR, game, line);
 	map[0] = cd_add_new_array_line(cd_strtoi_m(line, line_len, '0'), map[0]);
 	game->map.height ++;
 	if (line_len > game->map.width)
@@ -110,9 +102,9 @@ void	cd_setup_txt_maps(char *line, t_game *game, int ***map, int step)
 
 	line_len = cd_parse_line(&line, game, step);
 	if (line_len == -1)
-		error_handler(BAD_CHAR, game);
+		error_handler(BAD_CHAR, game, line);
 	game->graphic.tp_h ++;
 	if (line_len > game->map.width || game->graphic.tp_h > game->map.height)
-		error_handler(BAD_MAPS, game);
+		error_handler(BAD_MAPS, game, line);
 	map[0] = cd_add_new_array_line(cd_strtoi_m(line, line_len, '!'), map[0]);
 }

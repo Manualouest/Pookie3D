@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   array_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbirou <mbirou@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mbirou <manutea.birou@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/24 12:10:32 by mbirou            #+#    #+#             */
-/*   Updated: 2024/11/06 14:17:32 by mbirou           ###   ########.fr       */
+/*   Created: 2024/11/16 12:28:10 by mbirou            #+#    #+#             */
+/*   Updated: 2024/11/16 12:28:10 by mbirou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,4 +67,16 @@ int	**cd_add_new_array_line(int *line, int **array)
 		free(array);
 	}
 	return (new_array);
+}
+
+int	*cd_dup_int_list(int *list, int len)
+{
+	int	i;
+	int	*n_list;
+
+	i = -1;
+	n_list = malloc(sizeof(*n_list) * (len + 1));
+	while (++i < len)
+		n_list[i] = list[i];
+	return (n_list);
 }

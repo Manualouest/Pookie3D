@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_game.c                                        :+:      :+:    :+:   */
+/*   init_structs.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbirou <mbirou@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mbirou <manutea.birou@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/17 09:57:40 by malbrech          #+#    #+#             */
-/*   Updated: 2024/11/06 14:17:32 by mbirou           ###   ########.fr       */
+/*   Created: 2024/11/09 16:34:08 by mbirou            #+#    #+#             */
+/*   Updated: 2024/11/16 13:14:17 by mbirou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,14 @@ void	cd_init_player(t_game *game)
 	player.x = -1;
 	player.y = -1;
 	player.view = -1;
-	player.height = 0;
+	player.height = NORMAL_HEIGHT;
 	player.pitch = 0;
 	player.speed = WALKING_SPEED;
 	player.jump_coeff = 41;
 	player.jog_coeff = 52;
 	player.planex = 0.;
 	player.planey = 0.66;
+	player.inventory = NULL;
 	game->player = player;
 }
 
@@ -33,16 +34,35 @@ void	cd_init_map(t_game *game, char *map_file)
 {
 	t_map	map;
 
-	map.map = malloc(sizeof(int *));
-	map.map[0] = malloc(sizeof(int));
-	map.map[0][0] = -1;
-	map.map = NULL;
+	map.map = cd_get_empty_tab();
 	map.path = map_file;
 	map.fd = 0;
 	map.height = 0;
 	map.width = 0;
 	map.fov = M_PI / 3.;
 	game->map = map;
+}
+
+void	cd_init_keys(t_game *game)
+{
+	t_keys	keys;
+
+	keys.w = 0;
+	keys.s = 0;
+	keys.a = 0;
+	keys.d = 0;
+	keys.up = 0;
+	keys.down = 0;
+	keys.left = 0;
+	keys.right = 0;
+	keys.space = 0;
+	keys.shift = 0;
+	keys.ctrl = 0;
+	keys.fps = 1;
+	keys.destroy = 0;
+	keys.place = 0;
+	keys.mouse = 0;
+	game->keys = keys;
 }
 
 void	cd_init_rays(t_game *game)
@@ -63,35 +83,8 @@ void	cd_init_rays(t_game *game)
 	rays.side = 0;
 	rays.step_x = 0;
 	rays.step_y = 0;
+	rays.sprite_distances = malloc(1);
 	game->rays = rays;
-}
-
-void	cd_init_graphic(t_game *game)
-{
-	t_textures	graphic;
-	int			i;
-
-	graphic.tmap = malloc(sizeof(int *));
-	graphic.tmap[0] = malloc(sizeof(int));
-	graphic.tmap[0][0] = -1;
-	graphic.fmap = malloc(sizeof(int *));
-	graphic.fmap[0] = malloc(sizeof(int));
-	graphic.fmap[0][0] = -1;
-	graphic.rmap = malloc(sizeof(int *));
-	graphic.rmap[0] = malloc(sizeof(int));
-	graphic.rmap[0][0] = -1;
-	graphic.width = 1920;
-	graphic.width_mod = 1;
-	graphic.height = 1016;
-	i = -1;
-	while (++i < 94)
-	{
-		graphic.paths[i] = NULL;
-		graphic.slots[i] = 0;
-	}
-	graphic.dim = 0;
-	graphic.incr = 0;
-	game->graphic = graphic;
 }
 
 t_game	cd_init_structs(char *map_file)
@@ -103,5 +96,9 @@ t_game	cd_init_structs(char *map_file)
 	cd_init_rays(&game);
 	cd_init_graphic(&game);
 	cd_init_keys(&game);
+	game.gui = NULL;
+	game.screen = NULL;
+	game.fps = NULL;
+	game.mlx = NULL;
 	return (game);
 }

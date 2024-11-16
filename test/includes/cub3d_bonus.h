@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbirou <mbirou@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mbirou <manutea.birou@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 11:27:38 by mbirou            #+#    #+#             */
-/*   Updated: 2024/11/14 19:29:38 by mbirou           ###   ########.fr       */
+/*   Updated: 2024/11/16 13:02:46 by mbirou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CUB3D_H
-# define CUB3D_H
+#ifndef CUB3D_BONUS_H
+# define CUB3D_BONUS_H
 
 /*------------------- INCLUDES ----------------------*/
 
@@ -23,201 +23,7 @@
 # include <unistd.h>
 # include <MLX42/MLX42.h>
 # include <libft.h>
-
-#include <emmintrin.h>
-
-# include <string.h>
-# include <pthread.h>
-
-/*------------------ STRUCTURES --------------------*/
-
-typedef struct s_position
-{
-	float	x;
-	float	y;
-}		t_position;
-
-typedef struct s_sprite_vars
-{
-	float	trsx;
-	float	trsy;
-	int		screenx;
-	int		sp_height;
-	int		sp_width;
-	int		txty;
-	int		txtx;
-	int		y_op;
-	float	x;
-	float	y;
-	float	stry;
-	float	endy;
-	float	strx;
-	float	endx;
-}			t_sprite_vars;
-
-
-typedef struct	s_sprite
-{
-	float	x;
-	float	y;
-	float	distance;
-	float	height;
-	int		direction;
-	int		tile;
-	int		wall_type;
-	int		**txt;
-}			t_sprite;
-
-typedef struct t_inventory
-{
-	int					tile;
-	int					wall_type;
-	struct t_inventory *next;
-}						t_inventory;
-
-typedef struct	s_textures
-{
-	int			**txts[94];
-	int			**tmap;
-	int			**fmap;
-	int			**rmap;
-	int			***pickaxe;
-	float		pic_frame;
-	char		*p[94];
-	char		slots[94];
-	t_sprite	**sprites;
-	float		width;
-	float		width_mod;
-	float		height;
-	float		up_op;
-	int			tp_h;
-	int			up;
-	int			down;
-	float		y_ratio;
-	float		incr;
-	float		dim;
-}				t_textures;
-
-typedef struct s_data_player
-{
-	float		x;
-	float		y;
-	float		view;
-	float		height;
-	float		pitch;
-	float		speed;
-	float		jump_coeff;
-	float		jog_coeff;
-	float		planex;
-	float		planey;
-	float		dirx;
-	float		diry;
-	t_inventory	*inventory;
-}				t_data_player;
-
-typedef struct s_map
-{
-	int			**map;
-	char		*path;
-	int			height;
-	int			width;
-	int			fd;
-	float		fov;
-}	t_map;
-
-typedef struct s_keys
-{
-	int	w;
-	int	s;
-	int	a;
-	int	d;
-	int	up;
-	int	down;
-	int	left;
-	int	right;
-	int	space;
-	int	shift;
-	int	ctrl;
-	int	fps;
-	int	destroy;
-	int	place;
-	int	mouse;
-}	t_keys;
-
-typedef struct s_ray_info
-{
-	float	x;
-	float	y;
-	float	x_save;
-	float	y_save;
-	float	distance_save;
-	float	t_x;
-	float	distance;
-	float	wall_height;
-	double	dx;
-	double	dy;
-	double	delta_dx;
-	double	delta_dy;
-	double	side_dx;
-	double	side_dy;
-	int		side;
-	int		step_x;
-	int		step_y;
-	int		*sprite_distances;
-}			t_ray_info;
-
-typedef struct s_t_info
-{
-	pthread_t			thread;
-	float				dx0;
-	float				dy0;
-	float				dx1;
-	float				dy1;
-	float				mx;
-	float				my;
-	float				stepx;
-	float				stepy;
-	float				row_dst;
-	float				mid;
-	float				height;
-	float				width;
-	float				pos_x;
-	float				pos_y;
-	int					x;
-	int					y;
-	int					**floor_t;
-	int					**roof_t;
-	mlx_image_t			*img;
-	int					floor_status;
-	int					game_status;
-	pthread_mutex_t		status_check;
-}						t_t_info;
-
-typedef struct s_game
-{
-	t_map			map;
-	mlx_t			*mlx;
-	mlx_image_t		*screen;
-	mlx_image_t		*fps;
-	mlx_image_t		*gui;
-	t_ray_info		rays;
-	t_t_info		t_info;
-	t_keys			keys;
-	t_data_player	player;
-	t_textures		graphic;
-}	t_game;
-
-/*------------------- ENUM ----------------------*/
-
-typedef enum e_ids
-{
-	NO,
-	SO,
-	WE,
-	EA,
-	C,
-	F
-}				t_ids;
+# include <cub3d_bonus_strucs.h>
 
 /*---------------- DEFINE VALUES ----------------*/
 // --Speeds
@@ -247,18 +53,13 @@ typedef enum e_ids
 
 /*----------------- FONCTIONS -------------------*/
 
-// -----map_maker--------------------------------------------------------------
-// --map_maker_main.c
-char		*cd_map_maker(void);
-
 // -----init-------------------------------------------------------------------
-// --init_game.c
+// --init_structs.c
 t_game		cd_init_structs(char *map_file);
-void		cd_init_keys(t_game *game);
 
-// --init_single_struct.c
-t_ray_info	cd_create_rays(void);
-
+// --init_tabs.c
+int			**cd_get_empty_tab(void);
+void		cd_init_graphic(t_game *game);
 
 // ------parsing---------------------------------------------------------------
 // --parser.c
@@ -269,15 +70,12 @@ int			is_direction(char *line, int i, int *true_line, t_game *game);
 int			is_rgb(char *line, int i, int *true_line, t_game *game);
 
 // --map_handler.c
-// void		cd_setup_map(char	*line, t_game *game);
-// void		cd_parse_map(t_game *game, t_map *map);
 void		cd_setup_map(char *line, t_game *game, int ***map);
 void		cd_setup_txt_maps(char *line, t_game *game, int ***map, int step);
 
 // --check.c
 void		check_name_cub(char *path, t_game *game);
 void		check_name_png(char *path, t_game *game, char *o_line);
-
 
 // -----utils------------------------------------------------------------------
 
@@ -297,7 +95,7 @@ float		cd_clamp_two(float num, float min, float max);
 // --controllers.c
 void		player_speed_controller(t_game *game);
 void		player_height_controller(t_game *game);
-void    	mouse_controller(t_game *game);
+void		mouse_controller(t_game *game);
 
 // --array_utils.c
 int			cd_intlen(int *line);
@@ -331,7 +129,7 @@ void		cd_camera(t_game *game);
 void		cd_edit_wall(t_game *game, float x, float y);
 void		cd_inventory_switch(double xdelta, double ydelta, t_game *game);
 void		cd_mouse_input(mouse_key_t button, action_t action,
-	modifier_key_t mods, t_game *game);
+				modifier_key_t mods, t_game *game);
 
 // -----raycast----------------------------------------------------------------
 // --raycast.c
@@ -358,7 +156,7 @@ void		cd_modif_res(t_game *game, int moment, int force);
 
 // --sprites.c
 void		cd_sort_sprites(t_game *game);
-void		cd_render_sprites(t_game * game, int move_height);
+void		cd_render_sprites(t_game *game, int move_height);
 
 // --sprite_list_utils.c
 void		cd_add_sprite(t_game *game, float x, float y);
@@ -380,6 +178,5 @@ void		error_handler(char *ERR_MSG, t_game *game, char *line);
 // --img_to_int.c
 void		cd_img_to_int(t_game *game, t_textures *graphic);
 int			cd_create_rgba(char	*color);
-
 
 #endif

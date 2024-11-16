@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minimap.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbirou <mbirou@student.42.F r>              +#+  +:+       +#+        */
+/*   By: mbirou <manutea.birou@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/16 15:45:38 by malbrech          #+#    #+#             */
-/*   Updated: 2024/11/06 14:17:32 by mbirou           ###   ########.F r       */
+/*   Created: 2024/11/16 12:36:19 by mbirou            #+#    #+#             */
+/*   Updated: 2024/11/16 12:37:12 by mbirou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,10 +45,10 @@ void	cd_put_mini_txt(t_game *game, int m_x, int m_y)
 		return ;
 	if (!game->map.map[(int)game->player.y - m_y][(int)game->player.x - m_x])
 		txt = game->graphic.txts[game->graphic.fmap
-			[(int)game->player.y - m_y][(int)game->player.x - m_x]];
+		[(int)game->player.y - m_y][(int)game->player.x - m_x]];
 	else
 		txt = game->graphic.txts[game->graphic.tmap
-			[(int)game->player.y - m_y][(int)game->player.x - m_x]];
+		[(int)game->player.y - m_y][(int)game->player.x - m_x]];
 	y = -1;
 	while (++y < 25)
 	{
@@ -59,7 +59,6 @@ void	cd_put_mini_txt(t_game *game, int m_x, int m_y)
 	}
 }
 
-
 int	cd_is_in_triangle(t_position p, t_position p1,
 	t_position p2, t_position p3)
 {
@@ -68,16 +67,16 @@ int	cd_is_in_triangle(t_position p, t_position p1,
 	float	area3;
 	float	triangle_area;
 
-	area1 = fabs((p.x * (p1.y - p2.y) + p1.x * (p2.y - p.y) +
-		p2.x * (p.y - p1.y)) / 2.0);
-	area2 = fabs((p.x * (p2.y - p3.y) + p2.x * (p3.y - p.y) +
-		p3.x * (p.y - p2.y)) / 2.0);
-	area3 = fabs((p.x * (p1.y - p3.y) + p1.x * (p3.y - p.y) +
-		p3.x * (p.y - p1.y)) / 2.0);
-	triangle_area = fabs((p1.x * (p2.y - p3.y) + p2.x * (p3.y - p1.y) +
-		p3.x * (p1.y - p2.y)) / 2.0);
+	area1 = fabs((p.x * (p1.y - p2.y) + p1.x * (p2.y - p.y)
+				+ p2.x * (p.y - p1.y)) / 2.0);
+	area2 = fabs((p.x * (p2.y - p3.y) + p2.x * (p3.y - p.y)
+				+ p3.x * (p.y - p2.y)) / 2.0);
+	area3 = fabs((p.x * (p1.y - p3.y) + p1.x * (p3.y - p.y)
+				+ p3.x * (p.y - p1.y)) / 2.0);
+	triangle_area = fabs((p1.x * (p2.y - p3.y) + p2.x * (p3.y - p1.y)
+				+ p3.x * (p1.y - p2.y)) / 2.0);
 	return (floor(triangle_area * 100) / 100.F == floor(
-		(area1 + area2 + area3) * 100) / 100.F);
+			(area1 + area2 + area3) * 100) / 100.F);
 }
 
 void	cd_setup_minimap_struct(t_game *game)
@@ -121,7 +120,7 @@ void	cd_minimap(t_game *game)
 				|| game->player.y - y >= game->map.height
 				|| game->player.x - x < 0
 				|| game->player.x - x >= game->map.width)
-				continue;
+				continue ;
 			cd_put_mini_txt(game, x, y);
 		}
 	}

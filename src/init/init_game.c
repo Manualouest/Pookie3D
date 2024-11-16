@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_game.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbirou <mbirou@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mbirou <manutea.birou@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 09:57:40 by malbrech          #+#    #+#             */
-/*   Updated: 2024/10/03 07:36:37 by mbirou           ###   ########.fr       */
+/*   Updated: 2024/11/16 13:15:00 by mbirou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,21 @@ void	cd_init_player(t_map *map)
 	player.height = 0.5;
 	player.pitch = 0;
 	map->player = player;
+}
+
+void	cd_init_keys(t_game *game)
+{
+	t_keys keys;
+
+	keys.w = 0;
+	keys.s = 0;
+	keys.a = 0;
+	keys.d = 0;
+	keys.up = 0;
+	keys.down = 0;
+	keys.left = 0;
+	keys.right = 0;
+	game->keys = keys;
 }
 
 void	cd_init_map(t_game *game, char *map_file)
@@ -59,29 +74,6 @@ void	cd_init_rays(t_game *game)
 	rays.step_y = 0;
 	rays.effect = 0;
 	game->rays = rays;
-}
-
-void	cd_init_graphic(t_game *game)
-{
-	t_textures	graphic;
-
-	graphic.no = 0;
-	graphic.so = 0;
-	graphic.we = 0;
-	graphic.ea = 0;
-	graphic.f = 0;
-	graphic.c = 0;
-	graphic.paths[0] = NULL;
-	graphic.paths[1] = NULL;
-	graphic.paths[2] = NULL;
-	graphic.paths[3] = NULL;
-	graphic.paths[4] = NULL;
-	graphic.paths[5] = NULL;
-	graphic.paths[6] = NULL;
-	graphic.width = 1920;
-	graphic.height = 1016;
-	graphic.dim_id = -1;
-	game->graphic = graphic;
 }
 
 t_game	cd_init_structs(char *map_file)

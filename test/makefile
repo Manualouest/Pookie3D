@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mbirou <mbirou@student.42.fr>              +#+  +:+       +#+         #
+#    By: mbirou <manutea.birou@gmail.com>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/11 12:29:39 by mbirou            #+#    #+#              #
-#    Updated: 2024/11/14 20:13:51 by mbirou           ###   ########.fr        #
+#    Updated: 2024/11/16 13:02:26 by mbirou           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -61,28 +61,24 @@ B_SRC_DIR = bonus/src/
 
 B_SRC_NAME = main.c\
 			error.c\
-			controllers.c\
-			img_to_int.c\
-			minimap.c
+			img_to_int.c
 
-B_SRC_NAME += parsing/parser.c\
-			parsing/check.c\
-			parsing/map_handler.c
+B_SRC_NAME += gui/gui_setup.c\
+				gui/minimap.c
 
-B_SRC_NAME += animactions/mooves.c
-
-B_SRC_NAME += utils/tab_utils.c\
-			utils/string_utils.c\
-			utils/math.c\
-			utils/array_utils.c
-
-B_SRC_NAME += init/init_game.c\
-			init/init_game_part.c
+B_SRC_NAME += init/init_structs.c\
+			init/init_tabs.c
 
 B_SRC_NAME += keys/keys.c\
 			keys/keys_part.c\
 			keys/wall_edition.c\
-			keys/camera.c
+			keys/camera.c\
+			keys/controllers.c\
+			keys/jump.c
+
+B_SRC_NAME += parsing/parser.c\
+			parsing/check.c\
+			parsing/map_handler.c
 
 B_SRC_NAME += raycasting/raycast.c\
 			raycasting/draw_walls.c\
@@ -92,7 +88,10 @@ B_SRC_NAME += raycasting/raycast.c\
 			raycasting/sprite_list_utils.c\
 			raycasting/door_raycast.c
 
-B_SRC_NAME += gui/gui_setup.c
+B_SRC_NAME += utils/tab_utils.c\
+			utils/string_utils.c\
+			utils/math.c\
+			utils/array_utils.c
 
 B_SRC = $(addprefix $(B_SRC_DIR), $(B_SRC_NAME))
 
@@ -134,7 +133,7 @@ $(NAME): bonus
 #	@echo "\033[32;47;1m** FINISH **\033[1;m"
 
 bonus: MLX  $(LIBFT) $(B_OBJ)
-	@gcc -o $(B_NAME) -msse -flto -Ofast $(CFLAGS) $(B_SRC) $(INCLUDES) $(LIBFT) $(LIBS)
+	@gcc -o $(B_NAME) $(CFLAGS) $(B_OBJ) $(INCLUDES) $(LIBFT) $(LIBS)
 	@echo "\033[32;47;1m** FINISH BONUS **\033[1;m"
 
 clean:

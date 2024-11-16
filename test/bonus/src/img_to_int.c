@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   img_to_int.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbirou <mbirou@student.42.F r>              +#+  +:+       +#+        */
+/*   By: mbirou <manutea.birou@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/17 11:45:54 by mbirou            #+#    #+#             */
-/*   Updated: 2024/11/06 14:17:32 by mbirou           ###   ########.F r       */
+/*   Created: 2024/11/16 12:32:22 by mbirou            #+#    #+#             */
+/*   Updated: 2024/11/16 12:32:32 by mbirou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,4 +126,3 @@ void	cd_img_to_int(t_game *game, t_textures *graphic)
 	}
 	cd_setup_pickaxe(game, graphic);
 }
-

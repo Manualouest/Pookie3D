@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_walls.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbirou <mbirou@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mbirou <manutea.birou@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/30 14:00:37 by mbirou            #+#    #+#             */
-/*   Updated: 2024/11/06 14:17:32 by mbirou           ###   ########.fr       */
+/*   Created: 2024/11/16 12:23:00 by mbirou            #+#    #+#             */
+/*   Updated: 2024/11/16 12:23:03 by mbirou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,16 @@ void	cd_dim_color(t_game *game, int x, int y, float effect)
 	int	pos;
 
 	pos = (int)(y * game->graphic.width + x) << 2;
-	effect += 0.02;
+	if (effect > 0.02)
+		effect += 0.02;
+	if (effect > 0.05)
+		effect += 0.02;
+	if (effect > 0.1)
+		effect += 0.02;
+	if (effect > 0.3)
+		effect += 0.02;
+	if (effect > 0.5)
+		effect += 0.02;
 	if (effect > 1)
 		effect = 1;
 	game->screen->pixels[pos] *= effect;
@@ -47,7 +56,7 @@ float	cd_start_dim(t_game *game)
 {
 	float	effect;
 
-	effect = 1. / (game->rays.distance + 1.);
+	effect = 1.F / (game->rays.distance + 1.);
 	return (effect);
 }
 

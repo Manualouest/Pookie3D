@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbirou <mbirou@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mbirou <manutea.birou@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 11:27:38 by mbirou            #+#    #+#             */
-/*   Updated: 2024/10/03 07:32:47 by mbirou           ###   ########.fr       */
+/*   Updated: 2024/11/16 13:21:05 by mbirou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,7 +135,8 @@ t_game		cd_init_structs(char *map_file);
 void		cd_init_keys(t_game *game);
 
 // --init_single_struct.c
-t_ray_info	cd_create_rays(void);
+int		**cd_get_empty_tab(void);
+void	cd_init_graphic(t_game *game);
 
 
 // ------parsing---------------------------------------------------------------
@@ -169,7 +170,6 @@ char		**add_new_line(char *line, char **tab);
 float		cd_clamp(float num, float min, float max);
 float		cd_clamp_two(float num, float min, float max);
 
-
 // -----keys-------------------------------------------------------------------
 // --keys.c
 void	cd_keys(mlx_key_data_t keydata, t_game *game);
@@ -181,10 +181,6 @@ void	cd_camera(t_game *game);
 void	cd_moove(t_game *game);
 void	cd_keys_conditions(mlx_key_data_t keydata, t_game *game);
 void	cd_camera_conditions(mlx_key_data_t keydata, t_game *game);
-
-// --wall_edition.c
-// void		cd_edit_wall(t_game *game, char new_wall);
-
 
 // -----raycast----------------------------------------------------------------
 // --raycast.c

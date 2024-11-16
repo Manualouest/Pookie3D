@@ -3,25 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   keys.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbirou <mbirou@student.42.F r>              +#+  +:+       +#+        */
+/*   By: mbirou <manutea.birou@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/26 10:21:02 by malbrech          #+#    #+#             */
-/*   Updated: 2024/11/06 18:06:48 by mbirou           ###   ########.F r       */
+/*   Created: 2024/11/16 12:27:04 by mbirou            #+#    #+#             */
+/*   Updated: 2024/11/16 12:27:20 by mbirou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <cub3d_bonus.h>
 
-/* Trucs a implementer pour le bonus :
-
-Define les vitesse du player:
-WALK | SPRINT
-
-Le jump et le sprint
-
-*/
-
-// Fonction qui gère les mouvements
 void	cd_keys(mlx_key_data_t keydata, t_game *game)
 {
 	if (keydata.key == MLX_KEY_ESCAPE && keydata.action == MLX_PRESS)
@@ -46,7 +36,6 @@ void	cd_moove(t_game *game)
 	cd_moove_left(game);
 	cd_moove_right(game);
 	cd_jump(game);
-	// cd_walk(game);
 	cd_camera(game);
 	mouse_controller(game);
 }
@@ -91,11 +80,13 @@ void	cd_camera_conditions(mlx_key_data_t keydata, t_game *game)
 {
 	if (game->keys.mouse)
 		return ;
-	if (keydata.key == MLX_KEY_UP && keydata.action == MLX_PRESS && game->player.pitch < 0.75)
+	if (keydata.key == MLX_KEY_UP && keydata.action == MLX_PRESS
+		&& game->player.pitch < 0.75)
 		game->keys.up = 1;
 	if (keydata.key == MLX_KEY_UP && keydata.action == MLX_RELEASE)
 		game->keys.up = 0;
-	if (keydata.key == MLX_KEY_DOWN && keydata.action == MLX_PRESS && game->player.pitch > -0.75)
+	if (keydata.key == MLX_KEY_DOWN && keydata.action == MLX_PRESS
+		&& game->player.pitch > -0.75)
 		game->keys.down = 1;
 	if (keydata.key == MLX_KEY_DOWN && keydata.action == MLX_RELEASE)
 		game->keys.down = 0;

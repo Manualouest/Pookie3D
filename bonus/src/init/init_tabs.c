@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_game_part.c                                   :+:      :+:    :+:   */
+/*   init_tabs.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mbirou <manutea.birou@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/27 10:52:56 by mbirou            #+#    #+#             */
-/*   Updated: 2024/11/16 13:18:48 by mbirou           ###   ########.fr       */
+/*   Created: 2024/11/09 16:34:14 by mbirou            #+#    #+#             */
+/*   Updated: 2024/11/16 13:14:20 by mbirou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <cub3d.h>
+#include <cub3d_bonus.h>
 
 int	**cd_get_empty_tab(void)
 {
@@ -25,21 +25,27 @@ int	**cd_get_empty_tab(void)
 void	cd_init_graphic(t_game *game)
 {
 	t_textures	graphic;
+	int			i;
 
-	graphic.no = 0;
-	graphic.so = 0;
-	graphic.we = 0;
-	graphic.ea = 0;
-	graphic.f = 0;
-	graphic.c = 0;
-	graphic.paths[0] = NULL;
-	graphic.paths[1] = NULL;
-	graphic.paths[2] = NULL;
-	graphic.paths[3] = NULL;
-	graphic.paths[4] = NULL;
-	graphic.paths[5] = NULL;
-	graphic.paths[6] = NULL;
+	graphic.tmap = cd_get_empty_tab();
+	graphic.fmap = cd_get_empty_tab();
+	graphic.rmap = cd_get_empty_tab();
 	graphic.width = 1920;
+	graphic.width_mod = 1;
 	graphic.height = 1016;
+	i = -1;
+	while (++i < 94)
+	{
+		graphic.p[i] = NULL;
+		graphic.slots[i] = 0;
+		graphic.txts[i] = cd_get_empty_tab();
+	}
+	graphic.dim = 0;
+	graphic.incr = 0;
+	graphic.sprites = malloc(sizeof(*graphic.sprites));
+	graphic.sprites[0] = NULL;
+	graphic.pickaxe = malloc(sizeof(int **) * 9);
+	graphic.pickaxe[0] = cd_get_empty_tab();
+	graphic.pic_frame = -1;
 	game->graphic = graphic;
 }

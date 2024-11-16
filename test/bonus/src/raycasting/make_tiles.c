@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   make_tiles.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbirou <mbirou@student.42.F r>              +#+  +:+       +#+        */
+/*   By: mbirou <manutea.birou@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/17 15:53:09 by mbirou            #+#    #+#             */
-/*   Updated: 2024/11/07 09:48:07 by mbirou           ###   ########.F r       */
+/*   Created: 2024/11/16 12:23:16 by mbirou            #+#    #+#             */
+/*   Updated: 2024/11/16 13:02:31 by mbirou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,12 @@
 
 float	cd_get_p_rsqrt(t_game *game, float x2, float y2)
 {
-	__m128	num_sq;
 	float	num;
 
-	num = 0;
-	num_sq = _mm_loadu_ps(&(float){((game->player.x - x2)
-					* (game->player.x - x2))
-				+ ((game->player.y - y2)
-					* (game->player.y - y2))});
-	_mm_storeu_ps(&num, _mm_rsqrt_ss(num_sq));
+	num = 1.F / (float)sqrt(((game->player.x - x2)
+				* (game->player.x - x2))
+			+ ((game->player.y - y2)
+				* (game->player.y - y2)));
 	return (num);
 }
 
@@ -53,17 +50,6 @@ void	cd_draw_roof_floor(t_game *game, float y, float x, int type)
 	game->graphic.dim = cd_get_p_rsqrt(game, game->t_info.mx, game->t_info.my);
 	cd_dim_color(game, x, y, game->graphic.dim);
 }
-
-// ((x1 - x2) * (x1 - x2)) + ((y1 - y2) * (y1 - y2))
-
-
-	// cd_dim_color(game, x, y, 1.F / (sqrt(((game->player.x - game->t_info.mx) 
-	// 	* (game->player.x - game->t_info.mx)) + ((game->player.y 
-	// 	- game->t_info.my) * (game->player.y - game->t_info.my))) + 1));
-
-	// _mm_storeu_ps(&game->graphic.dim, _mm_rsqrt_ss(_mm_loadu_ps(&(float){((game->player.x - game->t_info.mx) * (game->player.x - game->t_info.mx))
-	// 	+ ((game->player.y - game->t_info.my) * (game->player.y - game->t_info.my))})));
-	// cd_dim_color(game, x, y, game->graphic.dim);
 
 void	cd_draw_tiles(t_game *game, int x)
 {
