@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbirou <manutea.birou@gmail.com>           +#+  +:+       +#+        */
+/*   By: mbirou <mbirou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 11:27:38 by mbirou            #+#    #+#             */
-/*   Updated: 2024/11/16 23:27:29 by mbirou           ###   ########.fr       */
+/*   Updated: 2024/11/19 10:48:12 by mbirou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,14 @@
 
 /*------------------ STRUCTURES --------------------*/
 
-typedef struct	s_textures
+typedef struct s_textures
 {
 	int		**so;
 	int		**no;
 	int		**we;
 	int		**ea;
 	int		c;
-	int 	f;
+	int		f;
 	char	*paths[7];
 	int		width;
 	int		height;
@@ -90,7 +90,7 @@ typedef struct s_ray_info
 	int		step_x;
 	int		step_y;
 	float	effect;
-}            t_ray_info;
+}			t_ray_info;
 
 typedef struct s_game
 {
@@ -130,47 +130,44 @@ typedef enum e_ids
 
 // -----map_maker--------------------------------------------------------------
 // --map_maker_main.c
-char		*cd_map_maker(void);
+char	*cd_map_maker(void);
 
 // -----init-------------------------------------------------------------------
 // --init_game.c
-t_game		cd_init_structs(char *map_file);
-void		cd_init_keys(t_game *game);
+t_game	cd_init_structs(char *map_file);
+void	cd_init_keys(t_game *game);
 
 // --init_single_struct.c
 int		**cd_get_empty_tab(void);
 void	cd_init_graphic(t_game *game);
 
-
 // ------parsing---------------------------------------------------------------
 // --parser.c
-void		parser(t_game *game);
-void		get_infos(t_game *game);
-void		scanner(char *line, t_game *game);
-int			is_direction(char *line, int i, t_game *game);
-int			is_rgb(char *line, int i, t_game *game);
+void	parser(t_game *game);
+void	get_infos(t_game *game);
+void	scanner(char *line, t_game *game);
+int		is_direction(char *line, int i, t_game *game);
+int		is_rgb(char *line, int i, t_game *game);
 
 // --map_handler.c
-void		cd_setup_map(char	*line, t_game *game);
-void		cd_parse_map(t_game *game, t_map *map);
+void	cd_setup_map(char	*line, t_game *game);
+void	cd_parse_map(t_game *game, t_map *map);
 
 // --check.c
-void		check_name_cub(char *path, t_game *game);
-void		check_name_png(char *txt, t_game *game);
-
+void	check_name_cub(char *path, t_game *game);
+void	check_name_png(char *txt, t_game *game);
 
 // -----utils------------------------------------------------------------------
-
 // --string_utils.c
 void	format_d_tab(char *paths[7], t_game *game);
 
 // --tab_utils.c
-int			tab_len(char **tab);
-char		**add_new_line(char *line, char **tab);
+int		tab_len(char **tab);
+char	**add_new_line(char *line, char **tab);
 
 // --math.c
-float		cd_clamp(float num, float min, float max);
-float		cd_clamp_two(float num, float min, float max);
+float	cd_clamp(float num, float min, float max);
+float	cd_clamp_two(float num, float min, float max);
 
 // -----keys-------------------------------------------------------------------
 // --keys.c
@@ -186,21 +183,19 @@ void	cd_camera_conditions(mlx_key_data_t keydata, t_game *game);
 
 // -----raycast----------------------------------------------------------------
 // --raycast.c
-void		cd_render(void *vgame);
+void	cd_render(void *vgame);
 
 // --draw_walls.c
-void		cd_draw_walls(t_game *game, t_ray_info *ray, int x);
-void		cd_draw_c_f(t_game *game, int x);
+void	cd_draw_walls(t_game *game, t_ray_info *ray, int x);
+void	cd_draw_c_f(t_game *game, int x);
 
 // -----main-------------------------------------------------------------------
 // --error.c
-void		cd_free_int_tab(int **tab);
-void		cd_free_all(t_game *game);
-void		error_handler(char *ERR_MSG, t_game *game, char *line);
+void	cd_free_int_tab(int **tab);
+void	cd_free_all(t_game *game);
+void	error_handler(char *ERR_MSG, t_game *game, char *line);
 
 // --img_to_int.c
-void		cd_img_to_int(t_textures *graphic, t_game *game);
-void		cd_set_txt_dimmension(t_textures *graphic, int id);
-
+void	cd_img_to_int(t_textures *graphic, t_game *game);
 
 #endif
