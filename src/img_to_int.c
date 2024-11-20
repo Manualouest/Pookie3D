@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   img_to_int.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbirou <manutea.birou@gmail.com>           +#+  +:+       +#+        */
+/*   By: mbirou <mbirou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 11:45:54 by mbirou            #+#    #+#             */
-/*   Updated: 2024/11/17 00:21:35 by mbirou           ###   ########.fr       */
+/*   Updated: 2024/11/20 18:32:07 by mbirou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,8 @@
 
 int	cd_create_rgba(char	*color, t_game *game)
 {
-	int		r;
-	int		g;
-	int		b;
 	int		i;
+	int		rgba;
 	char	**split_color;
 
 	i = -1;
@@ -25,20 +23,20 @@ int	cd_create_rgba(char	*color, t_game *game)
 		if (!ft_isdigit(color[i]) && color[i] != ',')
 			error_handler(BAD_COLOR, game, NULL);
 	split_color = ft_split(color, ',');
-	i = tab_len(split_color);
-	if (i == 3)
-	{
-		r = ft_atoi(split_color[0]);
-		g = ft_atoi(split_color[1]);
-		b = ft_atoi(split_color[2]);
-	}
-	free(split_color[0]);
-	free(split_color[1]);
-	free(split_color[2]);
+	if (!split_color)
+		error_handler(MALLOC_FAIL, game, NULL);
+	i = -1;
+	while (split_color[++i] && ft_atoi(split_color[i]) <= 255)
+		rgba = (rgba << 8) + ft_atoi(split_color[i]);
+	if (split_color[i] && ft_atoi(split_color[i]) > 255)
+		rgba = -1;
+	i = -1;
+	while (split_color[++i])
+		free(split_color[i]);
 	free(split_color);
-	if (i != 3)
+	if (i != 3 || rgba == -1)
 		error_handler(BAD_COLOR, game, NULL);
-	return (r << 24 | g << 16 | b << 8 | 0xFF);
+	return (rgba << 8 | 0xFF);
 }
 
 int	cd_get_pixel_color(mlx_texture_t *txt, int x, int y)
@@ -115,7 +113,7 @@ void	cd_img_to_int(t_textures *graphic, t_game *game)
 		else if (i == 3)
 			cd_realloc_int_img(game, &graphic->ea, txt, 0);
 		else if (i == 4)
-			graphic->f = cd_create_rgba(graphic->paths[i], game);
+			graphic->c = cd_create_rgba(graphic->paths[i], game);
 		else if (i == 5)
 			graphic->f = cd_create_rgba(graphic->paths[i], game);
 		free(graphic->paths[i]);

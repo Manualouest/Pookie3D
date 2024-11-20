@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbirou <manutea.birou@gmail.com>           +#+  +:+       +#+        */
+/*   By: mbirou <mbirou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 10:05:39 by malbrech          #+#    #+#             */
-/*   Updated: 2024/11/17 00:21:44 by mbirou           ###   ########.fr       */
+/*   Updated: 2024/11/20 17:38:45 by mbirou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	cd_free_all(t_game *game)
 
 void	error_handler(char *ERR_MSG, t_game *game, char *line)
 {
-	ft_putstr_fd(ERR_MSG, 1);
+	ft_putstr_fd(ERR_MSG, 2);
 	cd_free_all(game);
 	while (line)
 	{

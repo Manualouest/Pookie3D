@@ -83,6 +83,10 @@ B_OBJ_DIR = b_obj/
 B_OBJ_NAME = $(B_SRC_NAME:.c=.o)
 B_OBJ = $(patsubst %, $(B_OBJ_DIR)%, $(B_OBJ_NAME))
 
+BF_OBJ_DIR = b_obj/
+BF_OBJ_NAME = $(B_SRC_NAME:.c=.o)
+BF_OBJ = $(patsubst %, $(BF_OBJ_DIR)%, $(BF_OBJ_NAME))
+
 # Compilation
 
 all: mlx $(NAME)
@@ -106,6 +110,10 @@ $(B_OBJ_DIR)%.o:$(B_SRC_DIR)%.c
 	@mkdir -p $(dir $@)
 	@gcc $(CFLAGS) $< $(INCLUDES) -c -o $@
 
+$(BF_OBJ_DIR)%.o:$(B_SRC_DIR)%.c
+	@mkdir -p $(dir $@)
+	@gcc $(CFLAGS) -Ofast $< $(INCLUDES) -c -o $@
+
 $(LIBFT) :
 	@ make -C includes/libft all --no-print-directory
 
@@ -117,8 +125,8 @@ bonus: mlx  $(LIBFT) $(B_OBJ)
 	@gcc -o $(B_NAME) $(CFLAGS) $(B_OBJ) $(INCLUDES) $(LIBFT) $(LIBS)
 	@echo "\033[32;47;1m** FINISH BONUS **\033[1;m"
 
-bfast: mlx  $(LIBFT) $(B_OBJ)
-	@gcc -o $(B_NAME) -Ofast $(CFLAGS) $(B_OBJ) $(INCLUDES) $(LIBFT) $(LIBS)
+bfast: mlx  $(LIBFT) $(BF_OBJ)
+	@gcc -o $(B_NAME) $(CFLAGS) -Ofast $(BF_OBJ) $(INCLUDES) $(LIBFT) $(LIBS)
 	@echo "\033[32;47;1m** FINISH BONUS **\033[1;m"
 
 clean:

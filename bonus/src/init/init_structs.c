@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_structs.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbirou <manutea.birou@gmail.com>           +#+  +:+       +#+        */
+/*   By: mbirou <mbirou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/09 16:34:08 by mbirou            #+#    #+#             */
-/*   Updated: 2024/11/16 13:14:17 by mbirou           ###   ########.fr       */
+/*   Updated: 2024/11/19 11:29:52 by mbirou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	cd_init_keys(t_game *game)
 	keys.space = 0;
 	keys.shift = 0;
 	keys.ctrl = 0;
-	keys.fps = 1;
+	keys.fps = 0;
 	keys.destroy = 0;
 	keys.place = 0;
 	keys.mouse = 0;

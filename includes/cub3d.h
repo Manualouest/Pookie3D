@@ -6,7 +6,7 @@
 /*   By: mbirou <mbirou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 11:27:38 by mbirou            #+#    #+#             */
-/*   Updated: 2024/11/19 10:48:12 by mbirou           ###   ########.fr       */
+/*   Updated: 2024/11/20 18:41:39 by mbirou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,12 +119,16 @@ typedef enum e_ids
 
 # define CUB_ERR ".cub file required\n"
 # define PNG_ERR ".png file required\n"
-# define FORMAT_ERR "The map doesn't follow the game's format\n"
+# define FORMAT_ERR "The file doesn't follow the game's format\n"
 # define BAD_CHAR "Invalid character in map\n"
 # define BAD_MAP "Map borders are invalid\n"
 # define MLX_ERROR "Mlx didn't work properly\n"
 # define BAD_COLOR "Color is not well formated\n"
 # define PNG_NOT_FOUND "Could not find the png given.\n"
+# define PARAM_ERROR "Bad number of parameters\n"
+# define NO_FILE "File could not be found\n"
+# define MALLOC_FAIL "A malloc has failed\n"
+# define DUP_ERROR "There is duplicate definition\n"
 
 /*----------------- FONCTIONS -------------------*/
 

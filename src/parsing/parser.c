@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbirou <manutea.birou@gmail.com>           +#+  +:+       +#+        */
+/*   By: mbirou <mbirou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 13:33:08 by malbrech          #+#    #+#             */
-/*   Updated: 2024/11/16 22:17:46 by mbirou           ###   ########.fr       */
+/*   Updated: 2024/11/20 18:42:49 by mbirou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,11 @@ void	get_infos(t_game *game)
 	int		i;
 
 	game->map.fd = open(game->map.path, O_RDONLY);
+	if (game->map.fd == -1)
+		error_handler(NO_FILE, game, NULL);
 	buff = get_next_line(game->map.fd);
 	i = 1;
-	while (i)
+	while (buff != NULL)
 	{
 		if (buff == NULL)
 			break ;
@@ -40,6 +42,8 @@ void	get_infos(t_game *game)
 	}
 	i = -1;
 	cd_parse_map(game, &game->map);
+	if (game->map.player.x == -1)
+		error_handler(FORMAT_ERR, game, NULL);
 }
 
 void	scanner(char *line, t_game *game)
@@ -72,23 +76,27 @@ int	is_direction(char *line, int i, t_game *game)
 {
 	if (line[i] == 'N' && line[i + 1] == 'O')
 	{
+		if (game->graphic.paths[NO] != NULL)
+			error_handler(DUP_ERROR, game, line);
 		game->graphic.paths[NO] = line;
-		return (1);
 	}
-	if (line[i] == 'S' && line[i + 1] == 'O')
+	else if (line[i] == 'S' && line[i + 1] == 'O')
 	{
+		if (game->graphic.paths[SO] != NULL)
+			error_handler(DUP_ERROR, game, line);
 		game->graphic.paths[SO] = line;
-		return (1);
 	}
-	if (line[i] == 'W' && line[i + 1] == 'E')
+	else if (line[i] == 'W' && line[i + 1] == 'E')
 	{
+		if (game->graphic.paths[WE] != NULL)
+			error_handler(DUP_ERROR, game, line);
 		game->graphic.paths[WE] = line;
-		return (1);
 	}
-	if (line[i] == 'E' && line[i + 1] == 'A')
+	else if (line[i] == 'E' && line[i + 1] == 'A')
 	{
+		if (game->graphic.paths[EA] != NULL)
+			error_handler(DUP_ERROR, game, line);
 		game->graphic.paths[EA] = line;
-		return (1);
 	}
 	return (0);
 }
@@ -97,13 +105,16 @@ int	is_rgb(char *line, int i, t_game *game)
 {
 	if (line[i] == 'C')
 	{
+		if (game->graphic.paths[EA] != NULL)
+			error_handler(DUP_ERROR, game, line);
 		game->graphic.paths[C] = line;
 		return (1);
 	}
 	if (line[i] == 'F')
 	{
+		if (game->graphic.paths[EA] != NULL)
+			error_handler(DUP_ERROR, game, line);
 		game->graphic.paths[F] = line;
-		return (1);
 	}
 	return (0);
 }
