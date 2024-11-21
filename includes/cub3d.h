@@ -6,7 +6,7 @@
 /*   By: mbirou <mbirou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 11:27:38 by mbirou            #+#    #+#             */
-/*   Updated: 2024/11/20 18:41:39 by mbirou           ###   ########.fr       */
+/*   Updated: 2024/11/21 18:31:16 by mbirou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,11 +147,10 @@ void	cd_init_graphic(t_game *game);
 
 // ------parsing---------------------------------------------------------------
 // --parser.c
-void	parser(t_game *game);
 void	get_infos(t_game *game);
-void	scanner(char *line, t_game *game);
-int		is_direction(char *line, int i, t_game *game);
-int		is_rgb(char *line, int i, t_game *game);
+void	scanner(char *line, t_game *game, int *true_line);
+int		is_direction(char *line, int i, t_game *game, int *true_line);
+int		is_rgb(char *line, int i, t_game *game, int *true_line);
 
 // --map_handler.c
 void	cd_setup_map(char	*line, t_game *game);

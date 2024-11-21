@@ -6,7 +6,7 @@
 /*   By: mbirou <mbirou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 10:05:39 by malbrech          #+#    #+#             */
-/*   Updated: 2024/11/20 17:38:45 by mbirou           ###   ########.fr       */
+/*   Updated: 2024/11/21 18:55:03 by mbirou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,5 +59,7 @@ void	error_handler(char *ERR_MSG, t_game *game, char *line)
 		free(line);
 		line = get_next_line(game->map.fd);
 	}
+	if (game->map.fd != -1)
+		close(game->map.fd);
 	exit(0);
 }
