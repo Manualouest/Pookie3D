@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbirou <manutea.birou@gmail.com>           +#+  +:+       +#+        */
+/*   By: mbirou <mbirou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/16 12:34:12 by mbirou            #+#    #+#             */
-/*   Updated: 2024/11/16 12:57:47 by mbirou           ###   ########.fr       */
+/*   Updated: 2024/11/22 13:31:37 by mbirou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ int	main(int argc, char **argv)
 		return (0);
 	game = cd_init_structs(map_file);
 	parser(&game);
+	close(game.map.fd);
 	cd_img_to_int(&game, &game.graphic);
 	game.graphic.pic_frame = 0;
 	cd_init_mlx(&game);

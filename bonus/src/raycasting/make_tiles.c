@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   make_tiles.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbirou <manutea.birou@gmail.com>           +#+  +:+       +#+        */
+/*   By: mbirou <mbirou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/16 12:23:16 by mbirou            #+#    #+#             */
-/*   Updated: 2024/11/16 13:02:31 by mbirou           ###   ########.fr       */
+/*   Updated: 2024/11/22 18:19:28 by mbirou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,10 @@ void	cd_draw_roof_floor(t_game *game, float y, float x, int type)
 		tile = game->graphic.rmap[(int)game->t_info.my][(int)game->t_info.mx];
 	tx = ((float)game->graphic.txts[tile][0][0] * (floorx - floor(floorx)));
 	ty = ((float)game->graphic.txts[tile][0][1] * (floory - floor(floory)));
-	mlx_put_pixel(game->screen, x, y, game->graphic.txts[tile][tx + 1][ty]);
+	mlx_put_pixel(game->screen, x, y, game->graphic.txts[tile][
+			(int)cd_clamp_two(tx + 1, 1, game->graphic.txts[tile][0][0])]
+			[(int)cd_clamp_two(ty, 0, game->graphic.txts[tile][0][1])]);
 	game->graphic.dim = cd_get_p_rsqrt(game, game->t_info.mx, game->t_info.my);
-	cd_dim_color(game, x, y, game->graphic.dim);
 }
 
 void	cd_draw_tiles(t_game *game, int x)
@@ -63,6 +64,7 @@ void	cd_draw_tiles(t_game *game, int x)
 	while (--y >= 0)
 	{
 		cd_draw_roof_floor(game, y, x, -1);
+		cd_dim_color(game, x, y, game->graphic.dim);
 		o_effect += o_incr;
 	}
 	y = game->graphic.down - 1;
@@ -71,6 +73,7 @@ void	cd_draw_tiles(t_game *game, int x)
 	while (++y < game->graphic.height)
 	{
 		cd_draw_roof_floor(game, y, x, 1);
+		cd_dim_color(game, x, y, game->graphic.dim);
 		o_effect += o_incr;
 	}
 }

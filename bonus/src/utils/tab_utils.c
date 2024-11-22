@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   tab_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbirou <manutea.birou@gmail.com>           +#+  +:+       +#+        */
+/*   By: mbirou <mbirou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/16 12:28:27 by mbirou            #+#    #+#             */
-/*   Updated: 2024/11/16 12:28:34 by mbirou           ###   ########.fr       */
+/*   Updated: 2024/11/22 18:39:34 by mbirou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <cub3d_bonus.h>
 
-int	tab_len(char	**tab)
+int	tab_len(char **tab)
 {
 	int	i;
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbirou <manutea.birou@gmail.com>           +#+  +:+       +#+        */
+/*   By: mbirou <mbirou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/16 12:22:09 by mbirou            #+#    #+#             */
-/*   Updated: 2024/11/16 12:22:15 by mbirou           ###   ########.fr       */
+/*   Updated: 2024/11/22 18:48:21 by mbirou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,23 @@ int		cd_add_texture(t_game *game, char *line, char *o_line);
 
 void	parser(t_game *game)
 {
+	int	i;
+
 	check_name_cub(game->map.path, game);
 	get_infos(game);
+	if (cd_array_len(game->map.map) != cd_array_len(game->graphic.tmap)
+		|| cd_array_len(game->map.map) != cd_array_len(game->graphic.fmap)
+		|| cd_array_len(game->map.map) != cd_array_len(game->graphic.rmap)
+		|| cd_array_len(game->map.map) <= 0)
+		error_handler(BAD_MAPS, game, NULL);
+	i = -1;
+	while (game->map.map[++i][0] != -1)
+	{
+		if (cd_intlen(game->map.map[i]) != cd_intlen(game->graphic.tmap[i])
+			|| cd_intlen(game->map.map[i]) != cd_intlen(game->graphic.fmap[i])
+			|| cd_intlen(game->map.map[i]) != cd_intlen(game->graphic.rmap[i]))
+			error_handler(BAD_MAPS, game, NULL);
+	}
 }
 
 void	get_infos(t_game *game)
@@ -31,6 +46,8 @@ void	get_infos(t_game *game)
 
 	step = 0;
 	game->map.fd = open(game->map.path, O_RDONLY);
+	if (game->map.fd == -1)
+		error_handler(NO_FILE, game, NULL);
 	buff = get_next_line(game->map.fd);
 	i = 1;
 	while (i)
@@ -96,7 +113,8 @@ int	cd_add_texture(t_game *game, char *line, char *o_line)
 	int		i;
 	char	*n_line;
 
-	if (line[0] < 33 || line[0] > 126 || !line[1] || line[1] != ' ')
+	if (line[0] < 33 || line[0] > 126 || !line[1] || line[1] != ' '
+		|| line[0] == 'S' || line[0] == 'N' || line[0] == 'W' || line[0] == 'E')
 		error_handler(BAD_TXT_NAME, game, o_line);
 	i = ft_strlen(line) - 1;
 	while (line[i] == ' ' || line[i] == '\t')

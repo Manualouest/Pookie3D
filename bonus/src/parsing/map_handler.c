@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_handler.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbirou <manutea.birou@gmail.com>           +#+  +:+       +#+        */
+/*   By: mbirou <mbirou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/16 12:17:07 by mbirou            #+#    #+#             */
-/*   Updated: 2024/11/16 12:21:58 by mbirou           ###   ########.fr       */
+/*   Updated: 2024/11/22 18:59:33 by mbirou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,20 +62,20 @@ int	cd_parse_line(char **line, t_game *game, int map_kind)
 	i = -1;
 	while (line[0][++i] && line[0][i] != '\n')
 	{
-		if (line[0][i] == ' ')
+		if (line[0][i] == ' ' || (map_kind == 3 && line[0][i] == '0'))
 			line[0][i] = cd_put_first_slot(game, map_kind);
 		if (!game->graphic.slots[(int)line[0][i] - 33])
 		{
-			if (map_kind != 1 && map_kind != 3 && !(line[0][i] == '0'
-				&& !game->map.map[game->graphic.tp_h][i]))
-				return (-1);
-			else if ((line[0][i] == 'N' || line[0][i] == 'S'
+			if ((line[0][i] == 'N' || line[0][i] == 'S'
 				|| line[0][i] == 'E' || line[0][i] == 'W')
 				&& game->player.x == -1)
 			{
 				cd_set_orientation(game, line[0][i], i);
 				line[0][i] = '0';
 			}
+			if (!(map_kind == 1 && (line[0][i] == '1' || line[0][i] == '0'))
+				&& !(map_kind == 3 && line[0][i] == '0'))
+				return (-1);
 		}
 	}
 	if (line[0][i] && line[0][i] == '\n')

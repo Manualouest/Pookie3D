@@ -6,7 +6,7 @@
 /*   By: mbirou <mbirou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 13:33:08 by malbrech          #+#    #+#             */
-/*   Updated: 2024/11/21 18:57:26 by mbirou           ###   ########.fr       */
+/*   Updated: 2024/11/22 16:35:32 by mbirou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,9 @@ void	get_infos(t_game *game)
 		buff = get_next_line(game->map.fd);
 		i++;
 	}
-	i = -1;
-	cd_parse_map(game, &game->map);
-	if (game->map.player.x == -1)
+	if (game->map.height > 0)
+		cd_parse_map(game, &game->map);
+	if (game->map.height <= 0 || game->map.player.x == -1)
 		error_handler(FORMAT_ERR, game, NULL);
 }
 
@@ -46,7 +46,7 @@ void	scanner(char *line, t_game *game, int *true_line)
 	int	i;
 
 	i = 0;
-	while (line[i])
+	while (line[i] && line[i] != '\n')
 	{
 		while (line[i] == ' ' || line[i] == '\t')
 			i++;
@@ -60,8 +60,13 @@ void	scanner(char *line, t_game *game, int *true_line)
 			cd_setup_map(line, game);
 			break ;
 		}
-		else
+		else if (line[i] != '\n')
 			error_handler(FORMAT_ERR, game, line);
+		else if (line[i] == '\n')
+		{
+			free(line);
+			return ;
+		}
 	}
 }
 

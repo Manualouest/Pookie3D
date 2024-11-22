@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_walls.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbirou <manutea.birou@gmail.com>           +#+  +:+       +#+        */
+/*   By: mbirou <mbirou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 14:00:37 by mbirou            #+#    #+#             */
-/*   Updated: 2024/11/17 00:20:54 by mbirou           ###   ########.fr       */
+/*   Updated: 2024/11/22 16:14:14 by mbirou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	cd_draw_walls(t_game *game, t_ray_info *ray, int x)
 	y --;
 	while (++y < down && y < (int)game->graphic.height - 1)
 		mlx_put_pixel(game->screen, x, y,
-			texture[(int)(((float)(y - up + 1)) * y_ratio)][(int)ray->t_x]);
+			texture[(int)(((float)(y - up)) * y_ratio + 1)][(int)ray->t_x]);
 	y --;
 	while (++y < (int)game->graphic.height - 1)
 		mlx_put_pixel(game->screen, x, y, game->graphic.f);

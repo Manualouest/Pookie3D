@@ -6,7 +6,7 @@
 /*   By: mbirou <mbirou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 09:54:35 by mbirou            #+#    #+#             */
-/*   Updated: 2024/11/21 20:49:36 by mbirou           ###   ########.fr       */
+/*   Updated: 2024/11/22 16:00:14 by mbirou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	main(int argc, char **argv)
 	check_name_cub(game.map.path, &game);
 	get_infos(&game);
 	format_d_tab(game.graphic.paths, &game);
-	close(game->map.fd);
+	close(game.map.fd);
 	cd_img_to_int(&game.graphic, &game);
 	cd_setup_mlx(&game);
 	mlx_loop(game.mlx);

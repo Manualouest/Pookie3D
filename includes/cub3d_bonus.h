@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbirou <manutea.birou@gmail.com>           +#+  +:+       +#+        */
+/*   By: mbirou <mbirou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 11:27:38 by mbirou            #+#    #+#             */
-/*   Updated: 2024/11/16 13:02:46 by mbirou           ###   ########.fr       */
+/*   Updated: 2024/11/22 18:45:23 by mbirou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,13 @@
 # define BAD_MAP "Map borders are invalid\n"
 # define BAD_STEP "Step error\n"
 # define BAD_TXT_NAME "Texture has an invalid definition\n"
-# define BAD_MAPS "One of the texture maps is bigger than the wall map\n"
+# define BAD_MAPS "Error in maps\n"
 # define NO_TEXTURE "Mlx could not load texture\n"
 # define PICK_MISSING "Pickaxe textures are missing\n"
+# define PARAM_ERROR "Bad number of parameters\n"
+# define NO_FILE "File could not be found\n"
+# define MALLOC_FAIL "A malloc has failed\n"
+# define DUP_ERROR "There is duplicate definition\n"
 
 /*----------------- FONCTIONS -------------------*/
 
@@ -85,6 +89,8 @@ void		skip_direction(char *line, int *ii);
 char		*format_d_line(char *line, int *ii);
 
 // --tab_utils.c
+int			cd_intlen(int *line);
+int			cd_array_len(int **array);
 char		**add_new_line(char *line, char **tab);
 float		*cd_add_flst(float *list, float new);
 
