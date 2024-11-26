@@ -1,6 +1,6 @@
-NAME = cub3d
+NAME = cub3D
 
-B_NAME = pookie3d
+B_NAME = cub3D_bonus
 
 CFLAGS = -Wall -Werror -Wextra -g
 
