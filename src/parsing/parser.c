@@ -6,7 +6,7 @@
 /*   By: mbirou <mbirou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 13:33:08 by malbrech          #+#    #+#             */
-/*   Updated: 2024/11/22 16:35:32 by mbirou           ###   ########.fr       */
+/*   Updated: 2024/11/26 16:45:53 by mbirou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,10 @@ void	get_infos(t_game *game)
 	{
 		if (buff == NULL)
 			break ;
-		if (buff[0] != '\n')
-			scanner(buff, game, &true_line);
+		if (buff[0] == '\n' && true_line > 6)
+			error_handler(FORMAT_ERR, game, buff);
 		else
-			free(buff);
+			scanner(buff, game, &true_line);
 		buff = get_next_line(game->map.fd);
 		i++;
 	}
@@ -50,23 +50,23 @@ void	scanner(char *line, t_game *game, int *true_line)
 	{
 		while (line[i] == ' ' || line[i] == '\t')
 			i++;
-		if (*true_line < 4 && is_direction(line, i, game, true_line))
-			break ;
-		else if (*true_line >= 4 && *true_line < 6
-			&& is_rgb(line, i, game, true_line))
-			break ;
+		if (*true_line < 6 && is_direction(line, i, game, true_line))
+			return ;
+		else if (*true_line < 6 && is_rgb(line, i, game, true_line))
+			return ;
 		else if (*true_line >= 6 && (line[i] == '0' || line[i] == '1'))
 		{
+			*true_line += 1;
 			cd_setup_map(line, game);
-			break ;
+			return ;
 		}
 		else if (line[i] != '\n')
 			error_handler(FORMAT_ERR, game, line);
-		else if (line[i] == '\n')
-		{
-			free(line);
-			return ;
-		}
+	}
+	if (line[i] == '\n')
+	{
+		free(line);
+		return ;
 	}
 }
 

@@ -6,7 +6,7 @@
 /*   By: mbirou <mbirou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 11:27:38 by mbirou            #+#    #+#             */
-/*   Updated: 2024/11/22 18:45:23 by mbirou           ###   ########.fr       */
+/*   Updated: 2024/11/26 16:02:37 by mbirou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@
 # define PICK_MISSING "Pickaxe textures are missing\n"
 # define PARAM_ERROR "Bad number of parameters\n"
 # define NO_FILE "File could not be found\n"
-# define MALLOC_FAIL "A malloc has failed\n"
 # define DUP_ERROR "There is duplicate definition\n"
 
 /*----------------- FONCTIONS -------------------*/
@@ -68,10 +67,6 @@ void		cd_init_graphic(t_game *game);
 // ------parsing---------------------------------------------------------------
 // --parser.c
 void		parser(t_game *game);
-void		get_infos(t_game *game);
-void		scanner(char *line, t_game *game, int *true_line);
-int			is_direction(char *line, int i, int *true_line, t_game *game);
-int			is_rgb(char *line, int i, int *true_line, t_game *game);
 
 // --map_handler.c
 void		cd_setup_map(char *line, t_game *game, int ***map);
@@ -83,32 +78,15 @@ void		check_name_png(char *path, t_game *game, char *o_line);
 
 // -----utils------------------------------------------------------------------
 
-// --string_utils.c
-void		format_d_tab(char *paths[7]);
-void		skip_direction(char *line, int *ii);
-char		*format_d_line(char *line, int *ii);
-
-// --tab_utils.c
-int			cd_intlen(int *line);
-int			cd_array_len(int **array);
-char		**add_new_line(char *line, char **tab);
-float		*cd_add_flst(float *list, float new);
-
 // --math.c
 float		cd_clamp(float num, float min, float max);
 float		cd_clamp_two(float num, float min, float max);
-
-// --controllers.c
-void		player_speed_controller(t_game *game);
-void		player_height_controller(t_game *game);
-void		mouse_controller(t_game *game);
 
 // --array_utils.c
 int			cd_intlen(int *line);
 int			*cd_strtoi_m(char *line, int line_len, int dif);
 int			cd_array_len(int	**array);
 int			**cd_add_new_array_line(int *line, int **array);
-int			*cd_dup_int_list(int *list, int len);
 
 // -----keys-------------------------------------------------------------------
 // --keys.c
@@ -122,7 +100,11 @@ void		cd_moove(t_game *game);
 void		cd_directions_conditions(mlx_key_data_t keydata, t_game *game);
 void		cd_actions_conditions(mlx_key_data_t keydata, t_game *game);
 void		cd_camera_conditions(mlx_key_data_t keydata, t_game *game);
-void		cd_walk(t_game *game);
+
+// --controllers.c
+void		player_speed_controller(t_game *game);
+void		player_height_controller(t_game *game);
+void		mouse_controller(t_game *game);
 
 // --camera.h
 void		cd_right(t_game *game, float amount);
@@ -146,7 +128,6 @@ int			**cd_get_texture(t_game *game, t_ray_info *ray);
 float		cd_start_dim(t_game *game);
 void		cd_dim_color(t_game *game, int x, int y, float effect);
 void		cd_draw_walls(t_game *game, t_ray_info *ray, int x);
-void		cd_draw_c_f(t_game *game, int x);
 
 // --draw_tiles.c
 float		cd_get_p_rsqrt(t_game *game, float x2, float y2);
@@ -161,7 +142,6 @@ mlx_image_t	*cd_slow_raycast(t_game *game, struct timeval start_time,
 void		cd_modif_res(t_game *game, int moment, int force);
 
 // --sprites.c
-void		cd_sort_sprites(t_game *game);
 void		cd_render_sprites(t_game *game, int move_height);
 
 // --sprite_list_utils.c
@@ -183,6 +163,5 @@ void		error_handler(char *ERR_MSG, t_game *game, char *line);
 
 // --img_to_int.c
 void		cd_img_to_int(t_game *game, t_textures *graphic);
-int			cd_create_rgba(char	*color);
 
 #endif

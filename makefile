@@ -43,39 +43,37 @@ OBJ = $(patsubst %, $(OBJ_DIR)%, $(OBJ_NAME))
 # Bonus
 B_SRC_DIR = bonus/src/
 
-B_SRC_NAME = main.c\
-			error.c\
-			img_to_int.c
+B_SRC_NAME = main_bonus.c\
+			error_bonus.c\
+			img_to_int_bonus.c
 
-B_SRC_NAME += gui/gui_setup.c\
-				gui/minimap.c
+B_SRC_NAME += gui/gui_setup_bonus.c\
+				gui/minimap_bonus.c
 
-B_SRC_NAME += init/init_structs.c\
-			init/init_tabs.c
+B_SRC_NAME += init/init_structs_bonus.c\
+			init/init_tabs_bonus.c
 
-B_SRC_NAME += keys/keys.c\
-			keys/keys_part.c\
-			keys/wall_edition.c\
-			keys/camera.c\
-			keys/controllers.c\
-			keys/jump.c
+B_SRC_NAME += keys/keys_bonus.c\
+			keys/keys_part_bonus.c\
+			keys/wall_edition_bonus.c\
+			keys/camera_bonus.c\
+			keys/controllers_bonus.c\
+			keys/jump_bonus.c
 
-B_SRC_NAME += parsing/parser.c\
-			parsing/check.c\
-			parsing/map_handler.c
+B_SRC_NAME += parsing/parser_bonus.c\
+			parsing/check_bonus.c\
+			parsing/map_handler_bonus.c
 
-B_SRC_NAME += raycasting/raycast.c\
-			raycasting/draw_walls.c\
-			raycasting/make_tiles.c\
-			raycasting/utils.c\
-			raycasting/sprites.c\
-			raycasting/sprite_list_utils.c\
-			raycasting/door_raycast.c
+B_SRC_NAME += raycasting/raycast_bonus.c\
+			raycasting/draw_walls_bonus.c\
+			raycasting/make_tiles_bonus.c\
+			raycasting/utils_bonus.c\
+			raycasting/sprites_bonus.c\
+			raycasting/sprite_list_utils_bonus.c\
+			raycasting/door_raycast_bonus.c
 
-B_SRC_NAME += utils/tab_utils.c\
-			utils/string_utils.c\
-			utils/math.c\
-			utils/array_utils.c
+B_SRC_NAME += utils/math_bonus.c\
+			utils/array_utils_bonus.c
 
 B_SRC = $(addprefix $(B_SRC_DIR), $(B_SRC_NAME))
 

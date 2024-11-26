@@ -37,7 +37,6 @@ wmap:
 100000000001100000000001100000000001
 100000000000000000000000000000000001
 111111111111111111111111111111111111
-
 tmap:
 111111111111222222222222333333333331
 100000000000000000000000000000000003
@@ -63,7 +62,6 @@ tmap:
 400000000004200000000002300000000006
 400000000000000000000000000000000006
 144444444444555555555555666666666661
-
 fmap:
 aaaaaaaaaaaabbbbbbbbbbbbcccccccccccc
 aaaaaaaaaaaabbbbbbbbbbbbcccccccccccc
@@ -89,7 +87,6 @@ ddddddddddddeeeeeeeeeeeeffffffffffff
 ddddddddddddeeeeeeeeeeeeffffffffffff
 ddddddddddddeeeeeeeeeeeeffffffffffff
 ddddddddddddeeeeeeeeeeeeffffffffffff
-
 rmap:
 aaaaaaaaaaaabbbbbbbbbbbbcccccccccccc
 aaaaaaaaaaaabbbbbbbbbbbbcccccccccccc

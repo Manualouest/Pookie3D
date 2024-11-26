@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d_bonus_strucs.h                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbirou <manutea.birou@gmail.com>           +#+  +:+       +#+        */
+/*   By: mbirou <mbirou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/16 12:45:38 by mbirou            #+#    #+#             */
-/*   Updated: 2024/11/16 12:48:17 by mbirou           ###   ########.fr       */
+/*   Updated: 2024/11/26 17:11:40 by mbirou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,8 @@ typedef struct s_data_player
 {
 	float		x;
 	float		y;
+	float		o_x;
+	float		o_y;
 	float		view;
 	float		height;
 	float		pitch;
@@ -151,25 +153,24 @@ typedef struct s_ray_info
 
 typedef struct s_t_info
 {
-	float				dx0;
-	float				dy0;
-	float				dx1;
-	float				dy1;
-	float				mx;
-	float				my;
-	float				stepx;
-	float				stepy;
-	float				row_dst;
-	float				mid;
-	float				height;
-	float				width;
-	float				pos_x;
-	float				pos_y;
-	int					x;
-	int					y;
-	int					**floor_t;
-	int					**roof_t;
-}						t_t_info;
+	float	dx0;
+	float	dy0;
+	float	dx1;
+	float	dy1;
+	float	mx;
+	float	my;
+	float	stepx;
+	float	stepy;
+	float	row_dst;
+	float	height;
+	float	width;
+	float	pos_x;
+	float	pos_y;
+	int		x;
+	int		y;
+	int		**floor_t;
+	int		**roof_t;
+}			t_t_info;
 
 typedef struct s_game
 {
