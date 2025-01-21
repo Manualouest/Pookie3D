@@ -6,7 +6,7 @@
 /*   By: mbirou <mbirou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 11:27:38 by mbirou            #+#    #+#             */
-/*   Updated: 2024/11/26 16:02:37 by mbirou           ###   ########.fr       */
+/*   Updated: 2025/01/21 17:37:48 by mbirou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,12 +69,16 @@ void		cd_init_graphic(t_game *game);
 void		parser(t_game *game);
 
 // --map_handler.c
+char		cd_put_first_slot(t_game *game, int is_wmap);
 void		cd_setup_map(char *line, t_game *game, int ***map);
 void		cd_setup_txt_maps(char *line, t_game *game, int ***map, int step);
 
 // --check.c
 void		check_name_cub(char *path, t_game *game);
 void		check_name_png(char *path, t_game *game, char *o_line);
+
+// --map_cleaner.c
+void		resize_maps(t_game *game);
 
 // -----utils------------------------------------------------------------------
 

@@ -62,7 +62,8 @@ B_SRC_NAME += keys/keys_bonus.c\
 
 B_SRC_NAME += parsing/parser_bonus.c\
 			parsing/check_bonus.c\
-			parsing/map_handler_bonus.c
+			parsing/map_handler_bonus.c\
+			parsing/map_cleaner.c
 
 B_SRC_NAME += raycasting/raycast_bonus.c\
 			raycasting/draw_walls_bonus.c\
