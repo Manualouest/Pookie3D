@@ -6,7 +6,7 @@
 /*   By: mbirou <mbirou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/16 12:17:07 by mbirou            #+#    #+#             */
-/*   Updated: 2025/01/22 10:28:50 by mbirou           ###   ########.fr       */
+/*   Updated: 2025/01/22 11:10:56 by mbirou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,8 @@ int	cd_parse_line(char **line, t_game *game, int map_kind)
 		{
 			if ((line[0][i] == 'N' || line[0][i] == 'S'
 				|| line[0][i] == 'E' || line[0][i] == 'W')
-				&& game->player.x == -1 && line[0][i + 1] != 0)
+				&& game->player.x == -1 && line[0][i + 1] != 0
+				&& map_kind == 1)
 			{
 				cd_set_orientation(game, line[0][i], i);
 				line[0][i] = '0';

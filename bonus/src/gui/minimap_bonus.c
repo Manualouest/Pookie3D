@@ -6,7 +6,7 @@
 /*   By: mbirou <mbirou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/16 12:36:19 by mbirou            #+#    #+#             */
-/*   Updated: 2025/01/21 17:51:09 by mbirou           ###   ########.fr       */
+/*   Updated: 2025/01/22 11:28:33 by mbirou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,12 +43,12 @@ void	cd_put_mini_txt(t_game *game, int m_x, int m_y)
 	x_offset = 25 * (m_x + 4) + 10;
 	if (y_offset < 10 || x_offset < 10)
 		return ;
-	if (!game->map.map[(int)game->player.y - m_y][(int)game->player.x - m_x])
+	if (!game->map.map[(int)game->player.y + m_y][(int)game->player.x + m_x])
 		txt = game->graphic.txts[game->graphic.fmap
-		[(int)game->player.y - m_y][(int)game->player.x - m_x]];
+		[(int)game->player.y + m_y][(int)game->player.x + m_x]];
 	else
 		txt = game->graphic.txts[game->graphic.tmap
-		[(int)game->player.y - m_y][(int)game->player.x - m_x]];
+		[(int)game->player.y + m_y][(int)game->player.x + m_x]];
 	y = -1;
 	while (++y < 25)
 	{
@@ -86,8 +86,8 @@ void	cd_setup_minimap_struct(t_game *game)
 	t_position	p3;
 	t_position	p4;
 
-	p1.x = 12 + game->player.dirx * -9;
-	p1.y = 12 + game->player.diry * -9;
+	p1.x = 12 + game->player.dirx * 9;
+	p1.y = 12 + game->player.diry * 9;
 	p2.x = 12 - (game->player.planex) * 4.5;
 	p2.y = 12 - (game->player.planey) * 4.5;
 	p3.x = 12 + (game->player.planex) * 4.5;
@@ -110,18 +110,18 @@ void	cd_minimap(t_game *game)
 	int	x;
 
 	cd_setup_minimap(game, 0);
-	y = -6;
-	while (++y < 5)
+	y = 5;
+	while (--y > -5)
 	{
-		x = -6;
-		while (++x < 5)
+		x = 5;
+		while (--x > -5)
 		{
 			if (game->player.y - y < 0
 				|| game->player.y - y >= game->map.height
 				|| game->player.x - x < 0
 				|| game->player.x - x >= game->map.width)
 				continue ;
-			cd_put_mini_txt(game, x, y);
+			cd_put_mini_txt(game, -x, -y);
 		}
 	}
 	cd_setup_minimap_struct(game);

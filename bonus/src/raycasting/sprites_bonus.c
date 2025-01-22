@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sprites.c                                          :+:      :+:    :+:   */
+/*   sprites_bonus.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbirou <manutea.birou@gmail.com>           +#+  +:+       +#+        */
+/*   By: mbirou <mbirou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/09 13:43:15 by mbirou            #+#    #+#             */
-/*   Updated: 2024/11/16 12:25:59 by mbirou           ###   ########.fr       */
+/*   Updated: 2025/01/22 11:58:18 by mbirou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ void	cd_put_sprite(t_game *game, t_sprite_vars sp_var,
 		}
 	}
 }
-
+// #include <stdio.h>
 void	cd_render_sprites(t_game *game, int move_height)
 {
 	t_sprite_vars	sp_var;
@@ -120,7 +120,8 @@ void	cd_render_sprites(t_game *game, int move_height)
 	{
 		sprite = game->graphic.sprites[i];
 		sp_var = cd_setup_sprite_vars(game, sprite);
-		if (sp_var.trsy > 0)
+		// printf("%f\n", game->graphic.sprites[i]->distance);
+		if (sp_var.trsy > 0 && game->graphic.sprites[i]->distance > 0.10f)
 			cd_put_sprite(game, sp_var, sprite);
 		if (!move_height)
 			continue ;

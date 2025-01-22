@@ -6,7 +6,7 @@
 /*   By: mbirou <mbirou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 17:28:06 by mbirou            #+#    #+#             */
-/*   Updated: 2025/01/22 10:58:36 by mbirou           ###   ########.fr       */
+/*   Updated: 2025/01/22 11:07:09 by mbirou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,14 +54,15 @@ int	check_map_borders(t_game *game)
 	int	ii;
 
 	i = 0;
-	ii = 0;
-	while (game->map.map[i][++ii + 1] != -1)
+	ii = -1;
+	while (game->map.map[i][++ii] != -1)
 		if (game->map.map[i][ii] == 0)
 			return (0);
-	while (++i + 1 < game->map.height - 1)
-		if (game->map.map[i][0] == 0 || game->map.map[i][game->map.width] == 0)
+	while (++i < game->map.height - 1)
+		if (game->map.map[i][0] == 0 || game->map.map[i][game->map.width - 1] == 0)
 			return (0);
-	while (game->map.map[i][++ii + 1] != -1)
+	ii = -1;
+	while (game->map.map[i][++ii] != -1)
 		if (game->map.map[i][ii] == 0)
 			return (0);
 	return (1);

@@ -14,7 +14,7 @@ f ./pngs/ws/wsRF6.png
 
 wmap:
 111111111111111111111111111111111111       111111111
-100000000000000000000000000000000001       1111111E0
+100000000000000000000000000000000001       1111111001  E1
 100000000001100000000001100000000001       111111111
 100000000001100000000001100000000001
 100000000001100000000001100000000001
@@ -37,9 +37,10 @@ wmap:
 100000000001100000000001100000000001
 100000000000000000000000000000000001
 111111111111111111111111111111111111
+1    1
 tmap:
 111111111111222222222222333333333331       111111111
-100000000000000000000000000000000003       111111101
+100000000000000000000000000000000003       111111101     
 100000000001200000000002300000000003       111111111
 100000000001200000000002300000000003
 100000000001200000000002300000000003
@@ -62,10 +63,11 @@ tmap:
 400000000004200000000002300000000006
 400000000000000000000000000000000006
 144444444444555555555555666666666661
+a    1
 fmap:
 aaaaaaaaaaaabbbbbbbbbbbbcccccccccccc       111111111
+aaaaaaaaaaaabbbbbbbbbbbbcccccccccccc       111111111     
 aaaaaaaaaaaabbbbbbbbbbbbcccccccccccc       111111111
-aaaaaaaaaaaabbbbbbbbbbbbcccccccccccc       111111111
 aaaaaaaaaaaabbbbbbbbbbbbcccccccccccc
 aaaaaaaaaaaabbbbbbbbbbbbcccccccccccc
 aaaaaaaaaaaabbbbbbbbbbbbcccccccccccc
@@ -87,10 +89,11 @@ ddddddddddddeeeeeeeeeeeeffffffffffff
 ddddddddddddeeeeeeeeeeeeffffffffffff
 ddddddddddddeeeeeeeeeeeeffffffffffff
 ddddddddddddeeeeeeeeeeeeffffffffffff
+     1
 rmap:
 aaaaaaaaaaaabbbbbbbbbbbbcccccccccccc       111111111
+aaaaaaaaaaaabbbbbbbbbbbbcccccccccccc       111111111     
 aaaaaaaaaaaabbbbbbbbbbbbcccccccccccc       111111111
-aaaaaaaaaaaabbbbbbbbbbbbcccccccccccc       111111111
 aaaaaaaaaaaabbbbbbbbbbbbcccccccccccc
 aaaaaaaaaaaabbbbbbbbbbbbcccccccccccc
 aaaaaaaaaaaabbbbbbbbbbbbcccccccccccc
@@ -112,3 +115,4 @@ ddddddddddddeeeeeeeeeeeeffffffffffff
 ddddddddddddeeeeeeeeeeeeffffffffffff
 ddddddddddddeeeeeeeeeeeeffffffffffff
 ddddddddddddeeeeeeeeeeeeffffffffffff
+     1
