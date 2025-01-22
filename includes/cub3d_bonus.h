@@ -6,7 +6,7 @@
 /*   By: mbirou <mbirou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 11:27:38 by mbirou            #+#    #+#             */
-/*   Updated: 2025/01/21 17:37:48 by mbirou           ###   ########.fr       */
+/*   Updated: 2025/01/22 10:52:25 by mbirou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ void		check_name_png(char *path, t_game *game, char *o_line);
 
 // --map_cleaner.c
 void		resize_maps(t_game *game);
+int			check_map_borders(t_game *game);
 
 // -----utils------------------------------------------------------------------
 

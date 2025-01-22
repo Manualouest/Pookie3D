@@ -6,7 +6,7 @@
 /*   By: mbirou <mbirou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/16 12:22:09 by mbirou            #+#    #+#             */
-/*   Updated: 2025/01/21 17:37:58 by mbirou           ###   ########.fr       */
+/*   Updated: 2025/01/22 10:47:22 by mbirou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,8 @@ void	parser(t_game *game)
 	if (cd_array_len(game->map.map) != cd_array_len(game->graphic.tmap)
 		|| cd_array_len(game->map.map) != cd_array_len(game->graphic.fmap)
 		|| cd_array_len(game->map.map) != cd_array_len(game->graphic.rmap)
-		|| cd_array_len(game->map.map) <= 0)
+		|| cd_array_len(game->map.map) <= 0
+		|| game->player.x == -1)
 		error_handler(BAD_MAPS, game, NULL);
 	i = -1;
 	while (game->map.map[++i][0] != -1)
@@ -36,6 +37,9 @@ void	parser(t_game *game)
 			|| cd_intlen(game->map.map[i]) != cd_intlen(game->graphic.rmap[i]))
 			error_handler(BAD_MAPS, game, NULL);
 	}
+	resize_maps(game);
+	if (!check_map_borders(game))
+		error_handler(BAD_MAPS, game, NULL);
 }
 
 void	get_infos(t_game *game)
@@ -64,7 +68,6 @@ void	get_infos(t_game *game)
 	}
 	if (buff)
 		free(buff);
-	resize_maps(game);
 }
 
 void	scanner(char *line, t_game *game, int *step)
